@@ -1,0 +1,319 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F097A1516266AE100F95A13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F097A1416266AE100F95A13 /* Foundation.framework */; };
+		1F097A3E16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F097A3D16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m */; };
+		1F097A4116266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F097A4016266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m */; };
+		1F097A4316266BC600F95A13 /* GraphicsServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F097A4216266BC600F95A13 /* GraphicsServices.framework */; };
+		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
+		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
+		1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1F097A0F16266AE100F95A13 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1F097A1116266AE100F95A13 /* libJJDebugTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJJDebugTools.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F097A1416266AE100F95A13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1F097A1816266AE100F95A13 /* JJDebugTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JJDebugTools-Prefix.pch"; sourceTree = "<group>"; };
+		1F097A2316266AE100F95A13 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		1F097A2516266AE100F95A13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		1F097A3C16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JJHotkeyViewTraverser.h"; sourceTree = "<group>"; };
+		1F097A3D16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JJHotkeyViewTraverser.m"; sourceTree = "<group>"; };
+		1F097A3F16266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+PRIVATEKeyEvents.h"; sourceTree = "<group>"; };
+		1F097A4016266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+PRIVATEKeyEvents.m"; sourceTree = "<group>"; };
+		1F097A4216266BC600F95A13 /* GraphicsServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GraphicsServices.framework; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/PrivateFrameworks/GraphicsServices.framework; sourceTree = DEVELOPER_DIR; };
+		1F097A4516266BFC00F95A13 /* GraphicsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsServices.h; sourceTree = "<group>"; };
+		1F097A4616266BFC00F95A13 /* GSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSBase.h; sourceTree = "<group>"; };
+		1F097A4716266BFC00F95A13 /* GSCapability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSCapability.h; sourceTree = "<group>"; };
+		1F097A4816266BFC00F95A13 /* GSColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSColor.h; sourceTree = "<group>"; };
+		1F097A4916266BFC00F95A13 /* GSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSEvent.h; sourceTree = "<group>"; };
+		1F097A4A16266BFC00F95A13 /* GSFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSFont.h; sourceTree = "<group>"; };
+		1F097A4B16266BFC00F95A13 /* GSGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSGeometry.h; sourceTree = "<group>"; };
+		1F097A4C16266BFC00F95A13 /* GSHeartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHeartbeat.h; sourceTree = "<group>"; };
+		1F097A4D16266BFC00F95A13 /* GSHiccup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHiccup.h; sourceTree = "<group>"; };
+		1F097A4E16266BFC00F95A13 /* GSKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyboard.h; sourceTree = "<group>"; };
+		1F097A4F16266BFC00F95A13 /* GSMainScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMainScreen.h; sourceTree = "<group>"; };
+		1F097A5016266BFC00F95A13 /* GSMaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMaps.h; sourceTree = "<group>"; };
+		1F097A5116266BFC00F95A13 /* GSStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSStatusBar.h; sourceTree = "<group>"; };
+		1F097A5216266BFC00F95A13 /* GSWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSWindow.h; sourceTree = "<group>"; };
+		1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJHotkeyViewTraverser.h; sourceTree = "<group>"; };
+		1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJHotkeyViewTraverser.m; sourceTree = "<group>"; };
+		1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJAssociatedObjects.h"; sourceTree = "<group>"; };
+		1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJAssociatedObjects.m"; sourceTree = "<group>"; };
+		1F76A8B81626ADB500887C3B /* NSObject+JJPropertyInspection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJPropertyInspection.h"; sourceTree = "<group>"; };
+		1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJPropertyInspection.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F097A0E16266AE100F95A13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F097A1516266AE100F95A13 /* Foundation.framework in Frameworks */,
+				1F097A4316266BC600F95A13 /* GraphicsServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F097A0616266AE100F95A13 = {
+			isa = PBXGroup;
+			children = (
+				1F097A1616266AE100F95A13 /* JJDebugTools */,
+				1F097A1716266AE100F95A13 /* Supporting Files */,
+				1F097A1316266AE100F95A13 /* Frameworks */,
+				1F097A1216266AE100F95A13 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1F097A1216266AE100F95A13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F097A1116266AE100F95A13 /* libJJDebugTools.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F097A1316266AE100F95A13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F097A4416266BFC00F95A13 /* GraphicsServices */,
+				1F097A4216266BC600F95A13 /* GraphicsServices.framework */,
+				1F097A1416266AE100F95A13 /* Foundation.framework */,
+				1F097A2316266AE100F95A13 /* SenTestingKit.framework */,
+				1F097A2516266AE100F95A13 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F097A1616266AE100F95A13 /* JJDebugTools */ = {
+			isa = PBXGroup;
+			children = (
+				1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */,
+				1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */,
+				1F097A3C16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.h */,
+				1F097A3D16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m */,
+				1F097A3F16266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.h */,
+				1F097A4016266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m */,
+				1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */,
+				1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */,
+				1F76A8B81626ADB500887C3B /* NSObject+JJPropertyInspection.h */,
+				1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */,
+			);
+			path = JJDebugTools;
+			sourceTree = "<group>";
+		};
+		1F097A1716266AE100F95A13 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1F097A1816266AE100F95A13 /* JJDebugTools-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = JJDebugTools;
+			sourceTree = "<group>";
+		};
+		1F097A4416266BFC00F95A13 /* GraphicsServices */ = {
+			isa = PBXGroup;
+			children = (
+				1F097A4516266BFC00F95A13 /* GraphicsServices.h */,
+				1F097A4616266BFC00F95A13 /* GSBase.h */,
+				1F097A4716266BFC00F95A13 /* GSCapability.h */,
+				1F097A4816266BFC00F95A13 /* GSColor.h */,
+				1F097A4916266BFC00F95A13 /* GSEvent.h */,
+				1F097A4A16266BFC00F95A13 /* GSFont.h */,
+				1F097A4B16266BFC00F95A13 /* GSGeometry.h */,
+				1F097A4C16266BFC00F95A13 /* GSHeartbeat.h */,
+				1F097A4D16266BFC00F95A13 /* GSHiccup.h */,
+				1F097A4E16266BFC00F95A13 /* GSKeyboard.h */,
+				1F097A4F16266BFC00F95A13 /* GSMainScreen.h */,
+				1F097A5016266BFC00F95A13 /* GSMaps.h */,
+				1F097A5116266BFC00F95A13 /* GSStatusBar.h */,
+				1F097A5216266BFC00F95A13 /* GSWindow.h */,
+			);
+			name = GraphicsServices;
+			path = JJDebugTools/GraphicsServices;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F097A1016266AE100F95A13 /* JJDebugTools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F097A3616266AE100F95A13 /* Build configuration list for PBXNativeTarget "JJDebugTools" */;
+			buildPhases = (
+				1F097A0D16266AE100F95A13 /* Sources */,
+				1F097A0E16266AE100F95A13 /* Frameworks */,
+				1F097A0F16266AE100F95A13 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JJDebugTools;
+			productName = JJDebugTools;
+			productReference = 1F097A1116266AE100F95A13 /* libJJDebugTools.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F097A0816266AE100F95A13 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Jacob Jennings";
+			};
+			buildConfigurationList = 1F097A0B16266AE100F95A13 /* Build configuration list for PBXProject "JJDebugTools" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1F097A0616266AE100F95A13;
+			productRefGroup = 1F097A1216266AE100F95A13 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1F097A1016266AE100F95A13 /* JJDebugTools */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F097A0D16266AE100F95A13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F097A3E16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m in Sources */,
+				1F097A4116266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m in Sources */,
+				1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */,
+				1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */,
+				1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1F097A3416266AE100F95A13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1F097A3516266AE100F95A13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1F097A3716266AE100F95A13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/JJDebugTools.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/PrivateFrameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JJDebugTools/JJDebugTools-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1F097A3816266AE100F95A13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/JJDebugTools.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/PrivateFrameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JJDebugTools/JJDebugTools-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F097A0B16266AE100F95A13 /* Build configuration list for PBXProject "JJDebugTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F097A3416266AE100F95A13 /* Debug */,
+				1F097A3516266AE100F95A13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F097A3616266AE100F95A13 /* Build configuration list for PBXNativeTarget "JJDebugTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F097A3716266AE100F95A13 /* Debug */,
+				1F097A3816266AE100F95A13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F097A0816266AE100F95A13 /* Project object */;
+}
