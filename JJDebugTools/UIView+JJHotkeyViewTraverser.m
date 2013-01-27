@@ -87,19 +87,32 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
     NSLog(@"%@", [self performSelector:@selector(recursiveDescription)]);
 }
 
+- (BOOL)propertyOfSuperNameIsController
+{
+    UIViewController *controller = [self findAssociatedController];
+    NSString *propertyName = nil;
+    if (controller)
+    {
+        propertyName = [controller propertyNameForObject:self];
+        if (propertyName) return YES;
+    }
+    return NO;
+}
+
 - (NSString *)propertyOfSuperName
 {
     UIViewController *controller = [self findAssociatedController];
+    NSString *propertyName = nil;
     if (controller)
     {
-        return [controller propertyNameForObject:self];
+        propertyName = [controller propertyNameForObject:self];
     }
-    if (self.superview)
+    if (!propertyName && self.superview)
     {
-        return [self.superview propertyNameForObject:self];
+        propertyName = [self.superview propertyNameForObject:self];
     }
     
-    return nil;
+    return propertyName;
 }
 
 @end

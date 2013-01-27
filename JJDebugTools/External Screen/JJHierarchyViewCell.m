@@ -9,13 +9,18 @@
 #import "JJHierarchyViewCell.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 #import "NSObject+JJPropertyInspection.h"
+#import "JJButton.h"
+#import "JJLabel.h"
 
-#define CellFont [UIFont fontWithName:@"HelveticaNeue" size:12]
+static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
+
+#define CellFont [UIFont fontWithName:@"HelveticaNeue" size:15]
 
 @interface JJHierarchyViewCell ()
 
-@property (nonatomic, strong) UILabel *classNameLabel;
-@property (nonatomic, strong) UILabel *propertyNameLabel;
+@property (nonatomic, strong) JJLabel *classNameLabel;
+@property (nonatomic, strong) JJLabel *propertyNameLabel;
+@property (nonatomic, strong) JJButton *buttonBackground;
 
 @end
 
@@ -25,20 +30,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _classNameLabel = [[UILabel alloc] init];
-        _classNameLabel.backgroundColor = [UIColor clearColor];
+        _buttonBackground = [[JJButton alloc] init];
+        [self addSubview:_buttonBackground];
+        
+        _classNameLabel = [[JJLabel alloc] init];
         _classNameLabel.textAlignment = NSTextAlignmentCenter;
         _classNameLabel.font = CellFont;
-        _classNameLabel.numberOfLines = 0;
-        _classNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_classNameLabel];
         
-        _propertyNameLabel = [[UILabel alloc] init];
+        _propertyNameLabel = [[JJLabel alloc] init];
         _propertyNameLabel.backgroundColor = [UIColor clearColor];
         _propertyNameLabel.textAlignment = NSTextAlignmentCenter;
         _propertyNameLabel.font = CellFont;
-        _propertyNameLabel.numberOfLines = 0;
-        _propertyNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_propertyNameLabel];
         
         self.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
@@ -49,18 +52,24 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.buttonBackground.frame = self.bounds;
+    
     CGSize classNameLabelSizeThatFits = [self.classNameLabel sizeThatFits:self.bounds.size];
+    classNameLabelSizeThatFits = CGSizeMake(MIN(self.bounds.size.width, classNameLabelSizeThatFits.width),
+                                            classNameLabelSizeThatFits.height);
     self.classNameLabel.frame = (CGRect) {
-        .origin = CGPointZero,
-        .size = CGSizeMake(MIN(self.bounds.size.width, classNameLabelSizeThatFits.width),
-                           classNameLabelSizeThatFits.height) };
+        .origin = CGPointMake(round(self.bounds.size.width / 2 - classNameLabelSizeThatFits.width / 2),
+                              round(self.bounds.size.height / 2 - classNameLabelSizeThatFits.height)),
+        .size = classNameLabelSizeThatFits };
     
     CGSize propertyNameLabelSizeThatFits = [self.propertyNameLabel sizeThatFits:self.bounds.size];
-    self.propertyNameLabel.frame = CGRectMake(0,
-                                              CGRectGetMaxY(self.classNameLabel.frame),
-                                              MIN(propertyNameLabelSizeThatFits.width, self.bounds.size.width),
-                                              propertyNameLabelSizeThatFits.height);
-    
+    propertyNameLabelSizeThatFits = CGSizeMake(MIN(propertyNameLabelSizeThatFits.width, self.bounds.size.width),
+                                               propertyNameLabelSizeThatFits.height);
+    self.propertyNameLabel.frame = (CGRect) {
+        .origin = CGPointMake(round(self.bounds.size.width / 2 - propertyNameLabelSizeThatFits.width / 2),
+                              round(self.bounds.size.height / 2)),
+        .size = propertyNameLabelSizeThatFits };
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
@@ -68,8 +77,8 @@
     CGSize classNameLabelSizeThatFits = [self.classNameLabel sizeThatFits:size];
     CGSize propertyNameLabelSizeThatFits = [self.propertyNameLabel sizeThatFits:size];
     NSLog(@"%@ %@", NSStringFromCGSize(classNameLabelSizeThatFits), NSStringFromCGSize(propertyNameLabelSizeThatFits));
-    return CGSizeMake(MAX(classNameLabelSizeThatFits.width, propertyNameLabelSizeThatFits.width),
-                      classNameLabelSizeThatFits.height + propertyNameLabelSizeThatFits.height);
+    return CGSizeMake(MAX(classNameLabelSizeThatFits.width, propertyNameLabelSizeThatFits.width) + kCellInsets.left + kCellInsets.right,
+                      classNameLabelSizeThatFits.height + propertyNameLabelSizeThatFits.height + kCellInsets.top + kCellInsets.bottom);
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView
@@ -80,19 +89,7 @@
                                 NSStringFromClass([hierarchyView class]),
                                 NSStringFromCGRect(hierarchyView.frame)];
     NSString *propertyNameString = [hierarchyView propertyOfSuperName];
-    UIViewController *controller = [hierarchyView findAssociatedController];
-    if (propertyNameString && controller)
-    {
-        self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ on controller %@", propertyNameString, NSStringFromClass([controller class])];
-    }
-    else if (propertyNameString && hierarchyView.superview && ![hierarchyView.superview isMemberOfClass:[UIView class]])
-    {
-        self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ on superview %@", propertyNameString, NSStringFromClass(hierarchyView.superview.class)];
-    }
-    else
-    {
-        self.propertyNameLabel.text = nil;
-    }
+    self.propertyNameLabel.text = propertyNameString;
 }
 
 @end
