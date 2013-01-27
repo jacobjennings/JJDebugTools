@@ -93,7 +93,7 @@
             row.hierarchyView = viewForIndex;
             if (idx == centerRow)
             {
-                row.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.2];
+                row.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
             }
             [self addSubview:row];
             [rowsMutable addObject:row];

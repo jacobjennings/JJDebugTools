@@ -127,6 +127,10 @@ static NSInteger const P = 19;      // property list
     if (!selectedView || selectedView == _selectedView) {
         return;
     }
+    if (![selectedView isDescendantOfView:[[UIApplication sharedApplication] keyWindow]])
+    {
+        selectedView = [[UIApplication sharedApplication] keyWindow];
+    }
     _selectedView = selectedView;
         
     [selectedView addSubview:self.highlightView];
