@@ -14,6 +14,7 @@
 @interface JJHierarchyView ()
 
 @property (nonatomic, strong) NSArray *rows;
+@property (nonatomic, assign) NSUInteger centerIndex;
 
 @end
 
@@ -33,12 +34,15 @@
     [super layoutSubviews];
     
     CGFloat rowY = 0;
+    
+    
+    
     for (JJHierarchyViewRow *row in self.rows)
     {
         row.frame = CGRectMake(0, rowY, self.bounds.size.width, kHierarchyViewCellHeight);
         rowY += kHierarchyViewCellHeight;
     }
-    [self rd];
+//    [self rd];
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView
@@ -70,20 +74,25 @@
         {
             for (NSUInteger superviewsDeep = 0; superviewsDeep < idx - centerRow; superviewsDeep++)
             {
-                viewForIndex = [viewForIndex viewBelow];
+                viewForIndex = [viewForIndex aSubview];
             }
         }
         else
         {
             viewForIndex = hierarchyView;
+            self.centerIndex = [rowsMutable count];
         }
         if (!viewForIndex)
         {
-            NSLog(@"NoRow for index: %u", idx);
+//            NSLog(@"NoRow for index: %u", idx);
         } else {
-            NSLog(@"TheresARow for index: %u", idx);
+//            NSLog(@"TheresARow for index: %u", idx);
             JJHierarchyViewRow *row = [[JJHierarchyViewRow alloc] init];
             row.hierarchyView = viewForIndex;
+            if (idx == centerRow)
+            {
+                row.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.2];
+            }
             [self addSubview:row];
             [rowsMutable addObject:row];
         }

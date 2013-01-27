@@ -9,10 +9,12 @@
 #import "JJHierarchyViewRow.h"
 #import "JJHierarchyViewCell.h"
 #import "UIView+JJHotkeyViewTraverser.h"
+#import "JJHotkeyViewTraverser.h"
 
 @interface JJHierarchyViewRow ()
 
 @property (nonatomic, strong) NSArray *cells;
+@property (nonatomic, assign) NSUInteger centerIndex;
 
 @end
 
@@ -22,7 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blueColor];
+        self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
     }
     return self;
 }
@@ -33,11 +35,34 @@
     
     [self reloadCells];
     
-    CGFloat cellX = 0;
-    for (JJHierarchyViewCell *cell in self.cells)
+    if (![self.cells count])
     {
-        cell.frame = CGRectMake(cellX, 0, kHierarchyViewCellMinimumWidth, kHierarchyViewCellHeight);
+        return;
     }
+    
+    JJHierarchyViewCell *centerCell = self.cells[self.centerIndex];
+    centerCell.frame = CGRectMake(self.bounds.size.width / 2 - kHierarchyViewCellMinimumWidth / 2,
+                                                    0,
+                                                    kHierarchyViewCellMinimumWidth,
+                                                    kHierarchyViewCellHeight);
+    
+    CGFloat previousX = centerCell.frame.origin.x;
+    for (NSInteger idx = self.centerIndex - 1; idx >= 0; idx--)
+    {
+        JJHierarchyViewCell *cell = self.cells[idx];
+        cell.frame = CGRectMake(previousX - kHierarchyViewCellMinimumWidth, 0, kHierarchyViewCellMinimumWidth, kHierarchyViewCellHeight);
+        previousX = cell.frame.origin.x;
+    }
+    
+    previousX = CGRectGetMaxX(centerCell.frame);
+    for (NSInteger idx = self.centerIndex + 1; idx < [self.cells count]; idx++)
+    {
+        JJHierarchyViewCell *cell = self.cells[idx];
+        cell.frame = CGRectMake(previousX, 0, kHierarchyViewCellMinimumWidth, kHierarchyViewCellHeight);
+        previousX = CGRectGetMaxX(cell.frame);
+    }
+    
+    [self rd];
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView
@@ -83,8 +108,9 @@
         else
         {
             viewForCell = self.hierarchyView;
+            self.centerIndex = [cellsMutable count];
         }
-        if (viewForCell)
+        if (viewForCell && viewForCell != [JJHotkeyViewTraverser shared].highlightView)
         {
             JJHierarchyViewCell *cell = [[JJHierarchyViewCell alloc] init];
             cell.hierarchyView = viewForCell;

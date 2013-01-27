@@ -21,6 +21,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         _classNameLabel = [[UILabel alloc] init];
+        _classNameLabel.backgroundColor = [UIColor clearColor];
+        _classNameLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_classNameLabel];
         
         self.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
