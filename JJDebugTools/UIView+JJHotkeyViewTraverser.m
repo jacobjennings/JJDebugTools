@@ -10,6 +10,7 @@
 #import "NSObject+JJAssociatedObjects.h"
 #import "JJHotkeyViewTraverser.h"
 #import <objc/runtime.h>
+#import "JJHotkeyViewTraverser.h"
 
 @implementation UIView (JJHotkeyViewTraverser)
 
@@ -22,7 +23,7 @@
     return nil;
 }
 
-- (UIView *)findTheHippestViewOfThemAll
+- (UIView *)findRootView
 {
     return [UIApplication sharedApplication].keyWindow.rootViewController.view;
 }
@@ -47,6 +48,18 @@
     return nil;
 }
 
+- (UIView *)aSubview
+{
+    UIView *lastSelectedSubview = objc_getAssociatedObject(self, &JJAssociatedObjectKeyLastSelectedSubview);
+    if (lastSelectedSubview) {
+        return lastSelectedSubview;
+    }
+    if ([self.subviews count] && self.subviews[0] && self.subviews[0] != [JJHotkeyViewTraverser shared].highlightView) {
+        return self.subviews[0];
+    }
+    return nil;
+}
+
 #pragma mark - Properties
 
 static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociatedObjectKeyLastSelectedSubview";
@@ -66,6 +79,11 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
         return controller;
     }
     return [self.superview findAssociatedController];
+}
+
+- (void)rd;
+{
+    NSLog(@"%@", [self performSelector:@selector(recursiveDescription)]);
 }
 
 @end

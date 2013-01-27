@@ -14,6 +14,8 @@
 #import "JJHotkeyViewTraverser.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 #import "NSObject+JJPropertyInspection.h"
+#import "JJExternalDisplayManager.h"
+#import "JJExternalScreenRootViewController.h"
 #import <objc/runtime.h>
 
 static NSInteger const T = 23;      // Begin
@@ -30,8 +32,6 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
 
 @interface JJHotkeyViewTraverser ()
 
-@property (nonatomic, strong) UIView *selectedView;
-@property (nonatomic, strong) UIView *highlightView;
 
 @end
 
@@ -55,8 +55,17 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
         self.highlightView = [[UIView alloc] init];
         self.highlightView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.22];
         self.highlightView.userInteractionEnabled = NO;
+        
+#warning Hook after client's didFinishLaunching somehow instead of lazy delay
+        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:2];
     }
     return self;
+}
+
+- (void)configureExternalScreen
+{
+    _externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
+    [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;    
 }
 
 - (void)hotkeyPressedNotification:(NSNotification *)notification
@@ -67,7 +76,7 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
             if (self.highlightView.superview) {
                 [self.highlightView removeFromSuperview];
             } else {
-                self.selectedView = [[self rootView] findTheHippestViewOfThemAll];
+                self.selectedView = [[self rootView] findRootView];
             }
             break;
         }
@@ -78,18 +87,7 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
         }
         case Down:
         {
-            UIView *lastSelectedSubview = objc_getAssociatedObject(self, &JJAssociatedObjectKeyLastSelectedSubview);
-            if (lastSelectedSubview) {
-                self.selectedView = lastSelectedSubview;
-            } else {
-                UIView *downView;
-                if ([self.selectedView.subviews count]) {
-                    downView = self.selectedView.subviews[0];
-                }
-                if (downView && downView != self.highlightView) {
-                    self.selectedView = downView;
-                }
-            }
+            self.selectedView = [self.selectedView aSubview];
             break;
         }
         case Left:
@@ -137,13 +135,14 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
     [selectedView addSubview:self.highlightView];
     self.highlightView.frame = selectedView.bounds;
    
-    NSLog(@"\n\nVIEW: %@", selectedView);
+    self.externalRootViewController.hierarchyView = self.selectedView;
+    
+//    NSLog(@"\n\nVIEW: %@", selectedView);
 }
 
 - (UIView *)rootView {
     return [UIApplication sharedApplication].keyWindow.rootViewController.view;
 }
-
 
 
 @end

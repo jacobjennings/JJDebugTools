@@ -10,9 +10,11 @@
 
 @property (nonatomic, strong) UIView *lastSelectedSubview;
 
-- (UIView *)findTheHippestViewOfThemAll;
+- (UIView *)findRootView;
 - (UIView *)viewBelow;
 - (UIView *)viewAbove;
+- (UIView *)aSubview;
 - (UIViewController *)findAssociatedController;
+- (void)rd;
 
 @end
