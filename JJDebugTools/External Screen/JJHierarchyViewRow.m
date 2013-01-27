@@ -62,7 +62,7 @@
         previousX = CGRectGetMaxX(cell.frame);
     }
     
-    [self rd];
+//    [self rd];
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView
@@ -79,7 +79,7 @@
         [cell removeFromSuperview];
     }
     
-    NSUInteger numberOfCells = floor(self.bounds.size.width / kHierarchyViewCellMinimumWidth);
+    NSUInteger numberOfCells = floor(self.bounds.size.width / kHierarchyViewCellMinimumWidth) + 2;
     NSUInteger centerCell = floor(numberOfCells / 2);
     
     NSMutableArray *cellsMutable = [NSMutableArray arrayWithCapacity:numberOfCells];

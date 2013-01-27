@@ -13,5 +13,6 @@
 - (NSArray *)arrayOfPropertyNames;
 - (NSDictionary *)propertyNameToAttributesDictionary;
 - (NSString *)propertyListWithValuesAsSingleString;
+- (NSString *)propertyNameForObject:(id)object;
 
 @end

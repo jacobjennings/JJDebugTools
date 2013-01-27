@@ -15,6 +15,7 @@
 - (UIView *)viewAbove;
 - (UIView *)aSubview;
 - (UIViewController *)findAssociatedController;
+- (NSString *)propertyOfSuperName;
 - (void)rd;
 
 @end

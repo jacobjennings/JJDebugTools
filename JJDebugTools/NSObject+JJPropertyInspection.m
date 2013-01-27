@@ -48,4 +48,18 @@
     return [stringBuilder copy];
 }
 
+- (NSString *)propertyNameForObject:(id)object
+{
+    NSArray *propertyNames = [self arrayOfPropertyNames];
+    for (NSString *key in propertyNames)
+    {
+        id value = [self valueForKey:key];
+        if (value == object)
+        {
+            return key;
+        }
+    }
+    return nil;
+}
+
 @end

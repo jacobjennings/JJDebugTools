@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-static CGFloat const kHierarchyViewCellHeight = 64;
-static CGFloat const kHierarchyViewCellMinimumWidth = 180;
+static CGFloat const kHierarchyViewCellHeight = 80;
+static CGFloat const kHierarchyViewCellMinimumWidth = 240;
 
 @interface JJHierarchyViewCell : UIView
 

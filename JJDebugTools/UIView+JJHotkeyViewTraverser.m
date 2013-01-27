@@ -11,6 +11,7 @@
 #import "JJHotkeyViewTraverser.h"
 #import <objc/runtime.h>
 #import "JJHotkeyViewTraverser.h"
+#import "NSObject+JJPropertyInspection.h"
 
 @implementation UIView (JJHotkeyViewTraverser)
 
@@ -84,6 +85,21 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
 - (void)rd;
 {
     NSLog(@"%@", [self performSelector:@selector(recursiveDescription)]);
+}
+
+- (NSString *)propertyOfSuperName
+{
+    UIViewController *controller = [self findAssociatedController];
+    if (controller)
+    {
+        return [controller propertyNameForObject:self];
+    }
+    if (self.superview)
+    {
+        return [self.superview propertyNameForObject:self];
+    }
+    
+    return nil;
 }
 
 @end
