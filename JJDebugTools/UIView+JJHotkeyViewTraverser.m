@@ -51,9 +51,8 @@
 
 - (UIView *)aSubview
 {
-    UIView *lastSelectedSubview = objc_getAssociatedObject(self, &JJAssociatedObjectKeyLastSelectedSubview);
-    if (lastSelectedSubview) {
-        return lastSelectedSubview;
+    if (self.lastSelectedSubview) {
+        return self.lastSelectedSubview;
     }
     if ([self.subviews count] && self.subviews[0] && self.subviews[0] != [JJHotkeyViewTraverser shared].highlightView) {
         return self.subviews[0];

@@ -21,6 +21,7 @@
 		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
 		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
 		1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */; };
+		1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */; };
 		1FBC5773165D6BA30052ED88 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5772165D6BA30052ED88 /* libicucore.dylib */; };
 		1FBC5776165D6BA90052ED88 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5775165D6BA90052ED88 /* CFNetwork.framework */; };
 		1FBC5778165D6BAF0052ED88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5777165D6BAF0052ED88 /* Security.framework */; };
@@ -92,6 +93,8 @@
 		1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJAssociatedObjects.m"; sourceTree = "<group>"; };
 		1F76A8B81626ADB500887C3B /* NSObject+JJPropertyInspection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJPropertyInspection.h"; sourceTree = "<group>"; };
 		1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJPropertyInspection.m"; sourceTree = "<group>"; };
+		1F9F99A516B5059500FF8CBB /* UIView+JJFrameUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JJFrameUtilities.h"; sourceTree = "<group>"; };
+		1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JJFrameUtilities.m"; sourceTree = "<group>"; };
 		1FBC5772165D6BA30052ED88 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FBC5775165D6BA90052ED88 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1FBC5777165D6BAF0052ED88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -173,6 +176,8 @@
 				1F0A535716B4F9DB008F1ED1 /* JJLabel.m */,
 				1F0A535A16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.h */,
 				1F0A535B16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m */,
+				1F9F99A516B5059500FF8CBB /* UIView+JJFrameUtilities.h */,
+				1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */,
 			);
 			path = JJDebugTools;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				1F0A535516B4F9BF008F1ED1 /* JJButton.m in Sources */,
 				1F0A535816B4F9DB008F1ED1 /* JJLabel.m in Sources */,
 				1F0A535C16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m in Sources */,
+				1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

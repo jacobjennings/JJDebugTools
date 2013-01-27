@@ -94,7 +94,8 @@ static CGFloat const kCellYInset = 6;
         [cell removeFromSuperview];
     }
     
-    NSUInteger numberOfCells = floor(self.bounds.size.width / kHierarchyViewCellMinimumWidth) + 2;
+#warning badness
+    NSUInteger numberOfCells = floor(self.bounds.size.width / 50) + 2;
     NSUInteger centerCell = floor(numberOfCells / 2);
     
     NSMutableArray *cellsMutable = [NSMutableArray arrayWithCapacity:numberOfCells];

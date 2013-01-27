@@ -20,6 +20,7 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
 
 @property (nonatomic, strong) JJLabel *classNameLabel;
 @property (nonatomic, strong) JJLabel *propertyNameLabel;
+@property (nonatomic, strong) JJLabel *rectLabel;
 @property (nonatomic, strong) JJButton *buttonBackground;
 
 @end
@@ -39,12 +40,16 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
         [self addSubview:_classNameLabel];
         
         _propertyNameLabel = [[JJLabel alloc] init];
-        _propertyNameLabel.backgroundColor = [UIColor clearColor];
         _propertyNameLabel.textAlignment = NSTextAlignmentCenter;
         _propertyNameLabel.font = CellFont;
+        _propertyNameLabel.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:1 alpha:1];
         [self addSubview:_propertyNameLabel];
         
-        self.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
+        _rectLabel = [[JJLabel alloc] init];
+        _rectLabel.textAlignment = NSTextAlignmentCenter;
+        _rectLabel.font = CellFont;
+        _rectLabel.textColor = [UIColor colorWithRed:0.9 green:1 blue:0.9 alpha:1];
+        [self addSubview:_rectLabel];
     }
     return self;
 }
@@ -67,27 +72,44 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     propertyNameLabelSizeThatFits = CGSizeMake(MIN(propertyNameLabelSizeThatFits.width, self.bounds.size.width),
                                                propertyNameLabelSizeThatFits.height);
     self.propertyNameLabel.frame = (CGRect) {
-        .origin = CGPointMake(round(self.bounds.size.width / 2 - propertyNameLabelSizeThatFits.width / 2),
-                              round(self.bounds.size.height / 2)),
+        .origin = CGPointMake(kCellInsets.left,
+                              CGRectGetMaxY(self.classNameLabel.frame)),
         .size = propertyNameLabelSizeThatFits };
+    
+    CGSize rectLabelSizeThatFits = [self.rectLabel sizeThatFits:self.bounds.size];
+    self.rectLabel.frame = (CGRect) {
+        .origin = CGPointMake(self.bounds.size.width - rectLabelSizeThatFits.width - kCellInsets.right,
+                              CGRectGetMaxY(self.classNameLabel.frame)),
+        .size = rectLabelSizeThatFits };
+    
+    if (!self.propertyNameLabel.text || ![self.propertyNameLabel.text length])
+    {
+        [self.rectLabel centerVertically];
+    }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize classNameLabelSizeThatFits = [self.classNameLabel sizeThatFits:size];
     CGSize propertyNameLabelSizeThatFits = [self.propertyNameLabel sizeThatFits:size];
-    NSLog(@"%@ %@", NSStringFromCGSize(classNameLabelSizeThatFits), NSStringFromCGSize(propertyNameLabelSizeThatFits));
-    return CGSizeMake(MAX(classNameLabelSizeThatFits.width, propertyNameLabelSizeThatFits.width) + kCellInsets.left + kCellInsets.right,
-                      classNameLabelSizeThatFits.height + propertyNameLabelSizeThatFits.height + kCellInsets.top + kCellInsets.bottom);
+    CGSize rectLabelSizeThatFits = [self.rectLabel sizeThatFits:size];
+
+    return CGSizeMake(MAX(classNameLabelSizeThatFits.width,
+                          (propertyNameLabelSizeThatFits.width + rectLabelSizeThatFits.width + 4))
+                      + kCellInsets.left + kCellInsets.right,
+                      
+                      classNameLabelSizeThatFits.height
+                      + propertyNameLabelSizeThatFits.height
+                      + kCellInsets.top + kCellInsets.bottom);
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView
 {
     _hierarchyView = hierarchyView;
     
-    self.classNameLabel.text = [NSString stringWithFormat:@"%@ %@",
-                                NSStringFromClass([hierarchyView class]),
-                                NSStringFromCGRect(hierarchyView.frame)];
+    self.classNameLabel.text = NSStringFromClass([hierarchyView class]);
+    NSString *rectString = NSStringFromCGRect(hierarchyView.frame);
+    self.rectLabel.text = [rectString substringWithRange:NSMakeRange(1, rectString.length - 2)];
     NSString *propertyNameString = [hierarchyView propertyOfSuperName];
     self.propertyNameLabel.text = propertyNameString;
 }

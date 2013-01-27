@@ -28,8 +28,6 @@ static NSInteger const H = 11;      // Click to select
 static NSInteger const R = 21;      // recursiveDescription
 static NSInteger const P = 19;      // property list
 
-static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociatedObjectKeyLastSelectedSubview";
-
 @interface JJHotkeyViewTraverser ()
 
 
@@ -70,7 +68,8 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
 
 - (void)hotkeyPressedNotification:(NSNotification *)notification
 {
-    switch ([notification.userInfo[JJPrivateKeyEventUserInfoKeyUnicodeKeyCode] integerValue]) {
+    NSInteger keyPressedInteger = [notification.userInfo[JJPrivateKeyEventUserInfoKeyUnicodeKeyCode] integerValue];
+    switch (keyPressedInteger) {
         case T:
         {
             if (self.highlightView.superview) {
@@ -94,7 +93,6 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
         {
             UIView *viewBelow = [self.selectedView viewBelow];
             self.selectedView = viewBelow ? viewBelow : self.selectedView;
-            break;
         }
         case Right:
         {
@@ -129,11 +127,11 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
         return;
     }
     _selectedView = selectedView;
-    
-    selectedView.superview.lastSelectedSubview = selectedView;
-    
+        
     [selectedView addSubview:self.highlightView];
     self.highlightView.frame = selectedView.bounds;
+    selectedView.superview.lastSelectedSubview = selectedView;
+    NSLog(@"lastSelectedSub %@", selectedView.superview.lastSelectedSubview);
    
     self.externalRootViewController.hierarchyView = self.selectedView;
     

@@ -32,11 +32,10 @@
 {
     [super layoutSubviews];
     
-    CGSize hierarchyViewSize = CGSizeMake(kHierarchyViewCellMinimumWidth * 5, kHierarchyViewCellHeight * 5);
-    self.hierarchyView.frame = CGRectMake(self.bounds.size.width - hierarchyViewSize.width,
+    self.hierarchyView.frame = CGRectMake(0,
                                           0,
-                                          hierarchyViewSize.width,
-                                          hierarchyViewSize.height);
+                                          self.bounds.size.width,
+                                          kHierarchyViewCellHeight * 7);
 }
 
 @end
