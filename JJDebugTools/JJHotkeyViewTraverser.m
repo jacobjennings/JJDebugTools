@@ -93,6 +93,7 @@ static NSInteger const P = 19;      // property list
         {
             UIView *viewBelow = [self.selectedView viewBelow];
             self.selectedView = viewBelow ? viewBelow : self.selectedView;
+            break;
         }
         case Right:
         {
@@ -131,7 +132,7 @@ static NSInteger const P = 19;      // property list
     [selectedView addSubview:self.highlightView];
     self.highlightView.frame = selectedView.bounds;
     selectedView.superview.lastSelectedSubview = selectedView;
-    NSLog(@"lastSelectedSub %@", selectedView.superview.lastSelectedSubview);
+//    NSLog(@"lastSelectedSub %@", selectedView.superview.lastSelectedSubview);
    
     self.externalRootViewController.hierarchyView = self.selectedView;
     

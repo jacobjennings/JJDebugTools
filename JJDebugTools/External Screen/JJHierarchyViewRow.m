@@ -27,7 +27,7 @@ static CGFloat const kCellYInset = 6;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
+//        self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
     }
     return self;
 }

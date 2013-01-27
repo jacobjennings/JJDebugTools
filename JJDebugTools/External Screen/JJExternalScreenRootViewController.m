@@ -44,6 +44,7 @@
     _hierarchyView = hierarchyView;
     
     self.rootView.hierarchyView.hierarchyView = hierarchyView;
+    self.rootView.viewDetailsView.detailsView = hierarchyView;
 }
 
 @end

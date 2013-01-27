@@ -43,7 +43,7 @@
     NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionary];
     NSMutableString *stringBuilder = [NSMutableString string];
     for (NSString *key in [propertyNameToAttributesDictionary allKeys]) {
-        [stringBuilder appendFormat:@"%@\t\t\t\t\t%@\n", key, [self valueForKey:key]];
+        [stringBuilder appendFormat:@"%@: %@\n", key, [self valueForKey:key]];
     }
     return [stringBuilder copy];
 }

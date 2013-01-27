@@ -9,6 +9,7 @@
 #import "JJHierarchyView.h"
 #import "JJHierarchyViewRow.h"
 #import "UIView+JJHotkeyViewTraverser.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface JJHierarchyView ()
 
@@ -24,6 +25,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
+        self.layer.borderColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5].CGColor;
+        self.layer.borderWidth = 1;
     }
     return self;
 }

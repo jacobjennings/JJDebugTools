@@ -18,12 +18,15 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor blackColor];
         _currentRectLabel = [[UILabel alloc] init];
         [self addSubview:_currentRectLabel];
         
         _hierarchyView = [[JJHierarchyView alloc] init];
         [self addSubview:_hierarchyView];
+        
+        _viewDetailsView = [[JJViewDetailsView alloc] init];
+        [self addSubview:_viewDetailsView];
     }
     return self;
 }
@@ -36,6 +39,11 @@
                                           0,
                                           self.bounds.size.width,
                                           kHierarchyViewCellHeight * 7);
+    
+    self.viewDetailsView.frame = (CGRect) {
+        .origin = CGPointMake(self.bounds.size.width / 2, CGRectGetMaxY(self.hierarchyView.frame)),
+        .size = CGSizeMake(self.bounds.size.width / 2, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
+    };
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "NSObject+JJPropertyInspection.h"
 #import "JJButton.h"
 #import "JJLabel.h"
+#import "JJHotkeyViewTraverser.h"
 
 static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -107,7 +108,14 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
 {
     _hierarchyView = hierarchyView;
     
-    self.classNameLabel.text = NSStringFromClass([hierarchyView class]);
+    NSUInteger subviewsCount = [hierarchyView.subviews count];
+    if (hierarchyView == [JJHotkeyViewTraverser shared].selectedView)
+    {
+        subviewsCount--;
+    }
+    self.classNameLabel.text = [NSString stringWithFormat:@"%@: %u",
+                                NSStringFromClass([hierarchyView class]),
+                                subviewsCount];
     NSString *rectString = NSStringFromCGRect(hierarchyView.frame);
     self.rectLabel.text = [rectString substringWithRange:NSMakeRange(1, rectString.length - 2)];
     NSString *propertyNameString = [hierarchyView propertyOfSuperName];
