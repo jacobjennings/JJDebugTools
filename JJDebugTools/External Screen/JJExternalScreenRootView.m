@@ -32,10 +32,11 @@
 {
     [super layoutSubviews];
     
-    self.hierarchyView.frame = self.bounds;
-
-    CGSize currentRectLabelSizeThatFits = [self.currentRectLabel sizeThatFits:self.bounds.size];
-    self.currentRectLabel.frame = (CGRect) { .origin = CGPointZero, .size = currentRectLabelSizeThatFits };
+    CGSize hierarchyViewSize = CGSizeMake(kHierarchyViewCellMinimumWidth * 5, kHierarchyViewCellHeight * 5);
+    self.hierarchyView.frame = CGRectMake(self.bounds.size.width - hierarchyViewSize.width,
+                                          0,
+                                          hierarchyViewSize.width,
+                                          hierarchyViewSize.height);
 }
 
 @end

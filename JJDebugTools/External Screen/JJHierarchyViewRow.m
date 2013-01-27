@@ -11,6 +11,9 @@
 #import "UIView+JJHotkeyViewTraverser.h"
 #import "JJHotkeyViewTraverser.h"
 
+static CGFloat const kCellXInset = 6;
+static CGFloat const kCellYInset = 6;
+
 @interface JJHierarchyViewRow ()
 
 @property (nonatomic, strong) NSArray *cells;
@@ -41,16 +44,23 @@
     }
     
     JJHierarchyViewCell *centerCell = self.cells[self.centerIndex];
-    centerCell.frame = CGRectMake(self.bounds.size.width / 2 - kHierarchyViewCellMinimumWidth / 2,
-                                                    0,
-                                                    kHierarchyViewCellMinimumWidth,
-                                                    kHierarchyViewCellHeight);
+    CGSize centerCellSizeThatFits = [centerCell sizeThatFits:self.bounds.size];
+    centerCell.frame = CGRectMake(round(self.bounds.size.width / 2 - centerCellSizeThatFits.width / 2),
+                                  0,
+                                  centerCellSizeThatFits.width,
+                                  kHierarchyViewCellHeight);
+    centerCell.frame = CGRectInset(centerCell.frame, 0, kCellYInset);
     
     CGFloat previousX = centerCell.frame.origin.x;
     for (NSInteger idx = self.centerIndex - 1; idx >= 0; idx--)
     {
         JJHierarchyViewCell *cell = self.cells[idx];
-        cell.frame = CGRectMake(previousX - kHierarchyViewCellMinimumWidth, 0, kHierarchyViewCellMinimumWidth, kHierarchyViewCellHeight);
+        CGSize cellSizeThatFits = [cell sizeThatFits:self.bounds.size];
+        cell.frame = CGRectMake(previousX - cellSizeThatFits.width - kCellXInset,
+                                0,
+                                cellSizeThatFits.width,
+                                kHierarchyViewCellHeight);
+        cell.frame = CGRectInset(cell.frame, 0, kCellYInset);
         previousX = cell.frame.origin.x;
     }
     
@@ -58,7 +68,12 @@
     for (NSInteger idx = self.centerIndex + 1; idx < [self.cells count]; idx++)
     {
         JJHierarchyViewCell *cell = self.cells[idx];
-        cell.frame = CGRectMake(previousX, 0, kHierarchyViewCellMinimumWidth, kHierarchyViewCellHeight);
+        CGSize cellSizeThatFits = [cell sizeThatFits:self.bounds.size];
+        cell.frame = CGRectMake(previousX + kCellXInset,
+                                0,
+                                cellSizeThatFits.width,
+                                kHierarchyViewCellHeight);
+        cell.frame = CGRectInset(cell.frame, 0, kCellYInset);
         previousX = CGRectGetMaxX(cell.frame);
     }
     

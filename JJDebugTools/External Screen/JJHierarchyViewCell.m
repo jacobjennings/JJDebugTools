@@ -29,12 +29,16 @@
         _classNameLabel.backgroundColor = [UIColor clearColor];
         _classNameLabel.textAlignment = NSTextAlignmentCenter;
         _classNameLabel.font = CellFont;
+        _classNameLabel.numberOfLines = 0;
+        _classNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_classNameLabel];
         
         _propertyNameLabel = [[UILabel alloc] init];
         _propertyNameLabel.backgroundColor = [UIColor clearColor];
         _propertyNameLabel.textAlignment = NSTextAlignmentCenter;
         _propertyNameLabel.font = CellFont;
+        _propertyNameLabel.numberOfLines = 0;
+        _propertyNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         [self addSubview:_propertyNameLabel];
         
         self.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
@@ -61,7 +65,11 @@
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    return [self.classNameLabel sizeThatFits:size];
+    CGSize classNameLabelSizeThatFits = [self.classNameLabel sizeThatFits:size];
+    CGSize propertyNameLabelSizeThatFits = [self.propertyNameLabel sizeThatFits:size];
+    NSLog(@"%@ %@", NSStringFromCGSize(classNameLabelSizeThatFits), NSStringFromCGSize(propertyNameLabelSizeThatFits));
+    return CGSizeMake(MAX(classNameLabelSizeThatFits.width, propertyNameLabelSizeThatFits.width),
+                      classNameLabelSizeThatFits.height + propertyNameLabelSizeThatFits.height);
 }
 
 - (void)setHierarchyView:(UIView *)hierarchyView

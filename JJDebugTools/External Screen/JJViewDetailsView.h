@@ -1,5 +1,5 @@
 //
-//  JJHierarchyView.h
+//  JJViewDetailsView.h
 //  JJDebugTools
 //
 //  Created by Jacob Jennings on 1/26/13.
@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JJHierarchyViewCell.h"
 
-@interface JJHierarchyView : UIView
-
-@property (nonatomic, strong) UIView *hierarchyView;
+@interface JJViewDetailsView : UIView
 
 @end

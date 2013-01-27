@@ -8,7 +8,6 @@
 
 #import "JJHierarchyView.h"
 #import "JJHierarchyViewRow.h"
-#import "JJHierarchyViewCell.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 
 @interface JJHierarchyView ()
