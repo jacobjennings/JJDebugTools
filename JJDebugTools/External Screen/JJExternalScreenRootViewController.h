@@ -12,7 +12,7 @@
 @interface JJExternalScreenRootViewController : UIViewController
 
 @property (nonatomic, readonly) JJExternalScreenRootView *rootView;
-@property (nonatomic, assign) UIView *hierarchyView;
+@property (nonatomic, assign) CALayer *hierarchyLayer;
 
 - (void)reload;
 

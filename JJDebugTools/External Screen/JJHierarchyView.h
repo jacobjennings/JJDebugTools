@@ -11,6 +11,6 @@
 
 @interface JJHierarchyView : UIView
 
-@property (nonatomic, strong) UIView *hierarchyView;
+@property (nonatomic, strong) CALayer *hierarchyLayer;
 
 @end

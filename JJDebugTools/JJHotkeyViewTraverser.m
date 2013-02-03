@@ -17,6 +17,8 @@
 #import "JJExternalDisplayManager.h"
 #import "JJExternalScreenRootViewController.h"
 #import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
+#import "CALayer+JJHotkeyViewTraverser.h"
 
 static NSInteger const T = 23;      // Begin
 static NSInteger const Up = 82;     // Superview
@@ -50,9 +52,8 @@ static NSInteger const P = 19;      // property list
     if (self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hotkeyPressedNotification:) name:JJPrivateKeyEventFiredNotification object:nil];
         
-        self.highlightView = [[UIView alloc] init];
-        self.highlightView.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.22];
-        self.highlightView.userInteractionEnabled = NO;
+        self.highlightLayer = [CALayer layer];
+        self.highlightLayer.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.22].CGColor;
         
 #warning Hook after client's didFinishLaunching somehow instead of lazy delay
         [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:2];
@@ -72,49 +73,55 @@ static NSInteger const P = 19;      // property list
     switch (keyPressedInteger) {
         case T:
         {
-            if (self.highlightView.superview) {
-                [self.highlightView removeFromSuperview];
+            if (self.highlightLayer.superlayer) {
+                [self.highlightLayer removeFromSuperlayer];
             } else {
-                self.selectedView = [[self rootView] findRootView];
+                self.selectedLayer = [self rootView].layer;
             }
             break;
         }
         case Up:
         {
-            self.selectedView = [self.selectedView superview];
+            self.selectedLayer = [self.selectedLayer superlayer];
             break;
         }
         case Down:
         {
-            self.selectedView = [self.selectedView aSubview];
+            self.selectedLayer = self.selectedLayer.jjSublayer;
             break;
         }
         case Left:
         {
-            UIView *viewBelow = [self.selectedView viewBelow];
-            self.selectedView = viewBelow ? viewBelow : self.selectedView;
+            CALayer *layerBelow = self.selectedLayer.jjPeerLayerBelow;
+            if (layerBelow)
+            {
+                self.selectedLayer = layerBelow;
+            }
             break;
         }
         case Right:
         {
-            UIView *viewAbove = [self.selectedView viewAbove];
-            self.selectedView = viewAbove ? viewAbove : self.selectedView;
+            CALayer *layerAbove = self.selectedLayer.jjPeerLayerAbove;
+            if (layerAbove)
+            {
+                self.selectedLayer = layerAbove;
+            }
             break;
         }
         case C:
         {
-            NSLog(@"\nCONTROLLER: %@", [self.selectedView findAssociatedController]);
+            NSLog(@"\nCONTROLLER: %@", [self.selectedLayer.jjViewForLayer findAssociatedController]);
             break;
         }
         case R:
         {
-            NSString *recursiveDescription = [self.selectedView performSelector:@selector(recursiveDescription)];
+            NSString *recursiveDescription = [self.selectedLayer.jjViewForLayer performSelector:@selector(recursiveDescription)];
             NSLog(@"\n%@", recursiveDescription);
             break;
         }
         case P:
         {
-            NSString *propertyListString = [self.selectedView propertyListWithValuesAsSingleString];
+            NSString *propertyListString = [self.selectedLayer.jjViewForLayer ?: self.selectedLayer propertyListWithValuesAsSingleString];
             NSLog(@"%@", propertyListString);
             break;
         }
@@ -123,24 +130,22 @@ static NSInteger const P = 19;      // property list
     }
 }
 
-- (void)setSelectedView:(UIView *)selectedView {
-    if (!selectedView || selectedView == _selectedView) {
+- (void)setSelectedLayer:(CALayer *)selectedLayer {
+    if (!selectedLayer || selectedLayer == _selectedLayer) {
         return;
     }
-    if (![selectedView isDescendantOfView:[[UIApplication sharedApplication] keyWindow]])
-    {
-        selectedView = [[UIApplication sharedApplication] keyWindow];
-    }
-    _selectedView = selectedView;
+    _selectedLayer = selectedLayer;
         
-    [selectedView addSubview:self.highlightView];
-    self.highlightView.frame = selectedView.bounds;
-    selectedView.superview.lastSelectedSubview = selectedView;
-//    NSLog(@"lastSelectedSub %@", selectedView.superview.lastSelectedSubview);
-   
-    self.externalRootViewController.hierarchyView = self.selectedView;
+    [selectedLayer addSublayer:self.highlightLayer];
     
-//    NSLog(@"\n\nVIEW: %@", selectedView);
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.highlightLayer.frame = selectedLayer.bounds;
+    [CATransaction commit];
+    
+    selectedLayer.superlayer.lastSelectedSublayer = selectedLayer;
+   
+    self.externalRootViewController.hierarchyLayer = self.selectedLayer;
 }
 
 - (UIView *)rootView {

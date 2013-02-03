@@ -10,6 +10,7 @@
 #import "JJHierarchyViewRow.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CALayer+JJHotkeyViewTraverser.h"
 
 @interface JJHierarchyView ()
 
@@ -25,8 +26,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
-        self.layer.borderColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5].CGColor;
-        self.layer.borderWidth = 1;
     }
     return self;
 }
@@ -47,10 +46,9 @@
 //    [self rd];
 }
 
-- (void)setHierarchyView:(UIView *)hierarchyView
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
-    _hierarchyView = hierarchyView;
-    
+    _hierarchyLayer = hierarchyLayer;
     for (UIView *view in self.rows)
     {
         [view removeFromSuperview];
@@ -63,34 +61,32 @@
     NSMutableArray *rowsMutable = [NSMutableArray arrayWithCapacity:numberOfRowsThatFit];
     for (NSUInteger idx = 0; idx < numberOfRowsThatFit; idx++)
     {
-        UIView *viewForIndex = hierarchyView;
+        CALayer *layerForIndex = hierarchyLayer;
 
         if (idx < centerRow)
         {
-            for (NSUInteger superviewsDeep = 0; superviewsDeep < centerRow - idx; superviewsDeep++)
+            for (NSUInteger superlayersDeep = 0; superlayersDeep < centerRow - idx; superlayersDeep++)
             {
-                viewForIndex = [viewForIndex superview];
+                layerForIndex = [layerForIndex superlayer];
             }
         }
         else if (idx > centerRow)
         {
-            for (NSUInteger superviewsDeep = 0; superviewsDeep < idx - centerRow; superviewsDeep++)
+            for (NSUInteger superlayersDeep = 0; superlayersDeep < idx - centerRow; superlayersDeep++)
             {
-                viewForIndex = [viewForIndex aSubview];
+                layerForIndex = layerForIndex.jjSublayer;
             }
         }
         else
         {
-            viewForIndex = hierarchyView;
+            layerForIndex = hierarchyLayer;
             self.centerIndex = [rowsMutable count];
         }
-        if (!viewForIndex)
+        
+        if (layerForIndex)
         {
-//            NSLog(@"NoRow for index: %u", idx);
-        } else {
-//            NSLog(@"TheresARow for index: %u", idx);
             JJHierarchyViewRow *row = [[JJHierarchyViewRow alloc] init];
-            row.hierarchyView = viewForIndex;
+            row.hierarchyLayer = layerForIndex;
             if (idx == centerRow)
             {
                 row.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];

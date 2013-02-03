@@ -53,6 +53,10 @@
     NSArray *propertyNames = [self arrayOfPropertyNames];
     for (NSString *key in propertyNames)
     {
+        if ([key hasPrefix:@"jj"])
+        {
+            continue;
+        }
         id value = [self valueForKey:key];
         if (value == object)
         {

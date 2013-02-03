@@ -10,6 +10,6 @@
 
 @interface JJViewDetailsView : UIView
 
-@property (nonatomic, strong) UIView *detailsView;
+@property (nonatomic, strong) CALayer *detailsLayer;
 
 @end

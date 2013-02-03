@@ -12,5 +12,4 @@
 
 - (void)centerVertically;
 
-
 @end

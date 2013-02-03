@@ -39,12 +39,11 @@
 #warning reload empty
 }
 
-- (void)setHierarchyView:(UIView *)hierarchyView
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
-    _hierarchyView = hierarchyView;
-    
-    self.rootView.hierarchyView.hierarchyView = hierarchyView;
-    self.rootView.viewDetailsView.detailsView = hierarchyView;
+    _hierarchyLayer = hierarchyLayer;
+    self.rootView.hierarchyView.hierarchyLayer = hierarchyLayer;
+    self.rootView.viewDetailsView.detailsLayer = hierarchyLayer;
 }
 
 @end

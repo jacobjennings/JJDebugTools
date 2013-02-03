@@ -12,8 +12,8 @@
 
 @interface JJHotkeyViewTraverser : NSObject
 
-@property (nonatomic, strong) UIView *selectedView;
-@property (nonatomic, strong) UIView *highlightView;
+@property (nonatomic, strong) CALayer *selectedLayer;
+@property (nonatomic, strong) CALayer *highlightLayer;
 @property (nonatomic, strong) JJExternalScreenRootViewController *externalRootViewController;
 
 + (JJHotkeyViewTraverser *)shared;

@@ -12,6 +12,6 @@ static CGFloat const kHierarchyViewCellHeight = 62;
 
 @interface JJHierarchyViewCell : UIView
 
-@property (nonatomic, strong) UIView *hierarchyView;
+@property (nonatomic, strong) CALayer *hierarchyLayer;
 
 @end

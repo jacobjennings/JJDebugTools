@@ -10,6 +10,7 @@
 #import "JJHierarchyViewCell.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 #import "JJHotkeyViewTraverser.h"
+#import <QuartzCore/QuartzCore.h>
 
 static CGFloat const kCellXInset = 6;
 static CGFloat const kCellYInset = 6;
@@ -80,9 +81,9 @@ static CGFloat const kCellYInset = 6;
 //    [self rd];
 }
 
-- (void)setHierarchyView:(UIView *)hierarchyView
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
-    _hierarchyView = hierarchyView;
+    _hierarchyLayer = hierarchyLayer;
     [self reloadCells];
     [self setNeedsLayout];
 }
@@ -94,42 +95,20 @@ static CGFloat const kCellYInset = 6;
         [cell removeFromSuperview];
     }
     
-#warning badness
-    NSUInteger numberOfCells = floor(self.bounds.size.width / 50) + 2;
-    NSUInteger centerCell = floor(numberOfCells / 2);
+    NSUInteger numberOfCells = self.hierarchyLayer.superlayer ? [self.hierarchyLayer.superlayer.sublayers count] : 1;
     
     NSMutableArray *cellsMutable = [NSMutableArray arrayWithCapacity:numberOfCells];
     for (NSUInteger idx = 0; idx < numberOfCells; idx++)
     {
-        UIView *viewForCell = nil;
-        if (idx < centerCell)
-        {
-            UIView *leftView = self.hierarchyView;
-            for (NSUInteger leftBy = 0; leftBy < centerCell - idx; leftBy++)
-            {
-                leftView = [leftView viewBelow];
-            }
-            viewForCell = leftView;
-        }
-        else if (idx > centerCell)
-        {
-            UIView *rightView = self.hierarchyView;
-            for (NSUInteger rightBy = 0; rightBy < idx - centerCell; rightBy++)
-            {
-//                NSLog(@"\n\nCenter cell: %u \n\nrightBy: %u idx: %u \n\nIterating right view: %@", centerCell, rightBy, idx, rightView);
-                rightView = [rightView viewAbove];
-            }
-            viewForCell = rightView;
-        }
-        else
-        {
-            viewForCell = self.hierarchyView;
-            self.centerIndex = [cellsMutable count];
-        }
-        if (viewForCell && viewForCell != [JJHotkeyViewTraverser shared].highlightView)
+        CALayer *layerForCell = self.hierarchyLayer.superlayer ? self.hierarchyLayer.superlayer.sublayers[idx] : self.hierarchyLayer;
+        if (layerForCell && layerForCell != [JJHotkeyViewTraverser shared].highlightLayer)
         {
             JJHierarchyViewCell *cell = [[JJHierarchyViewCell alloc] init];
-            cell.hierarchyView = viewForCell;
+            cell.hierarchyLayer = layerForCell;
+            if (layerForCell == self.hierarchyLayer)
+            {
+                self.centerIndex = [cellsMutable count];
+            }
             [self addSubview:cell];
             [cellsMutable addObject:cell];
         }

@@ -12,6 +12,8 @@
 #import "JJButton.h"
 #import "JJLabel.h"
 #import "JJHotkeyViewTraverser.h"
+#import <QuartzCore/QuartzCore.h>
+#import "CALayer+JJHotkeyViewTraverser.h"
 
 static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -104,21 +106,23 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
                       + kCellInsets.top + kCellInsets.bottom);
 }
 
-- (void)setHierarchyView:(UIView *)hierarchyView
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
-    _hierarchyView = hierarchyView;
+    _hierarchyLayer = hierarchyLayer;
     
-    NSUInteger subviewsCount = [hierarchyView.subviews count];
-    if (hierarchyView == [JJHotkeyViewTraverser shared].selectedView)
+    NSUInteger sublayerCount = [hierarchyLayer.sublayers count];
+    if (hierarchyLayer == [JJHotkeyViewTraverser shared].selectedLayer)
     {
-        subviewsCount--;
+        sublayerCount--;
     }
+    
+    id layerOrView = hierarchyLayer.jjViewForLayer ?: hierarchyLayer;
     self.classNameLabel.text = [NSString stringWithFormat:@"%@: %u",
-                                NSStringFromClass([hierarchyView class]),
-                                subviewsCount];
-    NSString *rectString = NSStringFromCGRect(hierarchyView.frame);
+                                NSStringFromClass([layerOrView class]),
+                                sublayerCount];
+    NSString *rectString = NSStringFromCGRect(hierarchyLayer.frame);
     self.rectLabel.text = [rectString substringWithRange:NSMakeRange(1, rectString.length - 2)];
-    NSString *propertyNameString = [hierarchyView propertyOfSuperName];
+    NSString *propertyNameString = [hierarchyLayer jjPropertyName];
     self.propertyNameLabel.text = propertyNameString;
 }
 

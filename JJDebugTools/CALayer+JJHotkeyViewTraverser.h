@@ -10,4 +10,14 @@
 
 @interface CALayer (JJHotkeyViewTraverser)
 
+@property (nonatomic, readonly) CALayer *jjSublayer;
+@property (nonatomic, readonly) CALayer *jjPeerLayerAbove;
+@property (nonatomic, readonly) CALayer *jjPeerLayerBelow;
+@property (nonatomic, readonly) UIView *jjViewForLayer;
+
+@property (nonatomic, strong) CALayer *lastSelectedSublayer;
+
+- (NSString *)jjPropertyName;
+- (BOOL)jjPropertyNameOwnerIsController;
+
 @end

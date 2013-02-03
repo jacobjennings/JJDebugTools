@@ -19,16 +19,6 @@
     [JJHotkeyViewTraverser shared];
 }
 
-- (NSString *)debugDescription
-{
-    return nil;
-}
-
-- (UIView *)findRootView
-{
-    return [UIApplication sharedApplication].keyWindow.rootViewController.view;
-}
-
 - (UIView *)viewBelow
 {
     NSUInteger indexOfView = [self.superview.subviews indexOfObject:self];
@@ -54,7 +44,7 @@
     if (self.lastSelectedSubview) {
         return self.lastSelectedSubview;
     }
-    if ([self.subviews count] && self.subviews[0] && self.subviews[0] != [JJHotkeyViewTraverser shared].highlightView) {
+    if ([self.subviews count] && self.subviews[0]) {
         return self.subviews[0];
     }
     return nil;
@@ -106,9 +96,14 @@ static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociate
     {
         propertyName = [controller propertyNameForObject:self];
     }
-    if (!propertyName && self.superview)
+    UIView *superview = [self superview];
+    for (NSUInteger idx = 0; idx < 4; idx++)
     {
-        propertyName = [self.superview propertyNameForObject:self];
+        if (!propertyName)
+        {
+            propertyName = [superview propertyNameForObject:self];
+        }
+        superview = [superview superview];
     }
     
     return propertyName;
