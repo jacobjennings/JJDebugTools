@@ -51,7 +51,7 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
         [self addSubview:_propertyNameLabel];
         
         _propertiesLabel = [[JJLabel alloc] init];
-        _propertiesLabel.font = [DetailsLabelFont fontWithSize:11];
+        _propertiesLabel.font = [DetailsLabelFont fontWithSize:12];
         [self addSubview:_propertiesLabel];
     }
     return self;
@@ -82,7 +82,8 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
         .size = propertyNameLabelSize
     };
     
-    CGSize propertiesLabelSize = [self.propertiesLabel sizeThatFits:self.bounds.size];
+    CGSize propertiesLabelSize = [self.propertiesLabel sizeThatFits:CGSizeMake(self.bounds.size.width - kDetailsViewInsets.left - kDetailsViewInsets.right,
+                                                                               self.bounds.size.height - kDetailsViewInsets.top - kDetailsViewInsets.bottom)];
     propertiesLabelSize.height = MIN(propertiesLabelSize.height, self.bounds.size.height - CGRectGetMaxY(self.propertyNameLabel.frame) - kDetailsViewInsets.bottom);
     self.propertiesLabel.frame = (CGRect) {
         .origin = CGPointMake(kDetailsViewInsets.left, CGRectGetMaxY(self.propertyNameLabel.frame)),

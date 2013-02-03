@@ -20,13 +20,26 @@
 
 - (CALayer *)jjSublayer;
 {
-    if (self.lastSelectedSublayer) {
-        return self.lastSelectedSublayer;
+    if (self.jjLastSelectedSublayer) {
+        return self.jjLastSelectedSublayer;
     }
-    if ([self.sublayers count] && self.sublayers[0] && self.sublayers[0] != [JJHotkeyViewTraverser shared].highlightLayer) {
-        return self.sublayers[0];
+    if (![self.sublayers count])
+    {
+        return nil;
     }
-    return nil;
+    CALayer *sublayerWithTheMostSublayers = nil;
+    for (CALayer *layer in self.sublayers)
+    {
+        if (layer == [JJHotkeyViewTraverser shared].highlightLayer)
+        {
+            continue;
+        }
+        if ([layer.sublayers count] >= [sublayerWithTheMostSublayers.sublayers count])
+        {
+            sublayerWithTheMostSublayers = layer;
+        }
+    }
+    return sublayerWithTheMostSublayers;
 }
 
 - (CALayer *)jjPeerLayerAbove;
@@ -43,7 +56,7 @@
 {
     NSInteger indexOfLayer = [self.superlayer.sublayers indexOfObject:self];
     NSInteger indexOfLayerAbove = indexOfLayer - 1;
-    if (indexOfLayerAbove > 0 && indexOfLayerAbove < [self.superlayer.sublayers count]) {
+    if (indexOfLayerAbove >= 0 && indexOfLayerAbove < [self.superlayer.sublayers count]) {
         return self.superlayer.sublayers[indexOfLayerAbove];
     }
     return nil;
@@ -90,11 +103,11 @@
 
 static NSString * const JJAssociatedObjectKeyLastSelectedSublayer = @"JJAssociatedObjectKeyLastSelectedSublayer";
 
-- (UIView *)lastSelectedSublayer {
+- (CALayer *)jjLastSelectedSublayer {
     return [self associatedObjectWithKey:JJAssociatedObjectKeyLastSelectedSublayer];
 }
 
-- (void)setLastSelectedSublayer:(CALayer *)lastSelectedSublayer
+- (void)setJjLastSelectedSublayer:(CALayer *)lastSelectedSublayer
 {
     [self setAssociatedObject:lastSelectedSublayer withKey:JJAssociatedObjectKeyLastSelectedSublayer];
 }

@@ -143,7 +143,7 @@ static NSInteger const P = 19;      // property list
     self.highlightLayer.frame = selectedLayer.bounds;
     [CATransaction commit];
     
-    selectedLayer.superlayer.lastSelectedSublayer = selectedLayer;
+    selectedLayer.superlayer.jjLastSelectedSublayer = selectedLayer;
    
     self.externalRootViewController.hierarchyLayer = self.selectedLayer;
 }

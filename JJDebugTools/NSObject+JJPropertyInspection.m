@@ -53,7 +53,7 @@
     NSArray *propertyNames = [self arrayOfPropertyNames];
     for (NSString *key in propertyNames)
     {
-        if ([key hasPrefix:@"jj"])
+        if ([key hasPrefix:@"jj"] || [key hasPrefix:@"action"])
         {
             continue;
         }

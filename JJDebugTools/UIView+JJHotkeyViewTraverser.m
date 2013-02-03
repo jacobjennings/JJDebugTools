@@ -52,25 +52,6 @@
 
 #pragma mark - Properties
 
-static NSString * const JJAssociatedObjectKeyLastSelectedSubview = @"JJAssociatedObjectKeyLastSelectedSubview";
-- (UIView *)lastSelectedSubview {
-    return [self associatedObjectWithKey:JJAssociatedObjectKeyLastSelectedSubview];
-}
-
-- (void)setLastSelectedSubview:(UIView *)lastSelectedSubview {
-    [self setAssociatedObject:lastSelectedSubview withKey:JJAssociatedObjectKeyLastSelectedSubview];
-}
-
-- (UIViewController *)findAssociatedController {
-    Ivar ivar = class_getInstanceVariable([UIView class], "_viewDelegate");
-    UIViewController *controller = object_getIvar(self, ivar);
-    
-    if (controller) {
-        return controller;
-    }
-    return [self.superview findAssociatedController];
-}
-
 - (void)rd;
 {
     NSLog(@"%@", [self performSelector:@selector(recursiveDescription)]);

@@ -8,8 +8,6 @@
 
 @interface UIView (JJHotkeyViewTraverser)
 
-@property (nonatomic, strong) UIView *lastSelectedSubview;
-
 - (UIView *)viewBelow;
 - (UIView *)viewAbove;
 - (UIView *)aSubview;

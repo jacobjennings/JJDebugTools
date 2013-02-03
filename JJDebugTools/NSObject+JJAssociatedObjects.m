@@ -9,14 +9,27 @@
 #import "NSObject+JJAssociatedObjects.h"
 #import <objc/runtime.h>
 
+static NSMutableDictionary * keyToConstKeyDictionary;
+
 @implementation NSObject (JJAssociatedObjects)
 
 - (id)associatedObjectWithKey:(NSString *)key {
-    return objc_getAssociatedObject(self, &key);
+    NSString *constKey = keyToConstKeyDictionary[key];
+    return objc_getAssociatedObject(self, (__bridge const void *)(constKey));
 }
 
 - (void)setAssociatedObject:(id)object withKey:(NSString *)key {
-    objc_setAssociatedObject(self, &key, object, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (!keyToConstKeyDictionary)
+    {
+        keyToConstKeyDictionary = [[NSMutableDictionary alloc] init];
+    }
+    NSString *constKey = keyToConstKeyDictionary[key];
+    if (!constKey)
+    {
+        keyToConstKeyDictionary[key] = key;
+        constKey = keyToConstKeyDictionary[key];
+    }
+    objc_setAssociatedObject(self, (__bridge const void *)(constKey), object, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

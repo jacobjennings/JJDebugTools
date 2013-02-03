@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) CALayer *jjPeerLayerBelow;
 @property (nonatomic, readonly) UIView *jjViewForLayer;
 
-@property (nonatomic, strong) CALayer *lastSelectedSublayer;
+@property (nonatomic, strong) CALayer *jjLastSelectedSublayer;
 
 - (NSString *)jjPropertyName;
 - (BOOL)jjPropertyNameOwnerIsController;

@@ -18,7 +18,7 @@ static UIEdgeInsets const kNotificationViewInsets = (UIEdgeInsets) { .top = 3, .
 
 @property (nonatomic, strong) JJButton *backgroundButton;
 @property (nonatomic, strong) JJLabel *titleLabel;
-@property (nonatomic, strong) UITextView *notificationInfoTextView;
+@property (nonatomic, strong) JJLabel *notificationInfoLabel;
 @property (nonatomic, strong) NSMutableArray *notificationNames;
 @property (nonatomic, strong) NSTimer *updateLabelTimer;
 @property (nonatomic, assign) NSUInteger numberOfRowsThatFit;
@@ -41,11 +41,9 @@ static UIEdgeInsets const kNotificationViewInsets = (UIEdgeInsets) { .top = 3, .
         _titleLabel.text = @"Notifications";
         [self addSubview:_titleLabel];
         
-        _notificationInfoTextView = [[UITextView alloc] init];
-        _notificationInfoTextView.textColor = [UIColor whiteColor];
-        _notificationInfoTextView.backgroundColor = [UIColor clearColor];
-        _notificationInfoTextView.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-        [self addSubview:_notificationInfoTextView];
+        _notificationInfoLabel = [[JJLabel alloc] init];
+        _notificationInfoLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
+        [self addSubview:_notificationInfoLabel];
         
         _notificationNames = [[NSMutableArray alloc] initWithCapacity:1000];
         
@@ -67,12 +65,13 @@ static UIEdgeInsets const kNotificationViewInsets = (UIEdgeInsets) { .top = 3, .
     };
     [self.titleLabel centerVertically];
     
-    CGSize notificationInfoLabelSize = [self.notificationInfoTextView sizeThatFits:self.bounds.size];
+    CGSize notificationInfoLabelSize = [self.notificationInfoLabel sizeThatFits:self.bounds.size];
     CGRect notificationInfoLabelFrame = CGRectCenter(notificationInfoLabelSize, self.bounds);
     notificationInfoLabelFrame.origin.y = CGRectGetMaxY(self.titleLabel.frame);
-    self.notificationInfoTextView.frame = notificationInfoLabelFrame;
+    notificationInfoLabelFrame.origin.x = kNotificationViewInsets.left;
+    self.notificationInfoLabel.frame = notificationInfoLabelFrame;
     self.numberOfRowsThatFit = floor((self.bounds.size.height - kNotificationViewInsets.top - kNotificationViewInsets.bottom - self.titleLabel.frame.size.height - 10) /
-                                     self.notificationInfoTextView.font.lineHeight);
+                                     self.notificationInfoLabel.font.lineHeight);
     [self pruneSavedNotificationNames];
 }
 
@@ -110,7 +109,7 @@ static UIEdgeInsets const kNotificationViewInsets = (UIEdgeInsets) { .top = 3, .
             [stringMut appendString:string];
         }
     }
-    self.notificationInfoTextView.text = [stringMut copy];
+    self.notificationInfoLabel.text = [stringMut copy];
     [self setNeedsLayout];
 }
 
