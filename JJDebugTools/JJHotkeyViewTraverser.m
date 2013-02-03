@@ -25,13 +25,14 @@ static NSInteger const Up = 82;     // Superview
 static NSInteger const Down = 81;   // Subview
 static NSInteger const Left = 80;   // Peer below
 static NSInteger const Right = 79;  // Peer above
-static NSInteger const C = 6;       // UIViewController associated
-static NSInteger const H = 11;      // Click to select 
+static NSInteger const H = 11;      // Click to select
 static NSInteger const R = 21;      // recursiveDescription
 static NSInteger const P = 19;      // property list
 
 @interface JJHotkeyViewTraverser ()
 
+@property (nonatomic, strong) UIView *hitTestOverlay;
+@property (nonatomic, strong) UITapGestureRecognizer *hitTestTapGestureRecognizer;
 
 @end
 
@@ -54,6 +55,10 @@ static NSInteger const P = 19;      // property list
         
         self.highlightLayer = [CALayer layer];
         self.highlightLayer.backgroundColor = [[UIColor yellowColor] colorWithAlphaComponent:0.22].CGColor;
+        
+        self.hitTestOverlay = [[UIView alloc] init];
+        self.hitTestTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        [self.hitTestOverlay addGestureRecognizer:self.hitTestTapGestureRecognizer];
         
 #warning Hook after client's didFinishLaunching somehow instead of lazy delay
         [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:2];
@@ -108,11 +113,6 @@ static NSInteger const P = 19;      // property list
             }
             break;
         }
-        case C:
-        {
-            NSLog(@"\nCONTROLLER: %@", [self.selectedLayer.jjViewForLayer findAssociatedController]);
-            break;
-        }
         case R:
         {
             NSString *recursiveDescription = [self.selectedLayer.jjViewForLayer performSelector:@selector(recursiveDescription)];
@@ -123,6 +123,12 @@ static NSInteger const P = 19;      // property list
         {
             NSString *propertyListString = [self.selectedLayer.jjViewForLayer ?: self.selectedLayer propertyListWithValuesAsSingleString];
             NSLog(@"%@", propertyListString);
+            break;
+        }
+        case H:
+        {
+            [[self rootView] addSubview:self.hitTestOverlay];
+            self.hitTestOverlay.frame = [self rootView].bounds;
             break;
         }
         default:
@@ -150,6 +156,16 @@ static NSInteger const P = 19;      // property list
 
 - (UIView *)rootView {
     return [UIApplication sharedApplication].keyWindow.rootViewController.view;
+}
+
+- (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    [self.hitTestOverlay removeFromSuperview];
+    UIView *hitView = [[self rootView] hitTest:[tapGestureRecognizer locationOfTouch:0 inView:[self rootView]] withEvent:nil];
+    if (hitView)
+    {
+        self.selectedLayer = hitView.layer;
+    }
 }
 
 

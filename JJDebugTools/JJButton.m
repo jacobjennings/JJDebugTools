@@ -37,8 +37,8 @@
         self.gradientLayer = [CAGradientLayer layer];
         [self.maskedLayer addSublayer:self.gradientLayer];
         
-        self.topColor = [UIColor colorWithWhite:0.4 alpha:1];
-        self.bottomColor = [UIColor colorWithWhite:0.27 alpha:1];
+        self.topColor = [UIColor colorWithWhite:0.32 alpha:1];
+        self.bottomColor = [UIColor colorWithWhite:0.22 alpha:1];
         
         self.highlightLayer = [[CAShapeLayer alloc] init];
         self.highlightLayer.fillColor = [UIColor clearColor].CGColor;

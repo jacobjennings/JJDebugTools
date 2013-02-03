@@ -41,9 +41,6 @@
 
 - (UIView *)aSubview
 {
-    if (self.lastSelectedSubview) {
-        return self.lastSelectedSubview;
-    }
     if ([self.subviews count] && self.subviews[0]) {
         return self.subviews[0];
     }
@@ -67,6 +64,17 @@
         if (propertyName) return YES;
     }
     return NO;
+}
+
+
+- (UIViewController *)findAssociatedController {
+    Ivar ivar = class_getInstanceVariable([UIView class], "_viewDelegate");
+    UIViewController *controller = object_getIvar(self, ivar);
+    
+    if (controller) {
+        return controller;
+    }
+    return [self.superview findAssociatedController];
 }
 
 - (NSString *)propertyOfSuperName
