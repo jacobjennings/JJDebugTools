@@ -11,6 +11,8 @@
 #import "NSObject+JJPropertyInspection.h"
 #import "JJButton.h"
 #import "JJLabel.h"
+#import "CALayer+JJHotkeyViewTraverser.h"
+#import <QuartzCore/QuartzCore.h>
 
 static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -51,7 +53,6 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
         _propertiesLabel = [[JJLabel alloc] init];
         _propertiesLabel.font = [DetailsLabelFont fontWithSize:11];
         [self addSubview:_propertiesLabel];
-        
     }
     return self;
 }
@@ -89,19 +90,20 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
     };
 }
 
-- (void)setDetailsView:(UIView *)detailsView
+- (void)setDetailsLayer:(CALayer *)detailsLayer
 {
-    _detailsView = detailsView;
+    _detailsLayer = detailsLayer;
+
+    UIView *viewForLayer = detailsLayer.jjViewForLayer;
+    self.titleLabel.text = NSStringFromClass([viewForLayer ?: detailsLayer class]);
     
-    self.titleLabel.text = NSStringFromClass([detailsView class]);
-    
-    NSString *controllerString = NSStringFromClass([[detailsView findAssociatedController] class]);
+    NSString *controllerString = NSStringFromClass([[viewForLayer findAssociatedController] class]);
     self.controllerLabel.text = [NSString stringWithFormat:@"Controller: %@", controllerString ?: @"Unknown"];
-    NSString *propertyNameString = [detailsView propertyOfSuperName];
+    NSString *propertyNameString = [detailsLayer jjPropertyName];
     self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ %@",
                                    propertyNameString,
-                                   [detailsView propertyOfSuperNameIsController] ? @"on controller" : @""];
-    self.propertiesLabel.text = [detailsView propertyListWithValuesAsSingleString];
+                                   [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""];
+    self.propertiesLabel.text = [viewForLayer ?: detailsLayer propertyListWithValuesAsSingleString];
     
     [self setNeedsLayout];
 }

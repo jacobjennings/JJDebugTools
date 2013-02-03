@@ -20,11 +20,13 @@
 		1F0A535C16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A535B16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m */; };
 		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
 		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
+		1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */; };
 		1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */; };
 		1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */; };
 		1FBC5773165D6BA30052ED88 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5772165D6BA30052ED88 /* libicucore.dylib */; };
 		1FBC5776165D6BA90052ED88 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5775165D6BA90052ED88 /* CFNetwork.framework */; };
 		1FBC5778165D6BAF0052ED88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5777165D6BAF0052ED88 /* Security.framework */; };
+		1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDCEA416BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m */; };
 		85C7D3696C93FEED63611A04 /* JJExternalDisplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DBC1FBD00B29238E76D5 /* JJExternalDisplayManager.m */; };
 		85C7D4F282D15E1D083897C5 /* JJExternalScreenRootViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 85C7D546A849ABA22E84D963 /* JJExternalScreenRootViewController.h */; };
 		85C7D74AA6016B3F887EF1FE /* JJExternalScreenRootView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 85C7D85C61483841544977B8 /* JJExternalScreenRootView.h */; };
@@ -91,6 +93,8 @@
 		1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJHotkeyViewTraverser.m; sourceTree = "<group>"; };
 		1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJAssociatedObjects.h"; sourceTree = "<group>"; };
 		1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJAssociatedObjects.m"; sourceTree = "<group>"; };
+		1F3F529316BA0B2A00545C48 /* JJNotificationInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJNotificationInfoView.h; sourceTree = "<group>"; };
+		1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNotificationInfoView.m; sourceTree = "<group>"; };
 		1F76A8B81626ADB500887C3B /* NSObject+JJPropertyInspection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJPropertyInspection.h"; sourceTree = "<group>"; };
 		1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJPropertyInspection.m"; sourceTree = "<group>"; };
 		1F9F99A516B5059500FF8CBB /* UIView+JJFrameUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JJFrameUtilities.h"; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 		1FBC5772165D6BA30052ED88 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FBC5775165D6BA90052ED88 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1FBC5777165D6BAF0052ED88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1FBDCEA316BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JJHotkeyViewTraverser.h"; sourceTree = "<group>"; };
+		1FBDCEA416BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JJHotkeyViewTraverser.m"; sourceTree = "<group>"; };
 		85C7D454E3B90870691F876A /* JJExternalDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJExternalDisplayManager.h; sourceTree = "<group>"; };
 		85C7D512F0267C816DE86BD0 /* JJExternalScreenRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJExternalScreenRootView.m; sourceTree = "<group>"; };
 		85C7D546A849ABA22E84D963 /* JJExternalScreenRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJExternalScreenRootViewController.h; sourceTree = "<group>"; };
@@ -159,11 +165,8 @@
 		1F097A1616266AE100F95A13 /* JJDebugTools */ = {
 			isa = PBXGroup;
 			children = (
+				1FBDCEA616BDDABE00242C3A /* View Traverser */,
 				85C7DE17D9857E63A6A600A1 /* External Screen */,
-				1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */,
-				1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */,
-				1F097A3C16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.h */,
-				1F097A3D16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m */,
 				1F097A3F16266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.h */,
 				1F097A4016266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.m */,
 				1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */,
@@ -242,9 +245,32 @@
 			name = "Third Party";
 			sourceTree = "<group>";
 		};
+		1F3F529216BA0AFD00545C48 /* NSNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				1F3F529316BA0B2A00545C48 /* JJNotificationInfoView.h */,
+				1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */,
+			);
+			name = NSNotifications;
+			sourceTree = "<group>";
+		};
+		1FBDCEA616BDDABE00242C3A /* View Traverser */ = {
+			isa = PBXGroup;
+			children = (
+				1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */,
+				1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */,
+				1F097A3C16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.h */,
+				1F097A3D16266B3200F95A13 /* UIView+JJHotkeyViewTraverser.m */,
+				1FBDCEA316BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.h */,
+				1FBDCEA416BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m */,
+			);
+			name = "View Traverser";
+			sourceTree = "<group>";
+		};
 		85C7DE17D9857E63A6A600A1 /* External Screen */ = {
 			isa = PBXGroup;
 			children = (
+				1F3F529216BA0AFD00545C48 /* NSNotifications */,
 				1F0A52AC16B4BB96008F1ED1 /* View Details */,
 				1F0A52A216B49127008F1ED1 /* View Hierarchy */,
 				85C7D454E3B90870691F876A /* JJExternalDisplayManager.h */,
@@ -324,6 +350,8 @@
 				1F0A535816B4F9DB008F1ED1 /* JJLabel.m in Sources */,
 				1F0A535C16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m in Sources */,
 				1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */,
+				1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */,
+				1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
