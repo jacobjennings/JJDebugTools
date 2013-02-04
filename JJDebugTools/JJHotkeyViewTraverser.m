@@ -20,14 +20,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CALayer+JJHotkeyViewTraverser.h"
 
-static NSInteger const T = 23;      // Begin
+static NSInteger const H = 11;      // Toggle highlight
 static NSInteger const Up = 82;     // Superview
 static NSInteger const Down = 81;   // Subview
 static NSInteger const Left = 80;   // Peer below
 static NSInteger const Right = 79;  // Peer above
-static NSInteger const H = 11;      // Click to select
+static NSInteger const T = 23;      // Tap to select
 static NSInteger const R = 21;      // recursiveDescription
-static NSInteger const P = 19;      // property list
+static NSInteger const P = 19;      // Browse properties
+//static NSInteger const C = 6;       // Switch detail view to Controller mode
+static NSInteger const V = 25;      // Switch to view hierarchy navigation
 
 @interface JJHotkeyViewTraverser ()
 
@@ -69,19 +71,23 @@ static NSInteger const P = 19;      // property list
 - (void)configureExternalScreen
 {
     _externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
-    [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;    
+    [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;
+    self.selectedLayer = [self rootView].layer;
 }
 
 - (void)hotkeyPressedNotification:(NSNotification *)notification
 {
     NSInteger keyPressedInteger = [notification.userInfo[JJPrivateKeyEventUserInfoKeyUnicodeKeyCode] integerValue];
     switch (keyPressedInteger) {
-        case T:
+        case H:
         {
             if (self.highlightLayer.superlayer) {
                 [self.highlightLayer removeFromSuperlayer];
             } else {
-                self.selectedLayer = [self rootView].layer;
+                if (!self.selectedLayer) {
+                    self.selectedLayer = [self rootView].layer;
+                }
+                self.highlightLayer.hidden = !self.highlightLayer.hidden;
             }
             break;
         }
@@ -125,7 +131,7 @@ static NSInteger const P = 19;      // property list
             NSLog(@"%@", propertyListString);
             break;
         }
-        case H:
+        case T:
         {
             [[self rootView] addSubview:self.hitTestOverlay];
             self.hitTestOverlay.frame = [self rootView].bounds;

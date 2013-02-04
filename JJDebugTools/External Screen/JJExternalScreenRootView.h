@@ -8,11 +8,13 @@
 #import "JJHierarchyView.h"
 #import "JJViewDetailsView.h"
 #import "JJNotificationInfoView.h"
+#import "JJShortcutsView.h"
 
 @interface JJExternalScreenRootView : UIView
 
 @property (nonatomic, strong) JJHierarchyView *hierarchyView;
 @property (nonatomic, strong) JJViewDetailsView *viewDetailsView;
 @property (nonatomic, strong) JJNotificationInfoView *notificationInfoView;
+@property (nonatomic, strong) JJShortcutsView *shortcutsView;
 
 @end

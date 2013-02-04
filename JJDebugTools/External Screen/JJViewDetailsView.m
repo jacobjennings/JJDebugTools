@@ -13,6 +13,7 @@
 #import "JJLabel.h"
 #import "CALayer+JJHotkeyViewTraverser.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TTTAttributedLabel.h"
 
 static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -24,7 +25,7 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
 @property (nonatomic, strong) JJLabel *titleLabel;
 @property (nonatomic, strong) JJLabel *controllerLabel;
 @property (nonatomic, strong) JJLabel *propertyNameLabel;
-@property (nonatomic, strong) JJLabel *propertiesLabel;
+@property (nonatomic, strong) TTTAttributedLabel *propertiesLabel;
 
 @end
 
@@ -50,7 +51,10 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
         _propertyNameLabel.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:1 alpha:1];
         [self addSubview:_propertyNameLabel];
         
-        _propertiesLabel = [[JJLabel alloc] init];
+        _propertiesLabel = [[TTTAttributedLabel alloc] init];
+        _propertiesLabel.numberOfLines = 0;
+        _propertiesLabel.backgroundColor = [UIColor clearColor];
+        _propertiesLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _propertiesLabel.font = [DetailsLabelFont fontWithSize:12];
         [self addSubview:_propertiesLabel];
     }
@@ -104,9 +108,23 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
     self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ %@",
                                    propertyNameString,
                                    [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""];
-    self.propertiesLabel.text = [viewForLayer ?: detailsLayer propertyListWithValuesAsSingleString];
+    self.propertiesLabel.attributedText = [self attributedStringHighlightingNameColonWithString:[viewForLayer ?: detailsLayer propertyListWithValuesAsSingleString]];
     
     [self setNeedsLayout];
+}
+
+- (NSAttributedString *)attributedStringHighlightingNameColonWithString:(NSString *)string
+{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(^|\n)[^[:\t ]]*:" options:0 error:&error];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSRange searchRange = NSMakeRange(0, [string length]);
+    [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:[UIColor whiteColor] range:searchRange];
+    [regex enumerateMatchesInString:string options:0 range:searchRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:[UIColor colorWithRed:0.9 green:0.8 blue:1 alpha:1] range:result.range];
+    }];
+    NSLog(@"%@", error);
+    return attributedString;
 }
 
 @end

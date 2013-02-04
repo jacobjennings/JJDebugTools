@@ -33,6 +33,9 @@ static CGFloat const kNotificationsWidth = 340;
         
         _notificationInfoView = [[JJNotificationInfoView alloc] init];
         [self addSubview:_notificationInfoView];
+        
+        _shortcutsView = [[JJShortcutsView alloc] init];
+        [self addSubview:_shortcutsView];
     }
     return self;
 }
@@ -51,6 +54,11 @@ static CGFloat const kNotificationsWidth = 340;
     self.notificationInfoView.frame = (CGRect) {
         .origin = CGPointMake(self.bounds.size.width - kNotificationsWidth, CGRectGetMaxY(self.hierarchyView.frame)),
         .size = CGSizeMake(kNotificationsWidth, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
+    };
+    
+    self.shortcutsView.frame = (CGRect) {
+        .origin = CGPointMake(CGRectGetMaxX(self.viewDetailsView.frame), CGRectGetMaxY(self.hierarchyView.frame)),
+        .size = CGSizeMake(340, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
     };
 }
 
