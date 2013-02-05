@@ -82,14 +82,10 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     switch (keyPressedInteger) {
         case H:
         {
-            if (self.highlightLayer.superlayer) {
-                [self.highlightLayer removeFromSuperlayer];
-            } else {
-                if (!self.selectedLayer) {
-                    self.selectedLayer = [self rootView].layer;
-                }
-                self.highlightLayer.hidden = !self.highlightLayer.hidden;
+            if (!self.selectedLayer) {
+                self.selectedLayer = [self rootView].layer;
             }
+            self.highlightLayer.hidden = !self.highlightLayer.hidden;
             break;
         }
         case Up:

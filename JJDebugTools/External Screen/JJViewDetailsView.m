@@ -103,9 +103,7 @@ static CGFloat const kSectionSpacing = 4;
     NSString *controllerString = NSStringFromClass([[viewForLayer findAssociatedController] class]);
     self.controllerLabel.text = [NSString stringWithFormat:@"Controller: %@", controllerString ?: @"Unknown"];
     NSString *propertyNameString = [detailsLayer jjPropertyName];
-    self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ %@",
-                                   propertyNameString,
-                                   [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""];
+    self.propertyNameLabel.text = propertyNameString ? [NSString stringWithFormat:@"Property %@ %@", propertyNameString, [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""] : nil;
     
     for (UIView *view in self.titledAttributedViews)
     {

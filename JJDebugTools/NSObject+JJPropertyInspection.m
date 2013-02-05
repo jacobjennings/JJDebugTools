@@ -32,7 +32,7 @@
     NSString *propertyName;
     NSString *propertyAttributes;
     NSUInteger outCount, i;
-    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    objc_property_t *properties = class_copyPropertyList(aClass, &outCount);
     NSMutableDictionary *propertyNameToAttributeDictionary = [NSMutableDictionary dictionaryWithCapacity:outCount];
     for (i = 0; i < outCount; i++) {
         objc_property_t property = properties[i];
@@ -52,7 +52,8 @@
     NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionaryForClass:class];
     NSMutableString *stringBuilder = [NSMutableString string];
     for (NSString *key in [propertyNameToAttributesDictionary allKeys]) {
-        if ([key isEqualToString:@"action"] || [key hasPrefix:@"_"])
+        NSLog(@"%@", key);
+        if ([key isEqualToString:@"action"] || [key hasPrefix:@"_"] || [key isEqualToString:@"caretRect"])
         {
             continue;
         }
@@ -76,10 +77,11 @@
 {
     NSMutableArray *classList = [[NSMutableArray alloc] init];
     Class classInChain = [self class];
-    do {
+    while (classInChain != [NSObject class]) {
         [classList addObject:NSStringFromClass(classInChain)];
         classInChain = [classInChain superclass];
-    } while (classInChain != [NSObject class]);
+    }
+    [classList addObject:NSStringFromClass([NSObject class])];
     return [NSArray arrayWithArray:classList];
 }
 
@@ -87,10 +89,11 @@
 {
     NSMutableArray *classList = [[NSMutableArray alloc] init];
     Class classInChain = [self class];
-    do {
+    while (classInChain != [NSObject class]) {
         [classList addObject:classInChain];
         classInChain = [classInChain superclass];
-    } while (classInChain != [NSObject class]);
+    }
+    [classList addObject:[NSObject class]];
     return [NSArray arrayWithArray:classList];
 }
 

@@ -33,7 +33,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
     if (self) {
         self.backgroundButton = [[JJButton alloc] init];
         [self addSubview:self.backgroundButton];
-
+        
         self.titleLabel = [[JJLabel alloc] init];
         self.titleLabel.text = @"Shortcuts";
         self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
@@ -51,32 +51,48 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                           value:[UIFont fontWithName:@"HelveticaNeue" size:20]
                                           range:NSMakeRange(0, 1)];
         self.highlightLabel.attributedText = highlightAttributedString;
-        self.highlightLabel.shadowColor = [UIColor blackColor];
-        self.highlightLabel.shadowOffset = CGSizeMake(0, 1);
-        self.highlightLabel.shadowRadius = 1;
         [self addSubview:self.highlightLabel];
         
         self.viewHierarchyLabel = [self createAttributedLabel];
-        NSMutableAttributedString *viewHierarchyAttributedString = [[NSMutableAttributedString alloc] initWithString:@"View hierarchy (then arrows to move)"];
+        NSMutableAttributedString *viewHierarchyAttributedString = [[NSMutableAttributedString alloc] initWithString:@"View hierarchy (arrows to move)"];
         [viewHierarchyAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
                                               value:[UIColor whiteColor]
                                               range:NSMakeRange(0, viewHierarchyAttributedString.length)];
         [viewHierarchyAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                          value:[UIFont fontWithName:@"HelveticaNeue" size:16]
-                                          range:NSMakeRange(0, viewHierarchyAttributedString.length)];
+                                              value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                              range:NSMakeRange(0, viewHierarchyAttributedString.length)];
         [viewHierarchyAttributedString addAttribute:(NSString *)kCTFontAttributeName
                                               value:[UIFont fontWithName:@"HelveticaNeue" size:20]
                                               range:NSMakeRange(0, 1)];
         self.viewHierarchyLabel.attributedText = viewHierarchyAttributedString;
-        self.viewHierarchyLabel.shadowColor = [UIColor blackColor];
-        self.viewHierarchyLabel.shadowOffset = CGSizeMake(0, 1);
-        self.viewHierarchyLabel.shadowRadius = 1;
         [self addSubview:self.viewHierarchyLabel];
         
         self.tapToSelectLabel = [self createAttributedLabel];
+        NSMutableAttributedString *tapToSelectAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Tap to select a view"];
+        [tapToSelectAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                            value:[UIColor whiteColor]
+                                            range:NSMakeRange(0, tapToSelectAttributedString.length)];
+        [tapToSelectAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                            value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                            range:NSMakeRange(0, tapToSelectAttributedString.length)];
+        [tapToSelectAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                            value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                            range:NSMakeRange(0, 1)];
+        self.tapToSelectLabel.attributedText = tapToSelectAttributedString;
         [self addSubview:self.tapToSelectLabel];
         
         self.propertyBrowserLabel = [self createAttributedLabel];
+        NSMutableAttributedString *propertyBrowserAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Property list (arrows to move)"];
+        [propertyBrowserAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                                value:[UIColor whiteColor]
+                                                range:NSMakeRange(0, propertyBrowserAttributedString.length)];
+        [propertyBrowserAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                                range:NSMakeRange(0, propertyBrowserAttributedString.length)];
+        [propertyBrowserAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                                range:NSMakeRange(0, 1)];
+        self.propertyBrowserLabel.attributedText = propertyBrowserAttributedString;
         [self addSubview:self.propertyBrowserLabel];
     }
     return self;
@@ -112,7 +128,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.viewHierarchyLabel.frame)),
         .size = tapToSelectLabelSize
     };
-
+    
     CGSize propertyBrowserLabelSize = [self.propertyBrowserLabel sizeThatFits:self.bounds.size];
     self.propertyBrowserLabel.frame = (CGRect) {
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.tapToSelectLabel.frame)),
@@ -127,6 +143,9 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
     label.backgroundColor = [UIColor clearColor];
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    label.shadowColor = [UIColor blackColor];
+    label.shadowOffset = CGSizeMake(0, -1);
+    label.shadowRadius = 1;
     return label;
 }
 

@@ -28,6 +28,9 @@
         self.attributedLabel.numberOfLines = 0;
         self.attributedLabel.backgroundColor = [UIColor clearColor];
         self.attributedLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.attributedLabel.shadowColor = [UIColor blackColor];
+        self.attributedLabel.shadowOffset = CGSizeMake(0, -1);
+        self.attributedLabel.shadowRadius = 1;
         [self addSubview:self.attributedLabel];
     }
     return self;
