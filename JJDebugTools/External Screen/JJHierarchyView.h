@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JJHierarchyViewCell.h"
 
-@interface JJHierarchyView : UIView
+@interface JJHierarchyView : UIScrollView
 
 @property (nonatomic, strong) CALayer *hierarchyLayer;
 

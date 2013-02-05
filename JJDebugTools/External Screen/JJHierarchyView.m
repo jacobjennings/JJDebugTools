@@ -36,8 +36,6 @@
     
     CGFloat rowY = 0;
     
-    
-    
     for (JJHierarchyViewRow *row in self.rows)
     {
         row.frame = CGRectMake(0, rowY, self.bounds.size.width, kHierarchyViewCellHeight);
@@ -48,7 +46,20 @@
 
 - (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
+    CALayer *oldLayer = _hierarchyLayer;
     _hierarchyLayer = hierarchyLayer;
+    BOOL up = hierarchyLayer == oldLayer.superlayer;
+    BOOL down = hierarchyLayer.superlayer == oldLayer;
+    if (up || down)
+    {
+//        self.contentOffset = CGPointZero;
+//        [UIView animateWithDuration:0.5 delay:0 options:0
+//                         animations:^{
+//                             self.contentOffset = CGPointMake(0, up ? -kHierarchyViewCellHeight : kHierarchyViewCellHeight);
+//                         }
+//                         completion:^(BOOL finished) {
+//                         }];
+    }
     for (UIView *view in self.rows)
     {
         [view removeFromSuperview];
