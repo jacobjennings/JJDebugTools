@@ -87,7 +87,7 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     
     if (!self.propertyNameLabel.text || ![self.propertyNameLabel.text length])
     {
-        [self.rectLabel centerVertically];
+        [self.rectLabel centerHorizontally];
     }
 }
 

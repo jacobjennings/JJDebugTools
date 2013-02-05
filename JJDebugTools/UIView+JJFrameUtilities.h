@@ -10,6 +10,6 @@
 
 @interface UIView (JJFrameUtilities)
 
-- (void)centerVertically;
+- (void)centerHorizontally;
 
 @end

@@ -18,32 +18,41 @@
     NSMutableArray *propertyNames = [NSMutableArray arrayWithCapacity:outCount];
     for (i = 0; i < outCount; i++) {
         objc_property_t property = properties[i];
-        propertyName = [NSString stringWithCString:property_getName(property)];
+        propertyName = [NSString stringWithUTF8String:property_getName(property)];
         [propertyNames addObject:propertyName];
     }
     return [NSArray arrayWithArray:propertyNames];
 }
 
 - (NSDictionary *)propertyNameToAttributesDictionary {
+    return [self propertyNameToAttributesDictionaryForClass:[self class]];
+}
+
+- (NSDictionary *)propertyNameToAttributesDictionaryForClass:(Class)aClass {
     NSString *propertyName;
     NSString *propertyAttributes;
-    unsigned int outCount, i;
+    NSUInteger outCount, i;
     objc_property_t *properties = class_copyPropertyList([self class], &outCount);
     NSMutableDictionary *propertyNameToAttributeDictionary = [NSMutableDictionary dictionaryWithCapacity:outCount];
     for (i = 0; i < outCount; i++) {
         objc_property_t property = properties[i];
-        propertyName = [NSString stringWithCString:property_getName(property)];
-        propertyAttributes = [NSString stringWithCString:property_getAttributes(property)];
+        propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        propertyAttributes = [NSString stringWithUTF8String:property_getAttributes(property)];
         [propertyNameToAttributeDictionary setObject:propertyAttributes forKey:propertyName];
     }
     return [NSDictionary dictionaryWithDictionary:propertyNameToAttributeDictionary];
 }
 
-- (NSString *)propertyListWithValuesAsSingleString {
-    NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionary];
+- (NSString *)propertyListWithValuesAsSingleString
+{
+    return [self propertyListWithValuesAsSingleStringForClass:[self class]];
+}
+
+- (NSString *)propertyListWithValuesAsSingleStringForClass:(Class)class {
+    NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionaryForClass:class];
     NSMutableString *stringBuilder = [NSMutableString string];
     for (NSString *key in [propertyNameToAttributesDictionary allKeys]) {
-        if ([key isEqualToString:@"action"])
+        if ([key isEqualToString:@"action"] || [key hasPrefix:@"_"])
         {
             continue;
         }
@@ -51,6 +60,40 @@
     }
     return [stringBuilder copy];
 }
+
+
+- (NSDictionary *)classToPropertyListStringDictionary
+{
+    NSMutableDictionary *classToPropertyListStringDictionary = [[NSMutableDictionary alloc] init];
+    for (Class classInChain in [self superclassChainListToNSObject])
+    {
+        [classToPropertyListStringDictionary setObject:[self propertyListWithValuesAsSingleStringForClass:classInChain] forKey:NSStringFromClass(classInChain)];
+    }
+    return classToPropertyListStringDictionary;
+}
+
+- (NSArray *)superclassNameChainListToNSObject
+{
+    NSMutableArray *classList = [[NSMutableArray alloc] init];
+    Class classInChain = [self class];
+    do {
+        [classList addObject:NSStringFromClass(classInChain)];
+        classInChain = [classInChain superclass];
+    } while (classInChain != [NSObject class]);
+    return [NSArray arrayWithArray:classList];
+}
+
+- (NSArray *)superclassChainListToNSObject
+{
+    NSMutableArray *classList = [[NSMutableArray alloc] init];
+    Class classInChain = [self class];
+    do {
+        [classList addObject:classInChain];
+        classInChain = [classInChain superclass];
+    } while (classInChain != [NSObject class]);
+    return [NSArray arrayWithArray:classList];
+}
+
 
 - (NSString *)propertyNameForObject:(id)object
 {

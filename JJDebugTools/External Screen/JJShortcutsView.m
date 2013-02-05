@@ -31,35 +31,53 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _backgroundButton = [[JJButton alloc] init];
-        [self addSubview:_backgroundButton];
+        self.backgroundButton = [[JJButton alloc] init];
+        [self addSubview:self.backgroundButton];
 
-        _titleLabel = [[JJLabel alloc] init];
-        _titleLabel.text = @"Shortcuts";
-        [self addSubview:_titleLabel];
+        self.titleLabel = [[JJLabel alloc] init];
+        self.titleLabel.text = @"Shortcuts";
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+        [self addSubview:self.titleLabel];
         
-        _highlightLabel = [self createAttributedLabel];
+        self.highlightLabel = [self createAttributedLabel];
         NSMutableAttributedString *highlightAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Highlight overlay toggle"];
         [highlightAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
                                           value:[UIColor whiteColor]
                                           range:NSMakeRange(0, highlightAttributedString.length)];
         [highlightAttributedString addAttribute:(NSString *)kCTFontAttributeName
                                           value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                          range:NSMakeRange(0, highlightAttributedString.length)];
+        [highlightAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                          value:[UIFont fontWithName:@"HelveticaNeue" size:20]
                                           range:NSMakeRange(0, 1)];
-        _highlightLabel.attributedText = highlightAttributedString;
-        _highlightLabel.shadowColor = [UIColor blackColor];
-        _highlightLabel.shadowOffset = CGSizeMake(0, 1);
-        _highlightLabel.shadowRadius = 1;
-        [self addSubview:_highlightLabel];
+        self.highlightLabel.attributedText = highlightAttributedString;
+        self.highlightLabel.shadowColor = [UIColor blackColor];
+        self.highlightLabel.shadowOffset = CGSizeMake(0, 1);
+        self.highlightLabel.shadowRadius = 1;
+        [self addSubview:self.highlightLabel];
         
-        _viewHierarchyLabel = [self createAttributedLabel];
-        [self addSubview:_viewHierarchyLabel];
+        self.viewHierarchyLabel = [self createAttributedLabel];
+        NSMutableAttributedString *viewHierarchyAttributedString = [[NSMutableAttributedString alloc] initWithString:@"View hierarchy (then arrows to move)"];
+        [viewHierarchyAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                              value:[UIColor whiteColor]
+                                              range:NSMakeRange(0, viewHierarchyAttributedString.length)];
+        [viewHierarchyAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                          value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                          range:NSMakeRange(0, viewHierarchyAttributedString.length)];
+        [viewHierarchyAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                              value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                              range:NSMakeRange(0, 1)];
+        self.viewHierarchyLabel.attributedText = viewHierarchyAttributedString;
+        self.viewHierarchyLabel.shadowColor = [UIColor blackColor];
+        self.viewHierarchyLabel.shadowOffset = CGSizeMake(0, 1);
+        self.viewHierarchyLabel.shadowRadius = 1;
+        [self addSubview:self.viewHierarchyLabel];
         
-        _tapToSelectLabel = [self createAttributedLabel];
-        [self addSubview:_tapToSelectLabel];
+        self.tapToSelectLabel = [self createAttributedLabel];
+        [self addSubview:self.tapToSelectLabel];
         
-        _propertyBrowserLabel = [self createAttributedLabel];
-        [self addSubview:_propertyBrowserLabel];
+        self.propertyBrowserLabel = [self createAttributedLabel];
+        [self addSubview:self.propertyBrowserLabel];
     }
     return self;
 }
@@ -75,6 +93,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
         .origin = CGPointMake(kInsets.left, kInsets.top),
         .size = titleLabelSize
     };
+    [self.titleLabel centerHorizontally];
     
     CGSize highlightLabelSize = [self.highlightLabel sizeThatFits:self.bounds.size];
     self.highlightLabel.frame = (CGRect) {

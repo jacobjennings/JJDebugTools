@@ -63,7 +63,7 @@ static UIEdgeInsets const kNotificationViewInsets = (UIEdgeInsets) { .top = 3, .
         .origin = CGPointMake(kNotificationViewInsets.left, kNotificationViewInsets.top),
         .size = titleLabelSize
     };
-    [self.titleLabel centerVertically];
+    [self.titleLabel centerHorizontally];
     
     CGSize notificationInfoLabelSize = [self.notificationInfoLabel sizeThatFits:self.bounds.size];
     CGRect notificationInfoLabelFrame = CGRectCenter(notificationInfoLabelSize, self.bounds);

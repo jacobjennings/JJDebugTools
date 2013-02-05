@@ -73,6 +73,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     _externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
     [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;
     self.selectedLayer = [self rootView].layer;
+    self.highlightLayer.hidden = YES;
 }
 
 - (void)hotkeyPressedNotification:(NSNotification *)notification

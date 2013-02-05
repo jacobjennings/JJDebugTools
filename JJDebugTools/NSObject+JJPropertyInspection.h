@@ -14,5 +14,7 @@
 - (NSDictionary *)propertyNameToAttributesDictionary;
 - (NSString *)propertyListWithValuesAsSingleString;
 - (NSString *)propertyNameForObject:(id)object;
+- (NSArray *)superclassNameChainListToNSObject;
+- (NSDictionary *)classToPropertyListStringDictionary;
 
 @end

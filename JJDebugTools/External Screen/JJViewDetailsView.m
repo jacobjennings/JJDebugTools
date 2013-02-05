@@ -14,8 +14,10 @@
 #import "CALayer+JJHotkeyViewTraverser.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TTTAttributedLabel.h"
+#import "JJViewDetailsViewTitledAttributedLabelView.h"
 
-static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
+static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
+static CGFloat const kSectionSpacing = 4;
 
 #define DetailsLabelFont [UIFont fontWithName:@"HelveticaNeue" size:15]
 
@@ -25,7 +27,7 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
 @property (nonatomic, strong) JJLabel *titleLabel;
 @property (nonatomic, strong) JJLabel *controllerLabel;
 @property (nonatomic, strong) JJLabel *propertyNameLabel;
-@property (nonatomic, strong) TTTAttributedLabel *propertiesLabel;
+@property (nonatomic, strong) NSArray *titledAttributedViews;
 
 @end
 
@@ -50,13 +52,6 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
         _propertyNameLabel.font = DetailsLabelFont;
         _propertyNameLabel.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:1 alpha:1];
         [self addSubview:_propertyNameLabel];
-        
-        _propertiesLabel = [[TTTAttributedLabel alloc] init];
-        _propertiesLabel.numberOfLines = 0;
-        _propertiesLabel.backgroundColor = [UIColor clearColor];
-        _propertiesLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _propertiesLabel.font = [DetailsLabelFont fontWithSize:12];
-        [self addSubview:_propertiesLabel];
     }
     return self;
 }
@@ -66,33 +61,36 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
     [super layoutSubviews];
     
     self.backgroundButton.frame = self.bounds;
+    CGSize insetSize = CGSizeMake(self.bounds.size.width - kInsets.left - kInsets.right, self.bounds.size.height);
     
     CGSize titleLabelSize = [self.titleLabel sizeThatFits:self.bounds.size];
     self.titleLabel.frame = (CGRect) {
-        .origin = CGPointMake(kDetailsViewInsets.left, kDetailsViewInsets.top),
+        .origin = CGPointMake(kInsets.left, kInsets.top),
         .size = titleLabelSize
     };
-    [self.titleLabel centerVertically];
+    [self.titleLabel centerHorizontally];
     
     CGSize controllerLabelSize = [self.controllerLabel sizeThatFits:self.bounds.size];
     self.controllerLabel.frame = (CGRect) {
-        .origin = CGPointMake(kDetailsViewInsets.left, CGRectGetMaxY(self.titleLabel.frame)),
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.titleLabel.frame)),
         .size = controllerLabelSize
     };
+    [self.controllerLabel centerHorizontally];
     
     CGSize propertyNameLabelSize = [self.propertyNameLabel sizeThatFits:self.bounds.size];
     self.propertyNameLabel.frame = (CGRect) {
-        .origin = CGPointMake(kDetailsViewInsets.left, CGRectGetMaxY(self.controllerLabel.frame)),
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.controllerLabel.frame)),
         .size = propertyNameLabelSize
     };
+    [self.propertyNameLabel centerHorizontally];
     
-    CGSize propertiesLabelSize = [self.propertiesLabel sizeThatFits:CGSizeMake(self.bounds.size.width - kDetailsViewInsets.left - kDetailsViewInsets.right,
-                                                                               self.bounds.size.height - kDetailsViewInsets.top - kDetailsViewInsets.bottom)];
-    propertiesLabelSize.height = MIN(propertiesLabelSize.height, self.bounds.size.height - CGRectGetMaxY(self.propertyNameLabel.frame) - kDetailsViewInsets.bottom);
-    self.propertiesLabel.frame = (CGRect) {
-        .origin = CGPointMake(kDetailsViewInsets.left, CGRectGetMaxY(self.propertyNameLabel.frame)),
-        .size = propertiesLabelSize
-    };
+    CGFloat lastY = CGRectGetMaxY(self.propertyNameLabel.frame) + kSectionSpacing;
+    for (UIView *titledAttributedLabelView in self.titledAttributedViews)
+    {
+        CGSize titledAttributedLabelViewSize = [titledAttributedLabelView sizeThatFits:insetSize];
+        titledAttributedLabelView.frame = CGRectMake(kInsets.left, lastY, insetSize.width, titledAttributedLabelViewSize.height);
+        lastY = CGRectGetMaxY(titledAttributedLabelView.frame) + kSectionSpacing;
+    }
 }
 
 - (void)setDetailsLayer:(CALayer *)detailsLayer
@@ -108,7 +106,24 @@ static UIEdgeInsets const kDetailsViewInsets = (UIEdgeInsets) { .top = 3, .left 
     self.propertyNameLabel.text = [NSString stringWithFormat:@"Property %@ %@",
                                    propertyNameString,
                                    [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""];
-    self.propertiesLabel.attributedText = [self attributedStringHighlightingNameColonWithString:[viewForLayer ?: detailsLayer propertyListWithValuesAsSingleString]];
+    
+    for (UIView *view in self.titledAttributedViews)
+    {
+        [view removeFromSuperview];
+    }
+    NSDictionary *classNameToPropertyListString = [viewForLayer ?: detailsLayer classToPropertyListStringDictionary];
+    NSMutableArray *titledAttributedLabelViewsMutable = [[NSMutableArray alloc] init];
+    NSUInteger depth = 0;
+    for (NSString *className in [viewForLayer ?: detailsLayer superclassNameChainListToNSObject])
+    {
+        JJViewDetailsViewTitledAttributedLabelView *titleAttributedLabelView = [[JJViewDetailsViewTitledAttributedLabelView alloc] init];
+        titleAttributedLabelView.titleLabel.text = depth > 0 ? [NSString stringWithFormat:@"Superclass #%u: %@", depth, className] : className;
+        titleAttributedLabelView.attributedLabel.attributedText = [self attributedStringHighlightingNameColonWithString:classNameToPropertyListString[className]];
+        [titledAttributedLabelViewsMutable addObject:titleAttributedLabelView];
+        [self addSubview:titleAttributedLabelView];
+        depth++;
+    }
+    self.titledAttributedViews = [NSArray arrayWithArray:titledAttributedLabelViewsMutable];
     
     [self setNeedsLayout];
 }

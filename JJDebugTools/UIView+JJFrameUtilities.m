@@ -10,7 +10,7 @@
 
 @implementation UIView (JJFrameUtilities)
 
-- (void)centerVertically;
+- (void)centerHorizontally;
 {
     self.frame = (CGRect) {
         .origin = CGPointMake(round(self.superview.bounds.size.width / 2 - self.bounds.size.width / 2),

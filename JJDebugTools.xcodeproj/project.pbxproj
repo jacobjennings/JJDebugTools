@@ -23,6 +23,7 @@
 		1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */; };
 		1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */; };
 		1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */; };
+		1FACDF7716C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */; };
 		1FBC5773165D6BA30052ED88 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5772165D6BA30052ED88 /* libicucore.dylib */; };
 		1FBC5776165D6BA90052ED88 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5775165D6BA90052ED88 /* CFNetwork.framework */; };
 		1FBC5778165D6BAF0052ED88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5777165D6BAF0052ED88 /* Security.framework */; };
@@ -101,6 +102,8 @@
 		1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJPropertyInspection.m"; sourceTree = "<group>"; };
 		1F9F99A516B5059500FF8CBB /* UIView+JJFrameUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JJFrameUtilities.h"; sourceTree = "<group>"; };
 		1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JJFrameUtilities.m"; sourceTree = "<group>"; };
+		1FACDF7516C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJViewDetailsViewTitledAttributedLabelView.h; sourceTree = "<group>"; };
+		1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJViewDetailsViewTitledAttributedLabelView.m; sourceTree = "<group>"; };
 		1FBC5772165D6BA30052ED88 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FBC5775165D6BA90052ED88 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1FBC5777165D6BAF0052ED88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -242,6 +245,8 @@
 			children = (
 				1F0A52AD16B4BBB8008F1ED1 /* JJViewDetailsView.h */,
 				1F0A52AE16B4BBB8008F1ED1 /* JJViewDetailsView.m */,
+				1FACDF7516C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.h */,
+				1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */,
 			);
 			name = "View Details";
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */,
 				1FBDCEAA16BE517800242C3A /* TTTAttributedLabel.m in Sources */,
 				1FBDCEAE16BF235900242C3A /* JJShortcutsView.m in Sources */,
+				1FACDF7716C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
