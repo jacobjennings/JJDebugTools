@@ -16,7 +16,7 @@
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 static CGFloat const kSectionSpacing = 4;
-static CGFloat const kScrollAmountAtATime = 60;
+static CGFloat const kScrollAmountAtATime = 90;
 
 @interface JJRecentAnimationsView ()
 
@@ -24,6 +24,7 @@ static CGFloat const kScrollAmountAtATime = 60;
 @property (nonatomic, strong) JJLabel *titleLabel;
 @property (nonatomic, strong) NSArray *titledAttributedViews;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -45,6 +46,9 @@ static CGFloat const kScrollAmountAtATime = 60;
 
         self.scrollView = [[UIScrollView alloc] init];
         [self addSubview:self.scrollView];
+        
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        [self.dateFormatter setDateFormat:@"hh:mm:ss.SSS"];
     }
     return self;
 }
@@ -99,7 +103,7 @@ static CGFloat const kScrollAmountAtATime = 60;
     for (NSDate *date in [[dateToAnimationDetailsDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])
     {
         JJTitledAttributedLabelView *titleAttributedLabelView = [[JJTitledAttributedLabelView alloc] init];
-        titleAttributedLabelView.titleLabel.text = [date description];
+        titleAttributedLabelView.titleLabel.text = [self.dateFormatter stringFromDate:date];
         titleAttributedLabelView.attributedLabel.attributedText = [dateToAnimationDetailsDictionary[date] attributedStringHighlightingNameColon];
         [titledAttributedLabelViewsMutable addObject:titleAttributedLabelView];
         [self.scrollView addSubview:titleAttributedLabelView];

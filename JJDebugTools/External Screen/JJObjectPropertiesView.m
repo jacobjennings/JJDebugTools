@@ -21,7 +21,7 @@
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 static CGFloat const kSectionSpacing = 4;
-static CGFloat const kScrollAmountAtATime = 60;
+static CGFloat const kScrollAmountAtATime = 90;
 
 @interface JJObjectPropertiesView ()
 

@@ -20,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.titleLabel = [[JJLabel alloc] init];
-        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.titleLabel];
 
