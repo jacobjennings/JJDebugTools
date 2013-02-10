@@ -4,13 +4,13 @@
 //
 
 #import "JJExternalScreenRootView.h"
+#import "CALayer+JJHotkeyViewTraverser.h"
+#import "UIView+JJHotkeyViewTraverser.h"
 
 static CGFloat const kLeftColumnWidth = 340;
 static CGFloat const kNotificationsWidth = 340;
 
 @interface JJExternalScreenRootView()
-
-@property (nonatomic, strong) UILabel *currentRectLabel;
 
 @end
 
@@ -22,20 +22,21 @@ static CGFloat const kNotificationsWidth = 340;
     if (self)
     {
         self.backgroundColor = [UIColor blackColor];
-        _currentRectLabel = [[UILabel alloc] init];
-        [self addSubview:_currentRectLabel];
         
-        _hierarchyView = [[JJHierarchyView alloc] init];
-        [self addSubview:_hierarchyView];
+        self.hierarchyView = [[JJHierarchyView alloc] init];
+        [self addSubview:self.hierarchyView];
         
-        _viewDetailsView = [[JJViewDetailsView alloc] init];
-        [self addSubview:_viewDetailsView];
+        self.viewDetailsView = [[JJObjectPropertiesView alloc] init];
+        [self addSubview:self.viewDetailsView];
+
+        self.controllerDetailsView = [[JJObjectPropertiesView alloc] init];
+        [self addSubview:self.controllerDetailsView];
         
-        _notificationInfoView = [[JJNotificationInfoView alloc] init];
-        [self addSubview:_notificationInfoView];
+        self.notificationInfoView = [[JJNotificationInfoView alloc] init];
+        [self addSubview:self.notificationInfoView];
         
-        _shortcutsView = [[JJShortcutsView alloc] init];
-        [self addSubview:_shortcutsView];
+        self.shortcutsView = [[JJShortcutsView alloc] init];
+        [self addSubview:self.shortcutsView];
     }
     return self;
 }
@@ -49,7 +50,21 @@ static CGFloat const kNotificationsWidth = 340;
                                           self.bounds.size.width - kLeftColumnWidth,
                                           kHierarchyViewCellHeight * 7);
     
-    self.viewDetailsView.frame = CGRectMake(0, 0, kLeftColumnWidth, self.bounds.size.height);
+    if (self.controllerDetailsView.object)
+    {
+        self.viewDetailsView.frame = CGRectMake(0,
+                                                0,
+                                                kLeftColumnWidth,
+                                                round(self.bounds.size.height / 2));
+        self.controllerDetailsView.frame = CGRectMake(0,
+                                                      CGRectGetMaxY(self.viewDetailsView.frame) + 6,
+                                                      kLeftColumnWidth,
+                                                      round(self.bounds.size.height / 2) - 6);
+        self.controllerDetailsView.hidden = NO;
+    } else {
+        self.viewDetailsView.frame = CGRectMake(0, 0, kLeftColumnWidth, self.bounds.size.height);
+        self.controllerDetailsView.hidden = YES;
+    }
     
     self.notificationInfoView.frame = (CGRect) {
         .origin = CGPointMake(self.bounds.size.width - kNotificationsWidth, CGRectGetMaxY(self.hierarchyView.frame)),
@@ -60,6 +75,16 @@ static CGFloat const kNotificationsWidth = 340;
         .origin = CGPointMake(CGRectGetMaxX(self.viewDetailsView.frame), CGRectGetMaxY(self.hierarchyView.frame)),
         .size = CGSizeMake(340, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
     };
+}
+
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
+{
+    _hierarchyLayer = hierarchyLayer;
+    
+    self.viewDetailsView.object = hierarchyLayer;
+    self.controllerDetailsView.object = [hierarchyLayer.jjViewForLayer findAssociatedController];
+    
+    [self setNeedsLayout];
 }
 
 @end

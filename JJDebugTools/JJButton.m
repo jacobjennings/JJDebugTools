@@ -92,6 +92,8 @@
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
     [super layoutSublayersOfLayer:layer];
     if (layer == self.layer) {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
         self.previousSize = self.bounds.size;
         self.gradientLayer.frame = self.bounds;
         self.maskedLayer.frame = self.bounds;
@@ -106,6 +108,7 @@
         
         self.highlightLayer.frame = self.bounds;
         self.highlightLayer.path = [UIBezierPath bezierPathTopOfRect:CGRectInset(self.bounds, 0.4, 1.5) roundedCorners:self.corners radius:self.cornerRadius].CGPath;
+        [CATransaction commit];
     }
 }
 

@@ -43,7 +43,7 @@
 {
     _hierarchyLayer = hierarchyLayer;
     self.rootView.hierarchyView.hierarchyLayer = hierarchyLayer;
-    self.rootView.viewDetailsView.detailsLayer = hierarchyLayer;
+    self.rootView.hierarchyLayer = hierarchyLayer;
 }
 
 @end

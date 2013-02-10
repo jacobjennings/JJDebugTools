@@ -19,6 +19,7 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CALayer+JJHotkeyViewTraverser.h"
+#import "JJExternalScreenRootView.h"
 
 static NSInteger const H = 11;      // Toggle highlight
 static NSInteger const Up = 82;     // Superview
@@ -31,7 +32,7 @@ static NSInteger const P = 19;      // Browse properties
 //static NSInteger const C = 6;       // Switch detail view to Controller mode
 static NSInteger const V = 25;      // Switch to view hierarchy navigation
 
-@interface JJHotkeyViewTraverser ()
+@interface JJHotkeyViewTraverser () <JJArrowKeyReceiver>
 
 @property (nonatomic, strong) UIView *hitTestOverlay;
 @property (nonatomic, strong) UITapGestureRecognizer *hitTestTapGestureRecognizer;
@@ -63,14 +64,16 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         [self.hitTestOverlay addGestureRecognizer:self.hitTestTapGestureRecognizer];
         
 #warning Hook after client's didFinishLaunching somehow instead of lazy delay
-        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:2];
+        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:5];
+        
+        self.arrowKeyReciever = self;
     }
     return self;
 }
 
 - (void)configureExternalScreen
 {
-    _externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
+    self.externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
     [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;
     self.selectedLayer = [self rootView].layer;
     self.highlightLayer.hidden = YES;
@@ -88,31 +91,44 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
             self.highlightLayer.hidden = !self.highlightLayer.hidden;
             break;
         }
+        case V:
+        {
+            if (!self.selectedLayer) {
+                self.selectedLayer = [self rootView].layer;
+            }
+            self.highlightLayer.hidden = NO;
+            self.arrowKeyReciever = self.externalRootViewController.rootView.viewDetailsView;
+            break;
+        }
         case Up:
         {
-            self.selectedLayer = [self.selectedLayer superlayer];
+            if ([self.arrowKeyReciever respondsToSelector:@selector(upPressed)])
+            {
+                [self.arrowKeyReciever upPressed];
+            }
             break;
         }
         case Down:
         {
-            self.selectedLayer = self.selectedLayer.jjSublayer;
+            if ([self.arrowKeyReciever respondsToSelector:@selector(downPressed)])
+            {
+                [self.arrowKeyReciever downPressed];
+            }
             break;
         }
         case Left:
         {
-            CALayer *layerBelow = self.selectedLayer.jjPeerLayerBelow;
-            if (layerBelow)
+            if ([self.arrowKeyReciever respondsToSelector:@selector(leftPressed)])
             {
-                self.selectedLayer = layerBelow;
+                [self.arrowKeyReciever leftPressed];
             }
             break;
         }
         case Right:
         {
-            CALayer *layerAbove = self.selectedLayer.jjPeerLayerAbove;
-            if (layerAbove)
+            if ([self.arrowKeyReciever respondsToSelector:@selector(rightPressed)])
             {
-                self.selectedLayer = layerAbove;
+                [self.arrowKeyReciever rightPressed];
             }
             break;
         }
@@ -126,6 +142,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         {
             NSString *propertyListString = [self.selectedLayer.jjViewForLayer ?: self.selectedLayer propertyListWithValuesAsSingleString];
             NSLog(@"%@", propertyListString);
+            
             break;
         }
         case T:
@@ -168,6 +185,40 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     if (hitView)
     {
         self.selectedLayer = hitView.layer;
+    }
+}
+
+
+#pragma mark - JJArrowKeyReceiver
+
+- (void)upPressed
+{
+    self.selectedLayer = [self.selectedLayer superlayer];
+    
+}
+
+- (void)downPressed
+{
+    self.selectedLayer = self.selectedLayer.jjSublayer;
+    
+}
+
+- (void)leftPressed
+{
+    CALayer *layerBelow = self.selectedLayer.jjPeerLayerBelow;
+    if (layerBelow)
+    {
+        self.selectedLayer = layerBelow;
+    }
+    
+}
+
+- (void)rightPressed
+{
+    CALayer *layerAbove = self.selectedLayer.jjPeerLayerAbove;
+    if (layerAbove)
+    {
+        self.selectedLayer = layerAbove;
     }
 }
 

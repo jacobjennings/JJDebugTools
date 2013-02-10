@@ -8,6 +8,10 @@
 #import <UIKit/UIKit.h>
 #import "UIView+JJFrameUtilities.h"
 
+#ifndef NS_ENUM
+#define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
+
 static inline CGRect CGRectRound(CGRect rect) {
     return CGRectMake(roundf(rect.origin.x), roundf(rect.origin.y), roundf(rect.size.width), roundf(rect.size.height));
 }
