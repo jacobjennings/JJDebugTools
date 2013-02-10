@@ -23,14 +23,19 @@
     if (self.jjLastSelectedSublayer) {
         return self.jjLastSelectedSublayer;
     }
-    if (![self.sublayers count])
+    CALayer *highlightLayer = [JJHotkeyViewTraverser shared].highlightLayer;
+    if (![self.sublayers count]
+        || ([self.sublayers count] == 1 && self.sublayers[0] == highlightLayer))
     {
         return nil;
     }
-    CALayer *sublayerWithTheMostSublayers = self.sublayers[0];
+    NSUInteger aSublayerIndexThatIsNotHighlight = [self.sublayers indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return obj != highlightLayer;
+    }];
+    CALayer *sublayerWithTheMostSublayers = self.sublayers[aSublayerIndexThatIsNotHighlight];
     for (CALayer *layer in self.sublayers)
     {
-        if (layer == [JJHotkeyViewTraverser shared].highlightLayer
+        if (layer == highlightLayer
             || [layer.jjViewForLayer isKindOfClass:[UITabBar class]]
             || [layer.jjViewForLayer isKindOfClass:[UINavigationBar class]])
         {
@@ -46,16 +51,7 @@
             break;
         }
     }
-    if ([self.sublayers count] > 1 && [sublayerWithTheMostSublayers.jjViewForLayer isKindOfClass:[UITabBar class]])
-    {
-        for (CALayer *layer in self.sublayers)
-        {
-            if (![layer.jjViewForLayer isKindOfClass:[UITabBar class]])
-            {
-                return layer;
-            }
-        }
-    }
+    
     return sublayerWithTheMostSublayers;
 }
 

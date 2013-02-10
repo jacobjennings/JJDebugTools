@@ -11,6 +11,7 @@
 #import "NSObject+JJPropertyInspection.h"
 
 static NSString * const JJDateToAnimationStringDictionaryKey = @"JJDateToAnimationStringDictionaryKey";
+static NSUInteger const JJNumberOfAnimationsToRemember = 10;
 
 @implementation CALayer (JJRecentAnimations)
 
@@ -50,6 +51,10 @@ static NSString * const JJDateToAnimationStringDictionaryKey = @"JJDateToAnimati
     }
     
     dateToAnimationDetailsDictionary[[NSDate date]] = animationDetailsString;
+    if ([[dateToAnimationDetailsDictionary allKeys] count] > 10)
+    {
+        [dateToAnimationDetailsDictionary removeObjectForKey:[[dateToAnimationDetailsDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)][0]];
+    }
 }
 
 - (NSMutableDictionary *)dateToAnimationDetailsStringDictionary;
@@ -79,6 +84,7 @@ static NSString * const JJDateToAnimationStringDictionaryKey = @"JJDateToAnimati
         [descriptionStringMutable appendFormat:@"\n  startAngle: %@", startAngle];
         [descriptionStringMutable appendFormat:@"\n  endAngle: %@", endAngle];
     }
+    [descriptionStringMutable appendString:@"\n"];
     return [NSString stringWithString:descriptionStringMutable];
 }
 

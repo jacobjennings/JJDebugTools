@@ -15,7 +15,7 @@
 #import "NSString+JJHighlightColon.h"
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
-static CGFloat const kSectionSpacing = 4;
+static CGFloat const kSectionSpacing = 8;
 static CGFloat const kScrollAmountAtATime = 90;
 
 @interface JJRecentAnimationsView ()
@@ -100,7 +100,7 @@ static CGFloat const kScrollAmountAtATime = 90;
     
     NSDictionary *dateToAnimationDetailsDictionary = [hierarchyLayer dateToAnimationDetailsStringDictionary];
     NSMutableArray *titledAttributedLabelViewsMutable = [[NSMutableArray alloc] init];
-    for (NSDate *date in [[dateToAnimationDetailsDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])
+    for (NSDate *date in [[[dateToAnimationDetailsDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)] reverseObjectEnumerator])
     {
         JJTitledAttributedLabelView *titleAttributedLabelView = [[JJTitledAttributedLabelView alloc] init];
         titleAttributedLabelView.titleLabel.text = [self.dateFormatter stringFromDate:date];
