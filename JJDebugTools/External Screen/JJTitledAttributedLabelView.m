@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Jacob Jennings. All rights reserved.
 //
 
-#import "JJViewDetailsViewTitledAttributedLabelView.h"
+#import "JJTitledAttributedLabelView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface JJViewDetailsViewTitledAttributedLabelView ()
+@interface JJTitledAttributedLabelView ()
 
 @end
 
-@implementation JJViewDetailsViewTitledAttributedLabelView
+@implementation JJTitledAttributedLabelView
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -37,6 +37,9 @@ static CGFloat const kNotificationsWidth = 340;
         
         self.shortcutsView = [[JJShortcutsView alloc] init];
         [self addSubview:self.shortcutsView];
+        
+        self.recentAnimationsView = [[JJRecentAnimationsView alloc] init];
+        [self addSubview:self.recentAnimationsView];
     }
     return self;
 }
@@ -75,6 +78,12 @@ static CGFloat const kNotificationsWidth = 340;
         .origin = CGPointMake(CGRectGetMaxX(self.viewDetailsView.frame), CGRectGetMaxY(self.hierarchyView.frame)),
         .size = CGSizeMake(300, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
     };
+    
+    self.recentAnimationsView.frame = (CGRect) {
+        .origin.x = CGRectGetMaxX(self.shortcutsView.frame),
+        .origin.y = self.shortcutsView.frame.origin.y,
+        .size = self.shortcutsView.frame.size
+    };
 }
 
 - (void)setHierarchyLayer:(CALayer *)hierarchyLayer
@@ -83,6 +92,7 @@ static CGFloat const kNotificationsWidth = 340;
     
     self.viewDetailsView.object = hierarchyLayer;
     self.controllerDetailsView.object = [hierarchyLayer.jjViewForLayer findAssociatedController];
+    self.recentAnimationsView.hierarchyLayer = hierarchyLayer;
     
     [self setNeedsLayout];
 }

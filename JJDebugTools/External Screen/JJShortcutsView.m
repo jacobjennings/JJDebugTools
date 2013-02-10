@@ -22,6 +22,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
 @property (nonatomic, strong) TTTAttributedLabel *tapToSelectLabel;
 @property (nonatomic, strong) TTTAttributedLabel *viewDetailsLabel;
 @property (nonatomic, strong) TTTAttributedLabel *controllerDetailsLabel;
+@property (nonatomic, strong) TTTAttributedLabel *recentAnimationsLabel;
 
 @end
 
@@ -108,6 +109,20 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                                   range:NSMakeRange(0, 1)];
         self.controllerDetailsLabel.attributedText = controllerDetailsAttributedString;
         [self addSubview:self.controllerDetailsLabel];
+        
+        self.recentAnimationsLabel = [self createAttributedLabel];
+        NSMutableAttributedString *recentAnimationsAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Recent Animations (arrows to move)"];
+        [recentAnimationsAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                                 value:[UIColor whiteColor]
+                                                 range:NSMakeRange(0, recentAnimationsAttributedString.length)];
+        [recentAnimationsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                                 range:NSMakeRange(0, recentAnimationsAttributedString.length)];
+        [recentAnimationsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
+                                                 range:NSMakeRange(7, 1)];
+        self.recentAnimationsLabel.attributedText = recentAnimationsAttributedString;
+        [self addSubview:self.recentAnimationsLabel];
     }
     return self;
 }
@@ -159,6 +174,13 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
         .size = controllerDetailsLabelSize
     };
     [self.controllerDetailsLabel centerHorizontally];
+    
+    CGSize recentAnimationsLabelSize = [self.recentAnimationsLabel sizeThatFits:self.bounds.size];
+    self.recentAnimationsLabel.frame = (CGRect) {
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.controllerDetailsLabel.frame)),
+        .size = recentAnimationsLabelSize
+    };
+    [self.recentAnimationsLabel centerHorizontally];
 }
 
 - (TTTAttributedLabel *)createAttributedLabel

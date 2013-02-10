@@ -9,6 +9,7 @@
 #import "JJNotificationInfoView.h"
 #import "JJShortcutsView.h"
 #import "JJObjectPropertiesView.h"
+#import "JJRecentAnimationsView.h"
 
 @interface JJExternalScreenRootView : UIView
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) JJObjectPropertiesView *controllerDetailsView;
 @property (nonatomic, strong) JJNotificationInfoView *notificationInfoView;
 @property (nonatomic, strong) JJShortcutsView *shortcutsView;
+@property (nonatomic, strong) JJRecentAnimationsView *recentAnimationsView;
 
 @property (nonatomic, strong) CALayer *hierarchyLayer;
 

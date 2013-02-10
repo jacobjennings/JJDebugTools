@@ -1,55 +1,48 @@
 //
-//  JJObjectPropertiesView.m
+//  JJRecentAnimationsView.m
 //  JJDebugTools
 //
 //  Created by Jacob Jennings on 2/9/13.
 //  Copyright (c) 2013 Jacob Jennings. All rights reserved.
 //
 
-#import "JJObjectPropertiesView.h"
-#import "UIView+JJHotkeyViewTraverser.h"
-#import "NSObject+JJPropertyInspection.h"
+#import "JJRecentAnimationsView.h"
+#import "CALayer+JJRecentAnimations.h"
 #import "JJButton.h"
 #import "JJLabel.h"
-#import "CALayer+JJHotkeyViewTraverser.h"
-#import <QuartzCore/QuartzCore.h>
 #import "TTTAttributedLabel.h"
 #import "JJTitledAttributedLabelView.h"
 #import "NSString+JJHighlightColon.h"
-
-#define DetailsLabelFont [UIFont fontWithName:@"HelveticaNeue" size:15]
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 static CGFloat const kSectionSpacing = 4;
 static CGFloat const kScrollAmountAtATime = 60;
 
-@interface JJObjectPropertiesView ()
+@interface JJRecentAnimationsView ()
 
+@property (nonatomic, strong) JJButton *backgroundButton;
 @property (nonatomic, strong) JJLabel *titleLabel;
-@property (nonatomic, strong) JJLabel *propertyNameLabel;
 @property (nonatomic, strong) NSArray *titledAttributedViews;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
-@implementation JJObjectPropertiesView
+@implementation JJRecentAnimationsView
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _backgroundButton = [[JJButton alloc] init];
-        [self addSubview:_backgroundButton];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animationCommitted) name:@"UIViewAnimationDidCommitNotification" object:nil];
         
-        _titleLabel = [[JJLabel alloc] init];
-        _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-        [self addSubview:_titleLabel];
+        self.backgroundButton = [[JJButton alloc] init];
+        [self addSubview:self.backgroundButton];
         
-        _propertyNameLabel = [[JJLabel alloc] init];
-        _propertyNameLabel.font = DetailsLabelFont;
-        _propertyNameLabel.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:1 alpha:1];
-        [self addSubview:_propertyNameLabel];
-        
+        self.titleLabel = [[JJLabel alloc] init];
+        self.titleLabel.text = @"Recent Animations";
+        self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+        [self addSubview:self.titleLabel];
+
         self.scrollView = [[UIScrollView alloc] init];
         [self addSubview:self.scrollView];
     }
@@ -70,18 +63,11 @@ static CGFloat const kScrollAmountAtATime = 60;
     };
     [self.titleLabel centerHorizontally];
     
-    CGSize propertyNameLabelSize = [self.propertyNameLabel sizeThatFits:self.bounds.size];
-    self.propertyNameLabel.frame = (CGRect) {
-        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.titleLabel.frame)),
-        .size = propertyNameLabelSize
-    };
-    [self.propertyNameLabel centerHorizontally];
-    
     self.scrollView.frame = (CGRect) {
         .origin.x = 0,
-        .origin.y = CGRectGetMaxY(self.propertyNameLabel.frame),
+        .origin.y = CGRectGetMaxY(self.titleLabel.frame),
         .size.width = self.bounds.size.width,
-        .size.height = self.bounds.size.height - CGRectGetMaxY(self.propertyNameLabel.frame) - kInsets.bottom
+        .size.height = self.bounds.size.height - CGRectGetMaxY(self.titleLabel.frame) - kInsets.bottom
     };
     
     CGFloat lastY = 0;
@@ -94,45 +80,29 @@ static CGFloat const kScrollAmountAtATime = 60;
     self.scrollView.contentSize = CGSizeMake(self.bounds.size.width, lastY);
 }
 
-- (void)setObject:(NSObject *)object
+- (void)animationCommitted
 {
-    _object = object;
-    
-    if ([object isKindOfClass:[CALayer class]])
-    {
-        CALayer *detailsLayer = (CALayer *)object;
-        UIView *viewForLayer = detailsLayer.jjViewForLayer;
-        self.titleLabel.text = NSStringFromClass([viewForLayer ?: detailsLayer class]);
-        
-        NSString *propertyNameString = [detailsLayer jjPropertyName];
-        self.propertyNameLabel.text = propertyNameString ? [NSString stringWithFormat:@"Property %@ %@", propertyNameString, [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""] : nil;
-        if (viewForLayer)
-        {
-            object = viewForLayer;
-            _object = viewForLayer;
-        }
-    } else {
-        self.titleLabel.text = NSStringFromClass([object class]);
-        self.propertyNameLabel.text = nil;
-    }
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view.layer saveSnapshotOfAnimationStateRecursive];
+}
+
+- (void)setHierarchyLayer:(CALayer *)hierarchyLayer
+{
+    _hierarchyLayer = hierarchyLayer;
     
     for (UIView *view in self.titledAttributedViews)
     {
         [view removeFromSuperview];
     }
-    NSDictionary *classNameToPropertyListString = [object classToPropertyListStringDictionary];
+    
+    NSDictionary *dateToAnimationDetailsDictionary = [hierarchyLayer dateToAnimationDetailsStringDictionary];
     NSMutableArray *titledAttributedLabelViewsMutable = [[NSMutableArray alloc] init];
-    NSUInteger depth = 0;
-    for (NSString *className in [object superclassNameChainListToNSObject])
+    for (NSDate *date in [[dateToAnimationDetailsDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])
     {
         JJTitledAttributedLabelView *titleAttributedLabelView = [[JJTitledAttributedLabelView alloc] init];
-        titleAttributedLabelView.titleLabel.text = depth > 0 ?
-        [NSString stringWithFormat:@"Superclass #%u: %@", depth, className] :
-        [NSString stringWithFormat:@"Class #%u: %@", depth, className];
-        titleAttributedLabelView.attributedLabel.attributedText = [classNameToPropertyListString[className] attributedStringHighlightingNameColon];
+        titleAttributedLabelView.titleLabel.text = [date description];
+        titleAttributedLabelView.attributedLabel.attributedText = [dateToAnimationDetailsDictionary[date] attributedStringHighlightingNameColon];
         [titledAttributedLabelViewsMutable addObject:titleAttributedLabelView];
         [self.scrollView addSubview:titleAttributedLabelView];
-        depth++;
     }
     self.titledAttributedViews = [NSArray arrayWithArray:titledAttributedLabelViewsMutable];
     

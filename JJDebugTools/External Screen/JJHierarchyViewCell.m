@@ -14,6 +14,7 @@
 #import "JJHotkeyViewTraverser.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CALayer+JJHotkeyViewTraverser.h"
+#import "CALayer+JJRecentAnimations.h"
 
 static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -25,6 +26,7 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
 @property (nonatomic, strong) JJLabel *propertyNameLabel;
 @property (nonatomic, strong) JJLabel *rectLabel;
 @property (nonatomic, strong) JJButton *buttonBackground;
+@property (nonatomic, strong) JJLabel *recentAnimationCountLabel;
 
 @end
 
@@ -53,6 +55,12 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
         _rectLabel.font = CellFont;
         _rectLabel.textColor = [UIColor colorWithRed:0.9 green:1 blue:0.9 alpha:1];
         [self addSubview:_rectLabel];
+
+        self.recentAnimationCountLabel = [[JJLabel alloc] init];
+        self.recentAnimationCountLabel.textAlignment = NSTextAlignmentCenter;
+        self.recentAnimationCountLabel.font = CellFont;
+        self.recentAnimationCountLabel.textColor = [UIColor colorWithRed:1 green:0.5 blue:0.5 alpha:1];
+        [self addSubview:self.recentAnimationCountLabel];
     }
     return self;
 }
@@ -79,10 +87,18 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
                               CGRectGetMaxY(self.classNameLabel.frame)),
         .size = propertyNameLabelSizeThatFits };
     
+    
+    CGSize recentAnimationsCountLabelSize = [self.recentAnimationCountLabel sizeThatFits:self.bounds.size];
+    self.recentAnimationCountLabel.frame = (CGRect) {
+        .origin.x = self.bounds.size.width - recentAnimationsCountLabelSize.width - kCellInsets.right,
+        .origin.y = CGRectGetMaxY(self.classNameLabel.frame),
+        .size = recentAnimationsCountLabelSize
+    };
+    
     CGSize rectLabelSizeThatFits = [self.rectLabel sizeThatFits:self.bounds.size];
     self.rectLabel.frame = (CGRect) {
-        .origin = CGPointMake(self.bounds.size.width - rectLabelSizeThatFits.width - kCellInsets.right,
-                              CGRectGetMaxY(self.classNameLabel.frame)),
+        .origin.x  = self.recentAnimationCountLabel.frame.origin.x - rectLabelSizeThatFits.width - kCellInsets.right,
+        .origin.y = CGRectGetMaxY(self.classNameLabel.frame),
         .size = rectLabelSizeThatFits };
     
     if (!self.propertyNameLabel.text || ![self.propertyNameLabel.text length])
@@ -96,9 +112,10 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     CGSize classNameLabelSizeThatFits = [self.classNameLabel sizeThatFits:size];
     CGSize propertyNameLabelSizeThatFits = [self.propertyNameLabel sizeThatFits:size];
     CGSize rectLabelSizeThatFits = [self.rectLabel sizeThatFits:size];
-
+    CGSize recentAnimationsCountLabelSize = [self.recentAnimationCountLabel sizeThatFits:size];
+    
     return CGSizeMake(MAX(classNameLabelSizeThatFits.width,
-                          (propertyNameLabelSizeThatFits.width + rectLabelSizeThatFits.width + 4))
+                          (propertyNameLabelSizeThatFits.width + rectLabelSizeThatFits.width + 4 + recentAnimationsCountLabelSize.width * 2))
                       + kCellInsets.left + kCellInsets.right,
                       
                       classNameLabelSizeThatFits.height
@@ -124,6 +141,9 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     self.rectLabel.text = [rectString substringWithRange:NSMakeRange(1, rectString.length - 2)];
     NSString *propertyNameString = [hierarchyLayer jjPropertyName];
     self.propertyNameLabel.text = propertyNameString;
+    self.recentAnimationCountLabel.text = [NSString stringWithFormat:@"%u", [[[hierarchyLayer dateToAnimationDetailsStringDictionary] allKeys] count]];
+    
+    [self setNeedsLayout];
 }
 
 @end

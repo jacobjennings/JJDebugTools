@@ -18,12 +18,15 @@
 		1F0A535816B4F9DB008F1ED1 /* JJLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A535716B4F9DB008F1ED1 /* JJLabel.m */; };
 		1F0A535C16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A535B16B4FA2A008F1ED1 /* UIBezierPath+JJUtilities.m */; };
 		1F10F3E716C7521100DBBBB4 /* JJObjectPropertiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3E616C7521100DBBBB4 /* JJObjectPropertiesView.m */; };
+		1F10F3EE16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3ED16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m */; };
+		1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */; };
+		1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */; };
 		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
 		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
 		1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */; };
 		1F76A8BA1626ADB500887C3B /* NSObject+JJPropertyInspection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */; };
 		1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */; };
-		1FACDF7716C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */; };
+		1FACDF7716C0D0BE00B41F93 /* JJTitledAttributedLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FACDF7616C0D0BE00B41F93 /* JJTitledAttributedLabelView.m */; };
 		1FBC5773165D6BA30052ED88 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5772165D6BA30052ED88 /* libicucore.dylib */; };
 		1FBC5776165D6BA90052ED88 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5775165D6BA90052ED88 /* CFNetwork.framework */; };
 		1FBC5778165D6BAF0052ED88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5777165D6BAF0052ED88 /* Security.framework */; };
@@ -93,6 +96,12 @@
 		1F10F3E316C74DB100DBBBB4 /* JJArrowKeyReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJArrowKeyReceiver.h; sourceTree = "<group>"; };
 		1F10F3E516C7521100DBBBB4 /* JJObjectPropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJObjectPropertiesView.h; sourceTree = "<group>"; };
 		1F10F3E616C7521100DBBBB4 /* JJObjectPropertiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJObjectPropertiesView.m; sourceTree = "<group>"; };
+		1F10F3EC16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JJRecentAnimations.h"; sourceTree = "<group>"; };
+		1F10F3ED16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JJRecentAnimations.m"; sourceTree = "<group>"; };
+		1F10F3EF16C77B8400DBBBB4 /* JJRecentAnimationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJRecentAnimationsView.h; sourceTree = "<group>"; };
+		1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRecentAnimationsView.m; sourceTree = "<group>"; };
+		1F10F3F516C782D000DBBBB4 /* NSString+JJHighlightColon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JJHighlightColon.h"; sourceTree = "<group>"; };
+		1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JJHighlightColon.m"; sourceTree = "<group>"; };
 		1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJHotkeyViewTraverser.h; sourceTree = "<group>"; };
 		1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJHotkeyViewTraverser.m; sourceTree = "<group>"; };
 		1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJAssociatedObjects.h"; sourceTree = "<group>"; };
@@ -103,8 +112,8 @@
 		1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JJPropertyInspection.m"; sourceTree = "<group>"; };
 		1F9F99A516B5059500FF8CBB /* UIView+JJFrameUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JJFrameUtilities.h"; sourceTree = "<group>"; };
 		1F9F99A616B5059500FF8CBB /* UIView+JJFrameUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JJFrameUtilities.m"; sourceTree = "<group>"; };
-		1FACDF7516C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJViewDetailsViewTitledAttributedLabelView.h; sourceTree = "<group>"; };
-		1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJViewDetailsViewTitledAttributedLabelView.m; sourceTree = "<group>"; };
+		1FACDF7516C0D0BE00B41F93 /* JJTitledAttributedLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJTitledAttributedLabelView.h; sourceTree = "<group>"; };
+		1FACDF7616C0D0BE00B41F93 /* JJTitledAttributedLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJTitledAttributedLabelView.m; sourceTree = "<group>"; };
 		1FBC5772165D6BA30052ED88 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		1FBC5775165D6BA90052ED88 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1FBC5777165D6BAF0052ED88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -246,8 +255,8 @@
 			children = (
 				1F10F3E516C7521100DBBBB4 /* JJObjectPropertiesView.h */,
 				1F10F3E616C7521100DBBBB4 /* JJObjectPropertiesView.m */,
-				1FACDF7516C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.h */,
-				1FACDF7616C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m */,
+				1FACDF7516C0D0BE00B41F93 /* JJTitledAttributedLabelView.h */,
+				1FACDF7616C0D0BE00B41F93 /* JJTitledAttributedLabelView.m */,
 			);
 			name = "Properties view";
 			sourceTree = "<group>";
@@ -257,6 +266,19 @@
 			children = (
 			);
 			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		1F10F3E816C779B000DBBBB4 /* Recent Animations */ = {
+			isa = PBXGroup;
+			children = (
+				1F10F3EF16C77B8400DBBBB4 /* JJRecentAnimationsView.h */,
+				1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */,
+				1F10F3EC16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.h */,
+				1F10F3ED16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m */,
+				1F10F3F516C782D000DBBBB4 /* NSString+JJHighlightColon.h */,
+				1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */,
+			);
+			name = "Recent Animations";
 			sourceTree = "<group>";
 		};
 		1F3F529216BA0AFD00545C48 /* NSNotifications */ = {
@@ -294,6 +316,7 @@
 		85C7DE17D9857E63A6A600A1 /* External Screen */ = {
 			isa = PBXGroup;
 			children = (
+				1F10F3E816C779B000DBBBB4 /* Recent Animations */,
 				1FBDCEAB16BF207700242C3A /* Navigation helper */,
 				1F3F529216BA0AFD00545C48 /* NSNotifications */,
 				1F0A52AC16B4BB96008F1ED1 /* Properties view */,
@@ -378,8 +401,11 @@
 				1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */,
 				1FBDCEAA16BE517800242C3A /* TTTAttributedLabel.m in Sources */,
 				1FBDCEAE16BF235900242C3A /* JJShortcutsView.m in Sources */,
-				1FACDF7716C0D0BE00B41F93 /* JJViewDetailsViewTitledAttributedLabelView.m in Sources */,
+				1FACDF7716C0D0BE00B41F93 /* JJTitledAttributedLabelView.m in Sources */,
 				1F10F3E716C7521100DBBBB4 /* JJObjectPropertiesView.m in Sources */,
+				1F10F3EE16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m in Sources */,
+				1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */,
+				1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

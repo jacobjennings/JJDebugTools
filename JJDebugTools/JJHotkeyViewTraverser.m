@@ -29,6 +29,7 @@ static NSInteger const Right = 79;  // Peer above
 static NSInteger const T = 23;      // Tap to select
 static NSInteger const R = 21;      // recursiveDescription
 //static NSInteger const P = 19;      // Browse properties
+static NSInteger const A = 4;       // Switch arrows to recent animations
 static NSInteger const C = 6;       // Switch arrows to controller details
 static NSInteger const D = 7;       // Switch arrows to view details
 static NSInteger const V = 25;      // Switch to view hierarchy navigation
@@ -137,6 +138,11 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         {
             NSString *recursiveDescription = [self.selectedLayer.jjViewForLayer performSelector:@selector(recursiveDescription)];
             NSLog(@"\n%@", recursiveDescription);
+            break;
+        }
+        case A:
+        {
+            self.arrowKeyReciever = self.externalRootViewController.rootView.recentAnimationsView;
             break;
         }
         case D:
