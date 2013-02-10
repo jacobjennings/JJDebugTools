@@ -16,5 +16,6 @@
 - (NSString *)propertyNameForObject:(id)object;
 - (NSArray *)superclassNameChainListToNSObject;
 - (NSDictionary *)classToPropertyListStringDictionary;
+- (id)safeValueForKey:(NSString *)key;
 
 @end

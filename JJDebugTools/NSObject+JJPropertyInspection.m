@@ -8,20 +8,35 @@
 
 #import "NSObject+JJPropertyInspection.h"
 #import <objc/runtime.h>
+#import "NSObject+JJAssociatedObjects.h"
+
+static NSString * const JJPropertyInspectionPropertyNamesArrayCacheKey = @"JJPropertyInspectionPropertyNamesArrayCacheKey";
 
 @implementation NSObject (JJPropertyInspection)
 
 - (NSArray *)arrayOfPropertyNames {
-    NSString *propertyName;
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-    NSMutableArray *propertyNames = [NSMutableArray arrayWithCapacity:outCount];
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        propertyName = [NSString stringWithUTF8String:property_getName(property)];
-        [propertyNames addObject:propertyName];
+    NSArray *propertyNames = [self associatedObjectWithKey:JJPropertyInspectionPropertyNamesArrayCacheKey];
+    if (propertyNames)
+    {
+        return propertyNames;
     }
-    return [NSArray arrayWithArray:propertyNames];
+    NSString *propertyName;
+    NSMutableArray *propertyNamesMutable = [NSMutableArray arrayWithCapacity:10];
+    
+    for (Class clazz in [self superclassChainListToNSObject])
+    {
+        unsigned int outCount, i;
+        objc_property_t *properties = class_copyPropertyList(clazz, &outCount);
+        for (i = 0; i < outCount; i++) {
+            objc_property_t property = properties[i];
+            propertyName = [NSString stringWithUTF8String:property_getName(property)];
+            [propertyNamesMutable addObject:propertyName];
+        }
+    }
+    
+    propertyNames = [NSArray arrayWithArray:propertyNamesMutable];
+    [self setAssociatedObject:propertyNames withKey:JJPropertyInspectionPropertyNamesArrayCacheKey];
+    return propertyNames;
 }
 
 - (NSDictionary *)propertyNameToAttributesDictionary {
@@ -52,15 +67,14 @@
     NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionaryForClass:class];
     NSMutableString *stringBuilder = [NSMutableString string];
     for (NSString *key in [propertyNameToAttributesDictionary allKeys]) {
-        if ([key isEqualToString:@"action"] || [key hasPrefix:@"_"] || [key isEqualToString:@"caretRect"])
+        if (![self keyIsValid:key])
         {
             continue;
         }
-        @try
+        id value = [self safeValueForKey:key];
+        if (value)
         {
-            [stringBuilder appendFormat:@"%@: %@\n", key, [self valueForKey:key]];
-        } @catch (NSException *exception) {
-            //no-op - catch NSUnknownKeyException
+            [stringBuilder appendFormat:@"%@: %@\n", key, value];
         }
     }
     return [stringBuilder copy];
@@ -107,17 +121,42 @@
     NSArray *propertyNames = [self arrayOfPropertyNames];
     for (NSString *key in propertyNames)
     {
-        if ([key hasPrefix:@"jj"] || [key hasPrefix:@"action"])
+        if (![self keyIsValid:key])
         {
             continue;
         }
-        id value = [self valueForKey:key];
+        id value = [self safeValueForKey:key];
         if (value == object)
         {
             return key;
         }
     }
     return nil;
+}
+
+- (id)safeValueForKey:(NSString *)key;
+{
+    id value = nil;
+    @try {
+        value = [self valueForKey:key];
+    }
+    @catch (NSException *exception) {
+        //no-op
+    }
+    return value;
+}
+
+- (BOOL)keyIsValid:(NSString *)key
+{
+    BOOL valid = YES;
+    if ([key hasPrefix:@"jj"]
+        || [key isEqualToString:@"selectedTextRange"]
+        || [key hasPrefix:@"_"]
+        || [key isEqualToString:@"caretRect"])
+    {
+        valid = NO;
+    }
+    return valid;
 }
 
 @end

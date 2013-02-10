@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "JJArrowKeyReceiver.h"
 #import "JJButton.h"
+#import "JJMacArrowKeysView.h"
 
 @interface JJObjectPropertiesView : UIView <JJArrowKeyReceiver>
 
 @property (nonatomic, strong) JJButton *backgroundButton;
 @property (nonatomic, strong) NSObject *object;
+@property (nonatomic, strong) JJMacArrowKeysView *arrowKeysView;
 
 @end

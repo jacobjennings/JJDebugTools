@@ -41,6 +41,10 @@ static CGFloat const kScrollAmountAtATime = 90;
         _backgroundButton = [[JJButton alloc] init];
         [self addSubview:_backgroundButton];
         
+        self.arrowKeysView = [[JJMacArrowKeysView alloc] init];
+        self.arrowKeysView.alpha = 0.7;
+        [self addSubview:self.arrowKeysView];
+        
         _titleLabel = [[JJLabel alloc] init];
         _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
         [self addSubview:_titleLabel];
@@ -92,6 +96,13 @@ static CGFloat const kScrollAmountAtATime = 90;
         lastY = CGRectGetMaxY(titledAttributedLabelView.frame) + kSectionSpacing;
     }
     self.scrollView.contentSize = CGSizeMake(self.bounds.size.width, lastY);
+    
+    CGSize arrowKeysSize = [self.arrowKeysView sizeThatFits:self.bounds.size];
+    self.arrowKeysView.frame = (CGRect) {
+        .origin.x = self.bounds.size.width - arrowKeysSize.width - kInsets.right,
+        .origin.y = kInsets.top,
+        .size = arrowKeysSize
+    };
 }
 
 - (void)setObject:(NSObject *)object
@@ -141,7 +152,6 @@ static CGFloat const kScrollAmountAtATime = 90;
 
 - (void)upPressed
 {
-    
     [self.scrollView setContentOffset:CGPointMake(0, MAX(self.scrollView.contentOffset.y - kScrollAmountAtATime, 0)) animated:YES];
 }
 

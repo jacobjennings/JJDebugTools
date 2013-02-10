@@ -141,7 +141,17 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     self.rectLabel.text = [rectString substringWithRange:NSMakeRange(1, rectString.length - 2)];
     NSString *propertyNameString = [hierarchyLayer jjPropertyName];
     self.propertyNameLabel.text = propertyNameString;
-    self.recentAnimationCountLabel.text = [NSString stringWithFormat:@"%u", [[[hierarchyLayer dateToAnimationDetailsStringDictionary] allKeys] count]];
+    NSUInteger animationCount = [[[hierarchyLayer dateToAnimationDetailsStringDictionary] allKeys] count];
+    self.recentAnimationCountLabel.text = animationCount ? [NSString stringWithFormat:@"%u", animationCount] : nil;
+    
+    if (animationCount)
+    {
+        self.buttonBackground.topColor = [UIColor colorWithRed:0.5 green:0.2 blue:0.2 alpha:1];
+        self.buttonBackground.bottomColor = [UIColor colorWithRed:0.24 green:0.07 blue:0.07 alpha:1];
+    } else {
+        self.buttonBackground.topColor = [UIColor colorWithWhite:0.2 alpha:1];
+        self.buttonBackground.bottomColor = [UIColor colorWithWhite:0.1 alpha:1];
+    }
     
     [self setNeedsLayout];
 }

@@ -49,6 +49,9 @@ static CGFloat const kScrollAmountAtATime = 90;
         
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateFormat:@"hh:mm:ss.SSS"];
+        
+        self.arrowKeysView = [[JJMacArrowKeysView alloc] init];
+        [self addSubview:self.arrowKeysView];
     }
     return self;
 }
@@ -82,10 +85,23 @@ static CGFloat const kScrollAmountAtATime = 90;
         lastY = CGRectGetMaxY(titledAttributedLabelView.frame) + kSectionSpacing;
     }
     self.scrollView.contentSize = CGSizeMake(self.bounds.size.width, lastY);
+    
+    CGSize arrowKeysSize = [self.arrowKeysView sizeThatFits:self.bounds.size];
+    self.arrowKeysView.frame = (CGRect) {
+        .origin.x = self.bounds.size.width - arrowKeysSize.width - kInsets.right,
+        .origin.y = kInsets.top,
+        .size = arrowKeysSize
+    };
 }
 
 - (void)animationCommitted
 {
+    [self performSelector:@selector(snapshot) withObject:nil afterDelay:0.1];
+}
+
+- (void)snapshot
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(snapshot) object:nil];
     [[UIApplication sharedApplication].keyWindow.rootViewController.view.layer saveSnapshotOfAnimationStateRecursive];
 }
 

@@ -65,20 +65,33 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         self.hitTestTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [self.hitTestOverlay addGestureRecognizer:self.hitTestTapGestureRecognizer];
         
-#warning Hook after client's didFinishLaunching somehow instead of lazy delay
-        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:5];
+        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:0.25];
         
         self.arrowKeyReciever = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animationCommitted) name:@"UIViewAnimationDidCommitNotification" object:nil];
     }
     return self;
 }
 
 - (void)configureExternalScreen
 {
+    if (![UIApplication sharedApplication].keyWindow || [UIApplication sharedApplication].keyWindow.hidden)
+    {
+        [self performSelector:@selector(configureExternalScreen) withObject:nil afterDelay:0.25];
+    }
     self.externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
     [JJExternalDisplayManager shared].rootViewController = self.externalRootViewController;
-    self.selectedLayer = [self rootView].layer;
     self.highlightLayer.hidden = YES;
+    [self performSelector:@selector(selectRootLayer) withObject:nil afterDelay:0.25];
+}
+
+- (void)selectRootLayer
+{
+    if (![self rootView]) {
+        [self performSelector:@selector(selectRootLayer) withObject:nil afterDelay:0.25];
+    }
+    self.selectedLayer = [self rootView].layer;
 }
 
 - (void)hotkeyPressedNotification:(NSNotification *)notification
@@ -100,6 +113,10 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
             }
             self.highlightLayer.hidden = NO;
             self.arrowKeyReciever = self;
+            self.externalRootViewController.rootView.recentAnimationsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.viewDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.controllerDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.hierarchyView.arrowKeysView.hidden = NO;
             break;
         }
         case Up:
@@ -143,15 +160,27 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         case A:
         {
             self.arrowKeyReciever = self.externalRootViewController.rootView.recentAnimationsView;
+            self.externalRootViewController.rootView.recentAnimationsView.arrowKeysView.hidden = NO;
+            self.externalRootViewController.rootView.viewDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.controllerDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.hierarchyView.arrowKeysView.hidden = YES;
             break;
         }
         case D:
         {
+            self.externalRootViewController.rootView.recentAnimationsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.viewDetailsView.arrowKeysView.hidden = NO;
+            self.externalRootViewController.rootView.controllerDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.hierarchyView.arrowKeysView.hidden = YES;
             self.arrowKeyReciever = self.externalRootViewController.rootView.viewDetailsView;
             break;
         }
         case C:
         {
+            self.externalRootViewController.rootView.recentAnimationsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.viewDetailsView.arrowKeysView.hidden = YES;
+            self.externalRootViewController.rootView.controllerDetailsView.arrowKeysView.hidden = NO;
+            self.externalRootViewController.rootView.hierarchyView.arrowKeysView.hidden = YES;
             self.arrowKeyReciever = self.externalRootViewController.rootView.controllerDetailsView;
             break;
         }
@@ -171,15 +200,19 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         return;
     }
     _selectedLayer = selectedLayer;
-        
-    [selectedLayer addSublayer:self.highlightLayer];
+    [self configureSelectedLayer];
+}
+
+- (void)configureSelectedLayer;
+{
+    [self.selectedLayer addSublayer:self.highlightLayer];
     
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.highlightLayer.frame = selectedLayer.bounds;
+    self.highlightLayer.frame = self.selectedLayer.bounds;
     [CATransaction commit];
     
-    selectedLayer.superlayer.jjLastSelectedSublayer = selectedLayer;
+    self.selectedLayer.superlayer.jjLastSelectedSublayer = self.selectedLayer;
    
     self.externalRootViewController.hierarchyLayer = self.selectedLayer;
 }
@@ -234,5 +267,9 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     self.highlightLayer.hidden = NO;
 }
 
+- (void)animationCommitted
+{
+    [self configureSelectedLayer];
+}
 
 @end

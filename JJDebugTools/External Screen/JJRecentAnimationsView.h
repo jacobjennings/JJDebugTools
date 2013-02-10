@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JJArrowKeyReceiver.h"
+#import "JJMacArrowKeysView.h"
 
 @interface JJRecentAnimationsView : UIView <JJArrowKeyReceiver>
 
 @property (nonatomic, strong) CALayer *hierarchyLayer;
+@property (nonatomic, strong) JJMacArrowKeysView *arrowKeysView;
 
 @end

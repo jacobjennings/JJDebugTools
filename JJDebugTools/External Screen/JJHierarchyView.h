@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JJHierarchyViewCell.h"
+#import "JJMacArrowKeysView.h"
 
 @interface JJHierarchyView : UIScrollView
 
 @property (nonatomic, strong) CALayer *hierarchyLayer;
+@property (nonatomic, strong) JJMacArrowKeysView *arrowKeysView;
 
 @end

@@ -21,6 +21,8 @@
 		1F10F3EE16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3ED16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m */; };
 		1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */; };
 		1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */; };
+		1F10F42616C84AEC00DBBBB4 /* JJMacArrowKeysView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */; };
+		1F10F42916C8548900DBBBB4 /* JJShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42816C8548900DBBBB4 /* JJShapeView.m */; };
 		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
 		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
 		1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */; };
@@ -102,6 +104,10 @@
 		1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRecentAnimationsView.m; sourceTree = "<group>"; };
 		1F10F3F516C782D000DBBBB4 /* NSString+JJHighlightColon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JJHighlightColon.h"; sourceTree = "<group>"; };
 		1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JJHighlightColon.m"; sourceTree = "<group>"; };
+		1F10F42416C84AEC00DBBBB4 /* JJMacArrowKeysView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMacArrowKeysView.h; sourceTree = "<group>"; };
+		1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMacArrowKeysView.m; sourceTree = "<group>"; };
+		1F10F42716C8548900DBBBB4 /* JJShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJShapeView.h; sourceTree = "<group>"; };
+		1F10F42816C8548900DBBBB4 /* JJShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJShapeView.m; sourceTree = "<group>"; };
 		1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJHotkeyViewTraverser.h; sourceTree = "<group>"; };
 		1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJHotkeyViewTraverser.m; sourceTree = "<group>"; };
 		1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJAssociatedObjects.h"; sourceTree = "<group>"; };
@@ -246,6 +252,10 @@
 				1F0A52A716B49253008F1ED1 /* JJHierarchyViewRow.m */,
 				1F0A52A316B491CC008F1ED1 /* JJHierarchyViewCell.h */,
 				1F0A52A416B491CC008F1ED1 /* JJHierarchyViewCell.m */,
+				1F10F42416C84AEC00DBBBB4 /* JJMacArrowKeysView.h */,
+				1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */,
+				1F10F42716C8548900DBBBB4 /* JJShapeView.h */,
+				1F10F42816C8548900DBBBB4 /* JJShapeView.m */,
 			);
 			name = "View Hierarchy";
 			sourceTree = "<group>";
@@ -406,6 +416,8 @@
 				1F10F3EE16C77A5400DBBBB4 /* CALayer+JJRecentAnimations.m in Sources */,
 				1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */,
 				1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */,
+				1F10F42616C84AEC00DBBBB4 /* JJMacArrowKeysView.m in Sources */,
+				1F10F42916C8548900DBBBB4 /* JJShapeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

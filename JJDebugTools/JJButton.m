@@ -116,11 +116,19 @@
 }
 
 - (void)setTopColor:(UIColor *)topColor {
+    if ([topColor isEqual:_topColor])
+    {
+        return;
+    }
     _topColor = topColor;
     [self configureBackgroundGradient];
 }
 
 - (void)setBottomColor:(UIColor *)bottomColor {
+    if ([bottomColor isEqual:_bottomColor])
+    {
+        return;
+    }
     _bottomColor = bottomColor;
     [self configureBackgroundGradient];
 }

@@ -26,6 +26,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blackColor];
+        self.arrowKeysView = [[JJMacArrowKeysView alloc] init];
+        self.arrowKeysView.hidden = NO;
+        [self addSubview:self.arrowKeysView];
     }
     return self;
 }
@@ -42,6 +45,13 @@
         rowY += kHierarchyViewCellHeight;
     }
 //    [self rd];
+    
+    CGSize arrowKeysSize = [self.arrowKeysView sizeThatFits:self.bounds.size];
+    self.arrowKeysView.frame = (CGRect) {
+        .origin.x = self.bounds.size.width - arrowKeysSize.width,
+        .origin.y = 0,
+        .size = arrowKeysSize
+    };
 }
 
 - (void)setHierarchyLayer:(CALayer *)hierarchyLayer
