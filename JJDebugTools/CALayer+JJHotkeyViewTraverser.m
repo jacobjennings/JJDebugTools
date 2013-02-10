@@ -27,16 +27,23 @@
     {
         return nil;
     }
-    CALayer *sublayerWithTheMostSublayers = nil;
+    CALayer *sublayerWithTheMostSublayers = self.sublayers[0];
     for (CALayer *layer in self.sublayers)
     {
-        if (layer == [JJHotkeyViewTraverser shared].highlightLayer)
+        if (layer == [JJHotkeyViewTraverser shared].highlightLayer
+            || [layer.jjViewForLayer isKindOfClass:[UITabBar class]]
+            || [layer.jjViewForLayer isKindOfClass:[UINavigationBar class]])
         {
             continue;
         }
         if ([layer.sublayers count] >= [sublayerWithTheMostSublayers.sublayers count])
         {
             sublayerWithTheMostSublayers = layer;
+        }
+        if ([NSStringFromClass(layer.jjViewForLayer.class) isEqualToString:@"UINavigationTransitionView"])
+        {
+            sublayerWithTheMostSublayers = layer;
+            break;
         }
     }
     if ([self.sublayers count] > 1 && [sublayerWithTheMostSublayers.jjViewForLayer isKindOfClass:[UITabBar class]])

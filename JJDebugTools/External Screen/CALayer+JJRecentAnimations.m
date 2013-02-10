@@ -32,8 +32,15 @@ static NSString * const JJDateToAnimationStringDictionaryKey = @"JJDateToAnimati
     NSMutableString *animationDetailsString = [[NSMutableString alloc] init];
     for (NSString *key in self.animationKeys)
     {
-        NSString *valueString = [[self animationForKey:key] propertyListWithValuesAsSingleString];
-        [animationDetailsString appendFormat:@"%@: \ntoValue: %@\n%@\n", key, [self valueForKey:key], valueString];
+        CAAnimation *animation = [self animationForKey:key];
+        NSString *valueString = nil;
+        if ([animation isKindOfClass:[CABasicAnimation class]])
+        {
+            valueString = [self descriptionForBasicAnimation:((CABasicAnimation *) animation)];
+        } else {
+            valueString = [animation propertyListWithValuesAsSingleString];
+        }
+        [animationDetailsString appendFormat:@"%@: \n  toValue: %@%@", key, [self valueForKey:key], valueString];
     }
     NSMutableDictionary *dateToAnimationDetailsDictionary = [self dateToAnimationDetailsStringDictionary];
     if (!dateToAnimationDetailsDictionary)
@@ -48,6 +55,31 @@ static NSString * const JJDateToAnimationStringDictionaryKey = @"JJDateToAnimati
 - (NSMutableDictionary *)dateToAnimationDetailsStringDictionary;
 {
     return objc_getAssociatedObject(self, (__bridge const void *)JJDateToAnimationStringDictionaryKey);
+}
+
+- (NSString *)descriptionForBasicAnimation:(CABasicAnimation *)basicAnimation
+{
+    NSMutableString *descriptionStringMutable = [[NSMutableString alloc] init];
+    if (basicAnimation.fromValue)
+    {
+        [descriptionStringMutable appendFormat:@"\n  fromValue: %@", basicAnimation.fromValue];
+    }
+    if (basicAnimation.toValue)
+    {
+        [descriptionStringMutable appendFormat:@"\n  toValue: %@", basicAnimation.toValue];
+    }
+    if (basicAnimation.byValue)
+    {
+        [descriptionStringMutable appendFormat:@"\n  byValue: %@", basicAnimation.byValue];
+    }
+    NSNumber *startAngle = [basicAnimation valueForKey:@"startAngle"];
+    NSNumber *endAngle = [basicAnimation valueForKey:@"endAngle"];
+    if ([startAngle doubleValue] > 0 || [endAngle doubleValue] > 0)
+    {
+        [descriptionStringMutable appendFormat:@"\n  startAngle: %@", startAngle];
+        [descriptionStringMutable appendFormat:@"\n  endAngle: %@", endAngle];
+    }
+    return [NSString stringWithString:descriptionStringMutable];
 }
 
 @end
