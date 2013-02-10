@@ -57,9 +57,9 @@ static CGFloat const kNotificationsWidth = 340;
                                                 kLeftColumnWidth,
                                                 round(self.bounds.size.height / 2));
         self.controllerDetailsView.frame = CGRectMake(0,
-                                                      CGRectGetMaxY(self.viewDetailsView.frame) + 6,
+                                                      CGRectGetMaxY(self.viewDetailsView.frame),
                                                       kLeftColumnWidth,
-                                                      round(self.bounds.size.height / 2) - 6);
+                                                      round(self.bounds.size.height / 2));
         self.controllerDetailsView.hidden = NO;
     } else {
         self.viewDetailsView.frame = CGRectMake(0, 0, kLeftColumnWidth, self.bounds.size.height);

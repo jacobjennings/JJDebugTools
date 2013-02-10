@@ -20,6 +20,7 @@
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 static CGFloat const kSectionSpacing = 4;
+static CGFloat const kScrollAmountAtATime = 60;
 
 @interface JJObjectPropertiesView ()
 
@@ -155,11 +156,12 @@ static CGFloat const kSectionSpacing = 4;
 - (void)upPressed
 {
     
+    [self.scrollView setContentOffset:CGPointMake(0, MAX(self.scrollView.contentOffset.y - kScrollAmountAtATime, 0)) animated:YES];
 }
 
 - (void)downPressed
 {
-    
+    [self.scrollView setContentOffset:CGPointMake(0, MIN(self.scrollView.contentOffset.y + kScrollAmountAtATime, self.scrollView.contentSize.height - self.scrollView.bounds.size.height)) animated:YES];
 }
 
 @end

@@ -28,8 +28,9 @@ static NSInteger const Left = 80;   // Peer below
 static NSInteger const Right = 79;  // Peer above
 static NSInteger const T = 23;      // Tap to select
 static NSInteger const R = 21;      // recursiveDescription
-static NSInteger const P = 19;      // Browse properties
-//static NSInteger const C = 6;       // Switch detail view to Controller mode
+//static NSInteger const P = 19;      // Browse properties
+static NSInteger const C = 6;       // Switch arrows to controller details
+static NSInteger const D = 7;       // Switch arrows to view details
 static NSInteger const V = 25;      // Switch to view hierarchy navigation
 
 @interface JJHotkeyViewTraverser () <JJArrowKeyReceiver>
@@ -74,7 +75,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
 - (void)configureExternalScreen
 {
     self.externalRootViewController = [[JJExternalScreenRootViewController alloc] init];
-    [JJExternalDisplayManager shared].rootViewController = _externalRootViewController;
+    [JJExternalDisplayManager shared].rootViewController = self.externalRootViewController;
     self.selectedLayer = [self rootView].layer;
     self.highlightLayer.hidden = YES;
 }
@@ -97,7 +98,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
                 self.selectedLayer = [self rootView].layer;
             }
             self.highlightLayer.hidden = NO;
-            self.arrowKeyReciever = self.externalRootViewController.rootView.viewDetailsView;
+            self.arrowKeyReciever = self;
             break;
         }
         case Up:
@@ -138,11 +139,14 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
             NSLog(@"\n%@", recursiveDescription);
             break;
         }
-        case P:
+        case D:
         {
-            NSString *propertyListString = [self.selectedLayer.jjViewForLayer ?: self.selectedLayer propertyListWithValuesAsSingleString];
-            NSLog(@"%@", propertyListString);
-            
+            self.arrowKeyReciever = self.externalRootViewController.rootView.viewDetailsView;
+            break;
+        }
+        case C:
+        {
+            self.arrowKeyReciever = self.externalRootViewController.rootView.controllerDetailsView;
             break;
         }
         case T:
@@ -194,13 +198,14 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
 - (void)upPressed
 {
     self.selectedLayer = [self.selectedLayer superlayer];
+    self.highlightLayer.hidden = NO;
     
 }
 
 - (void)downPressed
 {
     self.selectedLayer = self.selectedLayer.jjSublayer;
-    
+    self.highlightLayer.hidden = NO;
 }
 
 - (void)leftPressed
@@ -210,7 +215,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     {
         self.selectedLayer = layerBelow;
     }
-    
+    self.highlightLayer.hidden = NO;
 }
 
 - (void)rightPressed
@@ -220,6 +225,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     {
         self.selectedLayer = layerAbove;
     }
+    self.highlightLayer.hidden = NO;
 }
 
 
