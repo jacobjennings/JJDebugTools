@@ -22,7 +22,10 @@
     [regex enumerateMatchesInString:self options:0 range:searchRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         [attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:[UIColor colorWithRed:0.9 green:0.8 blue:1 alpha:1] range:result.range];
     }];
-    NSLog(@"%@", error);
+    if (error)
+    {
+        NSLog(@"Error in attributedStringHighlightingNameColon %@", error);
+    }
     return attributedString;
 }
 

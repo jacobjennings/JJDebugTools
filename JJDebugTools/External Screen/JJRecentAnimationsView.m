@@ -10,7 +10,7 @@
 #import "CALayer+JJRecentAnimations.h"
 #import "JJButton.h"
 #import "JJLabel.h"
-#import "TTTAttributedLabel.h"
+#import "JJTTTAttributedLabel.h"
 #import "JJTitledAttributedLabelView.h"
 #import "NSString+JJHighlightColon.h"
 

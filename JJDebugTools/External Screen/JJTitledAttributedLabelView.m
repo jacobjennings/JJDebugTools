@@ -24,7 +24,7 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.titleLabel];
 
-        self.attributedLabel = [[TTTAttributedLabel alloc] init];
+        self.attributedLabel = [[JJTTTAttributedLabel alloc] init];
         self.attributedLabel.numberOfLines = 0;
         self.attributedLabel.backgroundColor = [UIColor clearColor];
         self.attributedLabel.lineBreakMode = NSLineBreakByWordWrapping;

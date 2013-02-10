@@ -20,18 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TTTAttributedLabel.h"
+#import "JJTTTAttributedLabel.h"
 
 #define kTTTLineBreakWordWrapTextWidthScalingFactor (M_PI / M_E)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-NSString * const kTTTStrikeOutAttributeName = @"TTTStrikeOutAttribute";
-NSString * const kTTTBackgroundFillColorAttributeName = @"TTTBackgroundFillColor";
-NSString * const kTTTBackgroundStrokeColorAttributeName = @"TTTBackgroundStrokeColor";
-NSString * const kTTTBackgroundLineWidthAttributeName = @"TTTBackgroundLineWidth";
-NSString * const kTTTBackgroundCornerRadiusAttributeName = @"TTTBackgroundCornerRadius";
+NSString * const kJJTTTStrikeOutAttributeName = @"TTTStrikeOutAttribute";
+NSString * const kJJTTTBackgroundFillColorAttributeName = @"TTTBackgroundFillColor";
+NSString * const kJJTTTBackgroundStrokeColorAttributeName = @"TTTBackgroundStrokeColor";
+NSString * const kJJTTTBackgroundLineWidthAttributeName = @"TTTBackgroundLineWidth";
+NSString * const kJJTTTBackgroundCornerRadiusAttributeName = @"TTTBackgroundCornerRadius";
 
 static inline CTTextAlignment CTTextAlignmentFromUITextAlignment(UITextAlignment alignment) {
 	switch (alignment) {
@@ -75,7 +75,7 @@ static inline NSTextCheckingType NSTextCheckingTypeFromUIDataDetectorType(UIData
     return textCheckingType;
 }
 
-static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributedLabel *label) {
+static inline NSDictionary * NSAttributedStringAttributesFromLabel(JJTTTAttributedLabel *label) {
     NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionary]; 
     
     CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)label.font.fontName, label.font.pointSize, NULL);
@@ -155,7 +155,7 @@ static inline NSAttributedString * NSAttributedStringBySettingColorFromContext(N
     return mutableAttributedString;    
 }
 
-@interface TTTAttributedLabel ()
+@interface JJTTTAttributedLabel ()
 @property (readwrite, nonatomic, copy) NSAttributedString *inactiveAttributedText;
 @property (readwrite, nonatomic, copy) NSAttributedString *renderedAttributedText;
 @property (readwrite, nonatomic, assign) CTFramesetterRef framesetter;
@@ -174,7 +174,7 @@ static inline NSAttributedString * NSAttributedStringBySettingColorFromContext(N
 - (void)drawStrike:(CTFrameRef)frame inRect:(CGRect)rect context:(CGContextRef)c;
 @end
 
-@implementation TTTAttributedLabel {
+@implementation JJTTTAttributedLabel {
 @private
     BOOL _needsFramesetter;
 }
@@ -597,7 +597,7 @@ withTextCheckingResult:(NSTextCheckingResult *)result
     
     // Compensate for y-offset of text rect from vertical positioning
     CGFloat yOffset = 0.0f;
-    if (self.verticalAlignment != TTTAttributedLabelVerticalAlignmentTop) {
+    if (self.verticalAlignment != JJTTTAttributedLabelVerticalAlignmentTop) {
         yOffset -= [self textRectForBounds:self.bounds limitedToNumberOfLines:self.numberOfLines].origin.y;
     }
     
@@ -611,10 +611,10 @@ withTextCheckingResult:(NSTextCheckingResult *)result
         
         for (id glyphRun in (__bridge NSArray *)CTLineGetGlyphRuns((__bridge CTLineRef)line)) {
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes((__bridge CTRunRef) glyphRun);
-            CGColorRef strokeColor = (__bridge CGColorRef)[attributes objectForKey:kTTTBackgroundStrokeColorAttributeName];
-            CGColorRef fillColor = (__bridge CGColorRef)[attributes objectForKey:kTTTBackgroundFillColorAttributeName];
-            CGFloat cornerRadius = [[attributes objectForKey:kTTTBackgroundCornerRadiusAttributeName] floatValue];
-            CGFloat lineWidth = [[attributes objectForKey:kTTTBackgroundLineWidthAttributeName] floatValue];
+            CGColorRef strokeColor = (__bridge CGColorRef)[attributes objectForKey:kJJTTTBackgroundStrokeColorAttributeName];
+            CGColorRef fillColor = (__bridge CGColorRef)[attributes objectForKey:kJJTTTBackgroundFillColorAttributeName];
+            CGFloat cornerRadius = [[attributes objectForKey:kJJTTTBackgroundCornerRadiusAttributeName] floatValue];
+            CGFloat lineWidth = [[attributes objectForKey:kJJTTTBackgroundLineWidthAttributeName] floatValue];
 
             if (strokeColor || fillColor) {
                 CGRect runBounds = CGRectZero;
@@ -674,7 +674,7 @@ withTextCheckingResult:(NSTextCheckingResult *)result
         
         for (id glyphRun in (__bridge NSArray *)CTLineGetGlyphRuns((__bridge CTLineRef)line)) {
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes((__bridge CTRunRef) glyphRun);
-            BOOL strikeOut = [[attributes objectForKey:kTTTStrikeOutAttributeName] boolValue];
+            BOOL strikeOut = [[attributes objectForKey:kJJTTTStrikeOutAttributeName] boolValue];
             NSInteger superscriptStyle = [[attributes objectForKey:(id)kCTSuperscriptAttributeName] integerValue];
             
             if (strikeOut) {
@@ -812,13 +812,13 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
         CGFloat heightChange = (textRect.size.height - textSize.height);
         CGFloat yOffset = 0.0f;
         switch (self.verticalAlignment) {
-            case TTTAttributedLabelVerticalAlignmentCenter:
+            case JJTTTAttributedLabelVerticalAlignmentCenter:
                 yOffset = floorf((textRect.size.height - textSize.height) / 2.0f);
                 break;
-            case TTTAttributedLabelVerticalAlignmentBottom:
+            case JJTTTAttributedLabelVerticalAlignmentBottom:
                 yOffset = textRect.size.height - textSize.height;
                 break;
-            case TTTAttributedLabelVerticalAlignmentTop:
+            case JJTTTAttributedLabelVerticalAlignmentTop:
             default:
                 break;
         }

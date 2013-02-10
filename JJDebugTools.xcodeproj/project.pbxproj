@@ -31,7 +31,7 @@
 		1FBC5776165D6BA90052ED88 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5775165D6BA90052ED88 /* CFNetwork.framework */; };
 		1FBC5778165D6BAF0052ED88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBC5777165D6BAF0052ED88 /* Security.framework */; };
 		1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDCEA416BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m */; };
-		1FBDCEAA16BE517800242C3A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDCEA916BE517700242C3A /* TTTAttributedLabel.m */; };
+		1FBDCEAA16BE517800242C3A /* JJTTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDCEA916BE517700242C3A /* JJTTTAttributedLabel.m */; };
 		1FBDCEAE16BF235900242C3A /* JJShortcutsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDCEAD16BF235900242C3A /* JJShortcutsView.m */; };
 		85C7D3696C93FEED63611A04 /* JJExternalDisplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C7DBC1FBD00B29238E76D5 /* JJExternalDisplayManager.m */; };
 		85C7D4F282D15E1D083897C5 /* JJExternalScreenRootViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 85C7D546A849ABA22E84D963 /* JJExternalScreenRootViewController.h */; };
@@ -119,8 +119,8 @@
 		1FBC5777165D6BAF0052ED88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1FBDCEA316BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JJHotkeyViewTraverser.h"; sourceTree = "<group>"; };
 		1FBDCEA416BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JJHotkeyViewTraverser.m"; sourceTree = "<group>"; };
-		1FBDCEA816BE517700242C3A /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		1FBDCEA916BE517700242C3A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		1FBDCEA816BE517700242C3A /* JJTTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJTTTAttributedLabel.h; sourceTree = "<group>"; };
+		1FBDCEA916BE517700242C3A /* JJTTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJTTTAttributedLabel.m; sourceTree = "<group>"; };
 		1FBDCEAC16BF235900242C3A /* JJShortcutsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJShortcutsView.h; sourceTree = "<group>"; };
 		1FBDCEAD16BF235900242C3A /* JJShortcutsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJShortcutsView.m; sourceTree = "<group>"; };
 		85C7D454E3B90870691F876A /* JJExternalDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJExternalDisplayManager.h; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 				1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */,
 				1F76A8B81626ADB500887C3B /* NSObject+JJPropertyInspection.h */,
 				1F76A8B91626ADB500887C3B /* NSObject+JJPropertyInspection.m */,
-				1FBDCEA816BE517700242C3A /* TTTAttributedLabel.h */,
-				1FBDCEA916BE517700242C3A /* TTTAttributedLabel.m */,
+				1FBDCEA816BE517700242C3A /* JJTTTAttributedLabel.h */,
+				1FBDCEA916BE517700242C3A /* JJTTTAttributedLabel.m */,
 				1F0A535316B4F9BE008F1ED1 /* JJButton.h */,
 				1F0A535416B4F9BE008F1ED1 /* JJButton.m */,
 				1F0A535616B4F9DB008F1ED1 /* JJLabel.h */,
@@ -399,7 +399,7 @@
 				1F9F99A716B5059500FF8CBB /* UIView+JJFrameUtilities.m in Sources */,
 				1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */,
 				1FBDCEA516BDDA0600242C3A /* CALayer+JJHotkeyViewTraverser.m in Sources */,
-				1FBDCEAA16BE517800242C3A /* TTTAttributedLabel.m in Sources */,
+				1FBDCEAA16BE517800242C3A /* JJTTTAttributedLabel.m in Sources */,
 				1FBDCEAE16BF235900242C3A /* JJShortcutsView.m in Sources */,
 				1FACDF7716C0D0BE00B41F93 /* JJTitledAttributedLabelView.m in Sources */,
 				1F10F3E716C7521100DBBBB4 /* JJObjectPropertiesView.m in Sources */,

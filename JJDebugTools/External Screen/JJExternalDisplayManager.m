@@ -36,7 +36,6 @@
 
         if ([[UIScreen screens] count] > 1)
         {
-            NSLog(@"Screens: %@", [UIScreen screens]);
             [self configureWindow];
         }
     }

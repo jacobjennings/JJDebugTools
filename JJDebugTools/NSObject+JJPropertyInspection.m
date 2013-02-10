@@ -52,12 +52,16 @@
     NSDictionary *propertyNameToAttributesDictionary = [self propertyNameToAttributesDictionaryForClass:class];
     NSMutableString *stringBuilder = [NSMutableString string];
     for (NSString *key in [propertyNameToAttributesDictionary allKeys]) {
-        NSLog(@"%@", key);
         if ([key isEqualToString:@"action"] || [key hasPrefix:@"_"] || [key isEqualToString:@"caretRect"])
         {
             continue;
         }
-        [stringBuilder appendFormat:@"%@: %@\n", key, [self valueForKey:key]];
+        @try
+        {
+            [stringBuilder appendFormat:@"%@: %@\n", key, [self valueForKey:key]];
+        } @catch (NSException *exception) {
+            //no-op - catch NSUnknownKeyException
+        }
     }
     return [stringBuilder copy];
 }

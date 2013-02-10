@@ -13,7 +13,7 @@
 #import "JJLabel.h"
 #import "CALayer+JJHotkeyViewTraverser.h"
 #import <QuartzCore/QuartzCore.h>
-#import "TTTAttributedLabel.h"
+#import "JJTTTAttributedLabel.h"
 #import "JJTitledAttributedLabelView.h"
 #import "NSString+JJHighlightColon.h"
 

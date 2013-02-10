@@ -9,7 +9,7 @@
 #import "JJShortcutsView.h"
 #import "JJButton.h"
 #import "JJLabel.h"
-#import "TTTAttributedLabel.h"
+#import "JJTTTAttributedLabel.h"
 
 static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
 
@@ -17,12 +17,12 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
 
 @property (nonatomic, strong) JJButton *backgroundButton;
 @property (nonatomic, strong) JJLabel *titleLabel;
-@property (nonatomic, strong) TTTAttributedLabel *highlightLabel;
-@property (nonatomic, strong) TTTAttributedLabel *viewHierarchyLabel;
-@property (nonatomic, strong) TTTAttributedLabel *tapToSelectLabel;
-@property (nonatomic, strong) TTTAttributedLabel *viewDetailsLabel;
-@property (nonatomic, strong) TTTAttributedLabel *controllerDetailsLabel;
-@property (nonatomic, strong) TTTAttributedLabel *recentAnimationsLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *highlightLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *viewHierarchyLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *tapToSelectLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *viewDetailsLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *controllerDetailsLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *recentAnimationsLabel;
 
 @end
 
@@ -183,9 +183,9 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
     [self.recentAnimationsLabel centerHorizontally];
 }
 
-- (TTTAttributedLabel *)createAttributedLabel
+- (JJTTTAttributedLabel *)createAttributedLabel
 {
-    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] init];
+    JJTTTAttributedLabel *label = [[JJTTTAttributedLabel alloc] init];
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor clearColor];
     label.lineBreakMode = NSLineBreakByWordWrapping;

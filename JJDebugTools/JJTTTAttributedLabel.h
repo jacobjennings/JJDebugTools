@@ -27,40 +27,40 @@
  Vertical alignment for text in a label whose bounds are larger than its text bounds
  */
 typedef enum {
-    TTTAttributedLabelVerticalAlignmentCenter   = 0,
-    TTTAttributedLabelVerticalAlignmentTop      = 1,
-    TTTAttributedLabelVerticalAlignmentBottom   = 2,
-} TTTAttributedLabelVerticalAlignment;
+    JJTTTAttributedLabelVerticalAlignmentCenter   = 0,
+    JJTTTAttributedLabelVerticalAlignmentTop      = 1,
+    JJTTTAttributedLabelVerticalAlignmentBottom   = 2,
+} JJTTTAttributedLabelVerticalAlignment;
 
 /**
  Determines whether the text to which this attribute applies has a strikeout drawn through itself.
  */
-extern NSString * const kTTTStrikeOutAttributeName;
+extern NSString * const kJJTTTStrikeOutAttributeName;
 
 /**
  The background fill color. Value must be a `CGColorRef`. Default value is `nil` (no fill).
  */
-extern NSString * const kTTTBackgroundFillColorAttributeName;
+extern NSString * const kJJTTTBackgroundFillColorAttributeName;
 
 /**
  The background stroke color. Value must be a `CGColorRef`. Default value is `nil` (no stroke).
  */
-extern NSString * const kTTTBackgroundStrokeColorAttributeName;
+extern NSString * const kJJTTTBackgroundStrokeColorAttributeName;
 
 /**
  The background stroke line width. Value must be an `NSNumber`. Default value is `1.0f`.
  */
-extern NSString * const kTTTBackgroundLineWidthAttributeName;
+extern NSString * const kJJTTTBackgroundLineWidthAttributeName;
 
 /**
  The background corner radius. Value must be an `NSNumber`. Default value is `5.0f`.
  */
-extern NSString * const kTTTBackgroundCornerRadiusAttributeName;
+extern NSString * const kJJTTTBackgroundCornerRadiusAttributeName;
 
 @protocol TTTAttributedLabelDelegate;
 
 // Override UILabel @property to accept both NSString and NSAttributedString
-@protocol TTTAttributedLabel <NSObject>
+@protocol JJTTTAttributedLabel <NSObject>
 @property (nonatomic, copy) id text;
 @end
 
@@ -79,7 +79,7 @@ extern NSString * const kTTTBackgroundCornerRadiusAttributeName;
  
  @warning Any properties changed on the label after setting the text will not be reflected until a subsequent call to `setText:` or `setText:afterInheritingLabelAttributesAndConfiguringWithBlock:`. This is to say, order of operations matters in this case. For example, if the label text color is originally black when the text is set, changing the text color to red will have no effect on the display of the label until the text is set once again.
  */
-@interface TTTAttributedLabel : UILabel <TTTAttributedLabel, UIGestureRecognizerDelegate>
+@interface JJTTTAttributedLabel : UILabel <JJTTTAttributedLabel, UIGestureRecognizerDelegate>
 
 ///-----------------------------
 /// @name Accessing the Delegate
@@ -164,9 +164,9 @@ extern NSString * const kTTTBackgroundCornerRadiusAttributeName;
 @property (nonatomic, assign) UIEdgeInsets textInsets;
 
 /**
- The vertical text alignment for the label, for when the frame size is greater than the text rect size. The vertical alignment is `TTTAttributedLabelVerticalAlignmentCenter` by default.
+ The vertical text alignment for the label, for when the frame size is greater than the text rect size. The vertical alignment is `JJTTTAttributedLabelVerticalAlignmentCenter` by default.
  */
-@property (nonatomic, assign) TTTAttributedLabelVerticalAlignment verticalAlignment;
+@property (nonatomic, assign) JJTTTAttributedLabelVerticalAlignment verticalAlignment;
 
 ///----------------------------------
 /// @name Setting the Text Attributes
@@ -290,7 +290,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
  @param label The label whose link was selected.
  @param url The URL for the selected link.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url;
 
 /**
@@ -299,7 +299,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
  @param label The label whose link was selected.
  @param addressComponents The components of the address for the selected link.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
 didSelectLinkWithAddress:(NSDictionary *)addressComponents;
 
 /**
@@ -308,7 +308,7 @@ didSelectLinkWithAddress:(NSDictionary *)addressComponents;
  @param label The label whose link was selected.
  @param phoneNumber The phone number for the selected link.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
 didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
 
 /**
@@ -317,7 +317,7 @@ didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
  @param label The label whose link was selected.
  @param date The datefor the selected link.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
   didSelectLinkWithDate:(NSDate *)date;
 
 /**
@@ -328,7 +328,7 @@ didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
  @param timeZone The time zone of the date for the selected link.
  @param duration The duration, in seconds from the date for the selected link.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
   didSelectLinkWithDate:(NSDate *)date
                timeZone:(NSTimeZone *)timeZone
                duration:(NSTimeInterval)duration;
@@ -341,7 +341,7 @@ didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
  @param label The label whose link was selected.
  @param result The custom text checking result.
  */
-- (void)attributedLabel:(TTTAttributedLabel *)label
+- (void)attributedLabel:(JJTTTAttributedLabel *)label
 didSelectLinkWithTextCheckingResult:(NSTextCheckingResult *)result;
 
 @end

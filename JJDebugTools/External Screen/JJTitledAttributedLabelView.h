@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTTAttributedLabel.h"
+#import "JJTTTAttributedLabel.h"
 #import "JJLabel.h"
 
 @interface JJTitledAttributedLabelView : UIView
 
 @property (nonatomic, strong) JJLabel *titleLabel;
-@property (nonatomic, strong) TTTAttributedLabel *attributedLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *attributedLabel;
 
 @end
