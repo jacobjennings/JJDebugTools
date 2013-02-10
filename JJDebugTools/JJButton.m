@@ -37,8 +37,8 @@
         self.gradientLayer = [CAGradientLayer layer];
         [self.maskedLayer addSublayer:self.gradientLayer];
         
-        self.topColor = [UIColor colorWithWhite:0.3 alpha:1];
-        self.bottomColor = [UIColor colorWithWhite:0.18 alpha:1];
+        self.topColor = [UIColor colorWithWhite:0.2 alpha:1];
+        self.bottomColor = [UIColor colorWithWhite:0.1 alpha:1];
         
         self.highlightLayer = [[CAShapeLayer alloc] init];
         self.highlightLayer.fillColor = [UIColor clearColor].CGColor;
@@ -52,15 +52,14 @@
         self.maskLayer = [[CAShapeLayer alloc] init];
         
         self.maskedLayer.mask = self.maskLayer;
-        
-//        self.borderColor = [UIColor colorWithWhite:0.1 alpha:1];
-        
+                
         self.layer.shadowOffset = CGSizeMake(0, 2);
         self.layer.shadowRadius = 1;
         self.layer.shadowOpacity = 0.2;
         
         self.corners = UIRectCornerAllCorners;
         self.cornerRadius = 6;
+        self.highlightedColor = [UIColor colorWithRed:0 green:0 blue:0.24 alpha:1];
         
         self.opaque = YES;
         self.previousSize = CGSizeZero;
@@ -136,6 +135,11 @@
     self.highlightLayer.strokeColor = highlightColor.CGColor;
 }
 
+- (void)setHighlightedColor:(UIColor *)highlightedColor
+{
+    _highlightedColor = highlightedColor;
+}
+
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
     [self setNeedsLayout];
@@ -148,7 +152,7 @@
     [CATransaction setAnimationDuration:highlighted ? 0 : 0.25];
     
     if (highlighted) {
-        self.gradientLayer.colors = [NSArray arrayWithObjects:(id)[UIColor blueColor].CGColor, [UIColor blueColor].CGColor, nil];
+        self.gradientLayer.colors = [NSArray arrayWithObjects:(id)self.highlightedColor.CGColor, self.highlightedColor.CGColor, nil];
     } else {
         [self configureBackgroundGradient];
     }

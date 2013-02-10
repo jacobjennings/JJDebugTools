@@ -39,6 +39,16 @@
             sublayerWithTheMostSublayers = layer;
         }
     }
+    if ([self.sublayers count] > 1 && [sublayerWithTheMostSublayers.jjViewForLayer isKindOfClass:[UITabBar class]])
+    {
+        for (CALayer *layer in self.sublayers)
+        {
+            if (![layer.jjViewForLayer isKindOfClass:[UITabBar class]])
+            {
+                return layer;
+            }
+        }
+    }
     return sublayerWithTheMostSublayers;
 }
 

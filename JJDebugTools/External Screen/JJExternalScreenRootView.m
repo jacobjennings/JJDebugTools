@@ -73,7 +73,7 @@ static CGFloat const kNotificationsWidth = 340;
     
     self.shortcutsView.frame = (CGRect) {
         .origin = CGPointMake(CGRectGetMaxX(self.viewDetailsView.frame), CGRectGetMaxY(self.hierarchyView.frame)),
-        .size = CGSizeMake(340, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
+        .size = CGSizeMake(300, self.bounds.size.height - CGRectGetMaxY(self.hierarchyView.frame))
     };
 }
 

@@ -24,7 +24,6 @@ static CGFloat const kScrollAmountAtATime = 60;
 
 @interface JJObjectPropertiesView ()
 
-@property (nonatomic, strong) JJButton *backgroundButton;
 @property (nonatomic, strong) JJLabel *titleLabel;
 @property (nonatomic, strong) JJLabel *propertyNameLabel;
 @property (nonatomic, strong) NSArray *titledAttributedViews;

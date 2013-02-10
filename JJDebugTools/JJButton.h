@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIColor *bottomColor;
 @property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, strong) UIColor *highlightColor;
+@property (nonatomic, strong) UIColor *highlightedColor;
 
 @property (nonatomic) UIRectCorner corners;
 @property (nonatomic) CGFloat cornerRadius;

@@ -20,8 +20,8 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
 @property (nonatomic, strong) TTTAttributedLabel *highlightLabel;
 @property (nonatomic, strong) TTTAttributedLabel *viewHierarchyLabel;
 @property (nonatomic, strong) TTTAttributedLabel *tapToSelectLabel;
-@property (nonatomic, strong) TTTAttributedLabel *propertyBrowserLabel;
-// toggle between layouts?
+@property (nonatomic, strong) TTTAttributedLabel *viewDetailsLabel;
+@property (nonatomic, strong) TTTAttributedLabel *controllerDetailsLabel;
 
 @end
 
@@ -48,7 +48,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                           value:[UIFont fontWithName:@"HelveticaNeue" size:16]
                                           range:NSMakeRange(0, highlightAttributedString.length)];
         [highlightAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                          value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                          value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
                                           range:NSMakeRange(0, 1)];
         self.highlightLabel.attributedText = highlightAttributedString;
         [self addSubview:self.highlightLabel];
@@ -62,7 +62,7 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                               value:[UIFont fontWithName:@"HelveticaNeue" size:16]
                                               range:NSMakeRange(0, viewHierarchyAttributedString.length)];
         [viewHierarchyAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                              value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                              value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
                                               range:NSMakeRange(0, 1)];
         self.viewHierarchyLabel.attributedText = viewHierarchyAttributedString;
         [self addSubview:self.viewHierarchyLabel];
@@ -76,24 +76,38 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                             value:[UIFont fontWithName:@"HelveticaNeue" size:16]
                                             range:NSMakeRange(0, tapToSelectAttributedString.length)];
         [tapToSelectAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                            value:[UIFont fontWithName:@"HelveticaNeue" size:20]
+                                            value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
                                             range:NSMakeRange(0, 1)];
         self.tapToSelectLabel.attributedText = tapToSelectAttributedString;
         [self addSubview:self.tapToSelectLabel];
         
-        self.propertyBrowserLabel = [self createAttributedLabel];
-        NSMutableAttributedString *propertyBrowserAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Property list (arrows to move)"];
-        [propertyBrowserAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
-                                                value:[UIColor whiteColor]
-                                                range:NSMakeRange(0, propertyBrowserAttributedString.length)];
-        [propertyBrowserAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                                value:[UIFont fontWithName:@"HelveticaNeue" size:16]
-                                                range:NSMakeRange(0, propertyBrowserAttributedString.length)];
-        [propertyBrowserAttributedString addAttribute:(NSString *)kCTFontAttributeName
-                                                value:[UIFont fontWithName:@"HelveticaNeue" size:20]
-                                                range:NSMakeRange(0, 1)];
-        self.propertyBrowserLabel.attributedText = propertyBrowserAttributedString;
-        [self addSubview:self.propertyBrowserLabel];
+        self.viewDetailsLabel = [self createAttributedLabel];
+        NSMutableAttributedString *viewDetailsAttributedString = [[NSMutableAttributedString alloc] initWithString:@"View Details (arrows to move)"];
+        [viewDetailsAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                            value:[UIColor whiteColor]
+                                            range:NSMakeRange(0, viewDetailsAttributedString.length)];
+        [viewDetailsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                            value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                            range:NSMakeRange(0, viewDetailsAttributedString.length)];
+        [viewDetailsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                            value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
+                                            range:NSMakeRange(5, 1)];
+        self.viewDetailsLabel.attributedText = viewDetailsAttributedString;
+        [self addSubview:self.viewDetailsLabel];
+        
+        self.controllerDetailsLabel = [self createAttributedLabel];
+        NSMutableAttributedString *controllerDetailsAttributedString = [[NSMutableAttributedString alloc] initWithString:@"Controller Details (arrows to move)"];
+        [controllerDetailsAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                                  value:[UIColor whiteColor]
+                                                  range:NSMakeRange(0, controllerDetailsAttributedString.length)];
+        [controllerDetailsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                  value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                                  range:NSMakeRange(0, controllerDetailsAttributedString.length)];
+        [controllerDetailsAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                  value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
+                                                  range:NSMakeRange(0, 1)];
+        self.controllerDetailsLabel.attributedText = controllerDetailsAttributedString;
+        [self addSubview:self.controllerDetailsLabel];
     }
     return self;
 }
@@ -116,24 +130,35 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.titleLabel.frame)),
         .size = highlightLabelSize
     };
+    [self.highlightLabel centerHorizontally];
     
     CGSize viewHierarchyLabelSize = [self.viewHierarchyLabel sizeThatFits:self.bounds.size];
     self.viewHierarchyLabel.frame = (CGRect) {
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.highlightLabel.frame)),
         .size = viewHierarchyLabelSize
     };
+    [self.viewHierarchyLabel centerHorizontally];
     
     CGSize tapToSelectLabelSize = [self.tapToSelectLabel sizeThatFits:self.bounds.size];
     self.tapToSelectLabel.frame = (CGRect) {
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.viewHierarchyLabel.frame)),
         .size = tapToSelectLabelSize
     };
+    [self.tapToSelectLabel centerHorizontally];
     
-    CGSize propertyBrowserLabelSize = [self.propertyBrowserLabel sizeThatFits:self.bounds.size];
-    self.propertyBrowserLabel.frame = (CGRect) {
+    CGSize viewDetailsLabelSize = [self.viewDetailsLabel sizeThatFits:self.bounds.size];
+    self.viewDetailsLabel.frame = (CGRect) {
         .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.tapToSelectLabel.frame)),
-        .size = propertyBrowserLabelSize
+        .size = viewDetailsLabelSize
     };
+    [self.viewDetailsLabel centerHorizontally];
+    
+    CGSize controllerDetailsLabelSize = [self.controllerDetailsLabel sizeThatFits:self.bounds.size];
+    self.controllerDetailsLabel.frame = (CGRect) {
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.viewDetailsLabel.frame)),
+        .size = controllerDetailsLabelSize
+    };
+    [self.controllerDetailsLabel centerHorizontally];
 }
 
 - (TTTAttributedLabel *)createAttributedLabel
