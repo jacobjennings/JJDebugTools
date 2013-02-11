@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Jacob Jennings. All rights reserved.
 //
 
-#import "JJShapeView.h"
+#import "JJCAShapeView.h"
 
-@implementation JJShapeView
+@implementation JJCAShapeView
 
 + (Class)layerClass
 {

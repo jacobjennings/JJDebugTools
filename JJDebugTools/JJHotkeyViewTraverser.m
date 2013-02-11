@@ -20,6 +20,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CALayer+JJHotkeyViewTraverser.h"
 #import "JJExternalScreenRootView.h"
+#import "JJTransformAdjusterView.h"
 
 static NSInteger const H = 11;      // Toggle highlight
 static NSInteger const Up = 82;     // Superview
@@ -32,12 +33,14 @@ static NSInteger const R = 21;      // recursiveDescription
 static NSInteger const A = 4;       // Switch arrows to recent animations
 static NSInteger const C = 6;       // Switch arrows to controller details
 static NSInteger const D = 7;       // Switch arrows to view details
+static NSInteger const G = 10;       // Transform adjuster
 static NSInteger const V = 25;      // Switch to view hierarchy navigation
 
 @interface JJHotkeyViewTraverser () <JJArrowKeyReceiver>
 
 @property (nonatomic, strong) UIView *hitTestOverlay;
 @property (nonatomic, strong) UITapGestureRecognizer *hitTestTapGestureRecognizer;
+@property (nonatomic, strong) JJTransformAdjusterView *transformAdjusterView;
 
 @end
 
@@ -84,6 +87,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
     [JJExternalDisplayManager shared].rootViewController = self.externalRootViewController;
     self.highlightLayer.hidden = YES;
     [self performSelector:@selector(selectRootLayer) withObject:nil afterDelay:0.25];
+    self.transformAdjusterView = [[JJTransformAdjusterView alloc] init];
 }
 
 - (void)selectRootLayer
@@ -188,6 +192,12 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
         {
             [[self rootView] addSubview:self.hitTestOverlay];
             self.hitTestOverlay.frame = [self rootView].bounds;
+            break;
+        }
+        case G:
+        {
+            [[self rootView] addSubview:self.transformAdjusterView];
+            self.transformAdjusterView.adjustLayer = self.selectedLayer;
             break;
         }
         default:

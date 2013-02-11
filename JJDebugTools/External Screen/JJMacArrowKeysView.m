@@ -8,7 +8,7 @@
 
 #import "JJMacArrowKeysView.h"
 #import "JJButton.h"
-#import "JJShapeView.h"
+#import "JJCAShapeView.h"
 #import "UIView+JJHotkeyViewTraverser.h"
 
 static CGSize const kKeySize = (CGSize) { .width = 72, .height = 42 };
@@ -27,10 +27,10 @@ static CGFloat const kScale = 0.25;
 @property (nonatomic, strong) JJButton *leftButton;
 @property (nonatomic, strong) JJButton *rightButton;
 
-@property (nonatomic, strong) JJShapeView *upShapeView;
-@property (nonatomic, strong) JJShapeView *downShapeView;
-@property (nonatomic, strong) JJShapeView *leftShapeView;
-@property (nonatomic, strong) JJShapeView *rightShapeView;
+@property (nonatomic, strong) JJCAShapeView *upShapeView;
+@property (nonatomic, strong) JJCAShapeView *downShapeView;
+@property (nonatomic, strong) JJCAShapeView *leftShapeView;
+@property (nonatomic, strong) JJCAShapeView *rightShapeView;
 
 @end
 
@@ -63,25 +63,25 @@ static CGFloat const kScale = 0.25;
         [rightBezierPath addLineToPoint:CGPointMake(0, kArrowSizeHorizontal.height)];
         [rightBezierPath closePath];
                 
-        self.upShapeView = [[JJShapeView alloc] init];
+        self.upShapeView = [[JJCAShapeView alloc] init];
         self.upShapeView.shapeLayer.fillColor = kArrowColor.CGColor;
         self.upShapeView.shapeLayer.path = rightBezierPath.CGPath;
         self.upShapeView.transform = CGAffineTransformMakeRotation(3 * M_PI_2);
         [self addSubview:self.upShapeView];
         
-        self.downShapeView = [[JJShapeView alloc] init];
+        self.downShapeView = [[JJCAShapeView alloc] init];
         self.downShapeView.shapeLayer.fillColor = kArrowColor.CGColor;
         self.downShapeView.shapeLayer.path = rightBezierPath.CGPath;
         self.downShapeView.transform = CGAffineTransformMakeRotation(M_PI_2);
         [self addSubview:self.downShapeView];
         
-        self.leftShapeView = [[JJShapeView alloc] init];
+        self.leftShapeView = [[JJCAShapeView alloc] init];
         self.leftShapeView.shapeLayer.fillColor = kArrowColor.CGColor;
         self.leftShapeView.shapeLayer.path = rightBezierPath.CGPath;
         self.leftShapeView.transform = CGAffineTransformMakeRotation(M_PI);
         [self addSubview:self.leftShapeView];
         
-        self.rightShapeView = [[JJShapeView alloc] init];
+        self.rightShapeView = [[JJCAShapeView alloc] init];
         self.rightShapeView.shapeLayer.fillColor = kArrowColor.CGColor;
         self.rightShapeView.shapeLayer.path = rightBezierPath.CGPath;
         [self addSubview:self.rightShapeView];

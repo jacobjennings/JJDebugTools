@@ -1,5 +1,5 @@
 //
-//  JJShapeView.h
+//  JJColorAdjusterView.h
 //  JJDebugTools
 //
 //  Created by Jacob Jennings on 2/10/13.
@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 
-@interface JJShapeView : UIView
+@interface JJColorAdjusterView : UIView
 
-@property (nonatomic, readonly) CAShapeLayer *shapeLayer;
+@property (nonatomic, strong) CALayer *adjustLayer;
 
 @end

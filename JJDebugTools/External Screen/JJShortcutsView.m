@@ -23,6 +23,8 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
 @property (nonatomic, strong) JJTTTAttributedLabel *viewDetailsLabel;
 @property (nonatomic, strong) JJTTTAttributedLabel *controllerDetailsLabel;
 @property (nonatomic, strong) JJTTTAttributedLabel *recentAnimationsLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *transformAdjusterLabel;
+@property (nonatomic, strong) JJTTTAttributedLabel *colorAdjusterLabel;
 
 @end
 
@@ -123,6 +125,34 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
                                                  range:NSMakeRange(7, 1)];
         self.recentAnimationsLabel.attributedText = recentAnimationsAttributedString;
         [self addSubview:self.recentAnimationsLabel];
+        
+        self.transformAdjusterLabel = [self createAttributedLabel];
+        NSMutableAttributedString *transformAdjusterAttributedString = [[NSMutableAttributedString alloc] initWithString:@"F: Transform adjuster"];
+        [transformAdjusterAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                                 value:[UIColor whiteColor]
+                                                 range:NSMakeRange(0, transformAdjusterAttributedString.length)];
+        [transformAdjusterAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                                 range:NSMakeRange(0, transformAdjusterAttributedString.length)];
+        [transformAdjusterAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
+                                                 range:NSMakeRange(0, 1)];
+        self.transformAdjusterLabel.attributedText = transformAdjusterAttributedString;
+        [self addSubview:self.transformAdjusterLabel];
+        
+        self.colorAdjusterLabel = [self createAttributedLabel];
+        NSMutableAttributedString *colorAdjusterAttributedString = [[NSMutableAttributedString alloc] initWithString:@"G: Color adjuster for selected"];
+        [colorAdjusterAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                                 value:[UIColor whiteColor]
+                                                 range:NSMakeRange(0, colorAdjusterAttributedString.length)];
+        [colorAdjusterAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue" size:16]
+                                                 range:NSMakeRange(0, colorAdjusterAttributedString.length)];
+        [colorAdjusterAttributedString addAttribute:(NSString *)kCTFontAttributeName
+                                                 value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]
+                                                 range:NSMakeRange(0, 1)];
+        self.colorAdjusterLabel.attributedText = colorAdjusterAttributedString;
+        [self addSubview:self.colorAdjusterLabel];
     }
     return self;
 }
@@ -181,6 +211,20 @@ static UIEdgeInsets const kInsets = (UIEdgeInsets) { .top = 3, .left = 6, .botto
         .size = recentAnimationsLabelSize
     };
     [self.recentAnimationsLabel centerHorizontally];
+    
+    CGSize transformAdjusterLabelSize = [self.transformAdjusterLabel sizeThatFits:self.bounds.size];
+    self.transformAdjusterLabel.frame = (CGRect) {
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.recentAnimationsLabel.frame)),
+        .size = transformAdjusterLabelSize
+    };
+    [self.transformAdjusterLabel centerHorizontally];
+    
+    CGSize colorAdjusterLabelSize = [self.colorAdjusterLabel sizeThatFits:self.bounds.size];
+    self.colorAdjusterLabel.frame = (CGRect) {
+        .origin = CGPointMake(kInsets.left, CGRectGetMaxY(self.transformAdjusterLabel.frame)),
+        .size = colorAdjusterLabelSize
+    };
+    [self.colorAdjusterLabel centerHorizontally];
 }
 
 - (JJTTTAttributedLabel *)createAttributedLabel

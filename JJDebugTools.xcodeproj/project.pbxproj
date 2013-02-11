@@ -22,7 +22,9 @@
 		1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F016C77B8400DBBBB4 /* JJRecentAnimationsView.m */; };
 		1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */; };
 		1F10F42616C84AEC00DBBBB4 /* JJMacArrowKeysView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */; };
-		1F10F42916C8548900DBBBB4 /* JJShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42816C8548900DBBBB4 /* JJShapeView.m */; };
+		1F10F42916C8548900DBBBB4 /* JJCAShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42816C8548900DBBBB4 /* JJCAShapeView.m */; };
+		1F10F43016C8C41700DBBBB4 /* JJColorAdjusterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F42F16C8C41700DBBBB4 /* JJColorAdjusterView.m */; };
+		1F10F43616C8C62A00DBBBB4 /* JJTransformAdjusterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F10F43516C8C62A00DBBBB4 /* JJTransformAdjusterView.m */; };
 		1F254CA61626718C00C4695E /* JJHotkeyViewTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */; };
 		1F254CAA16267E1300C4695E /* NSObject+JJAssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F254CA916267E1300C4695E /* NSObject+JJAssociatedObjects.m */; };
 		1F3F529516BA0B2A00545C48 /* JJNotificationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F529416BA0B2A00545C48 /* JJNotificationInfoView.m */; };
@@ -106,8 +108,12 @@
 		1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JJHighlightColon.m"; sourceTree = "<group>"; };
 		1F10F42416C84AEC00DBBBB4 /* JJMacArrowKeysView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMacArrowKeysView.h; sourceTree = "<group>"; };
 		1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMacArrowKeysView.m; sourceTree = "<group>"; };
-		1F10F42716C8548900DBBBB4 /* JJShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJShapeView.h; sourceTree = "<group>"; };
-		1F10F42816C8548900DBBBB4 /* JJShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJShapeView.m; sourceTree = "<group>"; };
+		1F10F42716C8548900DBBBB4 /* JJCAShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJCAShapeView.h; sourceTree = "<group>"; };
+		1F10F42816C8548900DBBBB4 /* JJCAShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJCAShapeView.m; sourceTree = "<group>"; };
+		1F10F42E16C8C41700DBBBB4 /* JJColorAdjusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJColorAdjusterView.h; sourceTree = "<group>"; };
+		1F10F42F16C8C41700DBBBB4 /* JJColorAdjusterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJColorAdjusterView.m; sourceTree = "<group>"; };
+		1F10F43416C8C62A00DBBBB4 /* JJTransformAdjusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJTransformAdjusterView.h; sourceTree = "<group>"; };
+		1F10F43516C8C62A00DBBBB4 /* JJTransformAdjusterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJTransformAdjusterView.m; sourceTree = "<group>"; };
 		1F254CA41626718C00C4695E /* JJHotkeyViewTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJHotkeyViewTraverser.h; sourceTree = "<group>"; };
 		1F254CA51626718C00C4695E /* JJHotkeyViewTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJHotkeyViewTraverser.m; sourceTree = "<group>"; };
 		1F254CA816267E1300C4695E /* NSObject+JJAssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JJAssociatedObjects.h"; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 		1F097A1616266AE100F95A13 /* JJDebugTools */ = {
 			isa = PBXGroup;
 			children = (
+				1F10F42A16C8C3D900DBBBB4 /* Adjusters */,
 				1FBDCEA616BDDABE00242C3A /* View Traverser */,
 				85C7DE17D9857E63A6A600A1 /* External Screen */,
 				1F097A3F16266B9900F95A13 /* UIApplication+PRIVATEKeyEvents.h */,
@@ -254,8 +261,8 @@
 				1F0A52A416B491CC008F1ED1 /* JJHierarchyViewCell.m */,
 				1F10F42416C84AEC00DBBBB4 /* JJMacArrowKeysView.h */,
 				1F10F42516C84AEC00DBBBB4 /* JJMacArrowKeysView.m */,
-				1F10F42716C8548900DBBBB4 /* JJShapeView.h */,
-				1F10F42816C8548900DBBBB4 /* JJShapeView.m */,
+				1F10F42716C8548900DBBBB4 /* JJCAShapeView.h */,
+				1F10F42816C8548900DBBBB4 /* JJCAShapeView.m */,
 			);
 			name = "View Hierarchy";
 			sourceTree = "<group>";
@@ -289,6 +296,17 @@
 				1F10F3F616C782D000DBBBB4 /* NSString+JJHighlightColon.m */,
 			);
 			name = "Recent Animations";
+			sourceTree = "<group>";
+		};
+		1F10F42A16C8C3D900DBBBB4 /* Adjusters */ = {
+			isa = PBXGroup;
+			children = (
+				1F10F42E16C8C41700DBBBB4 /* JJColorAdjusterView.h */,
+				1F10F42F16C8C41700DBBBB4 /* JJColorAdjusterView.m */,
+				1F10F43416C8C62A00DBBBB4 /* JJTransformAdjusterView.h */,
+				1F10F43516C8C62A00DBBBB4 /* JJTransformAdjusterView.m */,
+			);
+			name = Adjusters;
 			sourceTree = "<group>";
 		};
 		1F3F529216BA0AFD00545C48 /* NSNotifications */ = {
@@ -417,7 +435,9 @@
 				1F10F3F116C77B8400DBBBB4 /* JJRecentAnimationsView.m in Sources */,
 				1F10F3F716C782D000DBBBB4 /* NSString+JJHighlightColon.m in Sources */,
 				1F10F42616C84AEC00DBBBB4 /* JJMacArrowKeysView.m in Sources */,
-				1F10F42916C8548900DBBBB4 /* JJShapeView.m in Sources */,
+				1F10F42916C8548900DBBBB4 /* JJCAShapeView.m in Sources */,
+				1F10F43016C8C41700DBBBB4 /* JJColorAdjusterView.m in Sources */,
+				1F10F43616C8C62A00DBBBB4 /* JJTransformAdjusterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
