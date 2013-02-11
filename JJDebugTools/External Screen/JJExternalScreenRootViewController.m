@@ -34,11 +34,6 @@
     return (JJExternalScreenRootView *)self.view;
 }
 
-- (void)reload;
-{
-#warning reload empty
-}
-
 - (void)setHierarchyLayer:(CALayer *)hierarchyLayer
 {
     _hierarchyLayer = hierarchyLayer;

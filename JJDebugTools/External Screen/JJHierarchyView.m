@@ -44,7 +44,6 @@
         row.frame = CGRectMake(0, rowY, self.bounds.size.width, kHierarchyViewCellHeight);
         rowY += kHierarchyViewCellHeight;
     }
-//    [self rd];
     
     CGSize arrowKeysSize = [self.arrowKeysView sizeThatFits:self.bounds.size];
     self.arrowKeysView.frame = (CGRect) {

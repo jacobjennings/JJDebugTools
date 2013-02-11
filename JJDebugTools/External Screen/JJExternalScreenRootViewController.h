@@ -14,6 +14,4 @@
 @property (nonatomic, readonly) JJExternalScreenRootView *rootView;
 @property (nonatomic, assign) CALayer *hierarchyLayer;
 
-- (void)reload;
-
 @end

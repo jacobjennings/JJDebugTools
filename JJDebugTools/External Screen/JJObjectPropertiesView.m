@@ -42,7 +42,6 @@ static CGFloat const kScrollAmountAtATime = 90;
         [self addSubview:_backgroundButton];
         
         self.arrowKeysView = [[JJMacArrowKeysView alloc] init];
-        self.arrowKeysView.alpha = 0.7;
         [self addSubview:self.arrowKeysView];
         
         _titleLabel = [[JJLabel alloc] init];
@@ -108,10 +107,16 @@ static CGFloat const kScrollAmountAtATime = 90;
 - (void)setObject:(NSObject *)object
 {
     _object = object;
-    
-    if ([object isKindOfClass:[CALayer class]])
+
+    [self performSelector:@selector(configureForObject) withObject:nil afterDelay:0.26];
+}
+
+- (void)configureForObject
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(configureForObject) object:nil];
+    if ([self.object isKindOfClass:[CALayer class]])
     {
-        CALayer *detailsLayer = (CALayer *)object;
+        CALayer *detailsLayer = (CALayer *)self.object;
         UIView *viewForLayer = detailsLayer.jjViewForLayer;
         self.titleLabel.text = NSStringFromClass([viewForLayer ?: detailsLayer class]);
         
@@ -119,11 +124,10 @@ static CGFloat const kScrollAmountAtATime = 90;
         self.propertyNameLabel.text = propertyNameString ? [NSString stringWithFormat:@"Property %@ %@", propertyNameString, [detailsLayer jjPropertyNameOwnerIsController] ? @"on controller" : @""] : nil;
         if (viewForLayer)
         {
-            object = viewForLayer;
-            _object = viewForLayer;
+            self.object = viewForLayer;
         }
     } else {
-        self.titleLabel.text = NSStringFromClass([object class]);
+        self.titleLabel.text = NSStringFromClass([self.object class]);
         self.propertyNameLabel.text = nil;
     }
     
@@ -131,10 +135,10 @@ static CGFloat const kScrollAmountAtATime = 90;
     {
         [view removeFromSuperview];
     }
-    NSDictionary *classNameToPropertyListString = [object classToPropertyListStringDictionary];
+    NSDictionary *classNameToPropertyListString = [self.object classToPropertyListStringDictionary];
     NSMutableArray *titledAttributedLabelViewsMutable = [[NSMutableArray alloc] init];
     NSUInteger depth = 0;
-    for (NSString *className in [object superclassNameChainListToNSObject])
+    for (NSString *className in [self.object superclassNameChainListToNSObject])
     {
         JJTitledAttributedLabelView *titleAttributedLabelView = [[JJTitledAttributedLabelView alloc] init];
         titleAttributedLabelView.titleLabel.text = depth > 0 ?
