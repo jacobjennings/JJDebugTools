@@ -11,9 +11,10 @@
 @interface NSObject (JJPropertyInspection)
 
 - (NSArray *)arrayOfPropertyNames;
+- (NSArray *)arrayOfIvarNames;
 - (NSDictionary *)propertyNameToAttributesDictionary;
 - (NSString *)propertyListWithValuesAsSingleString;
-- (NSString *)propertyNameForObject:(id)object;
+- (NSString *)propertyOrIvarNameForObject:(id)object;
 - (NSArray *)superclassNameChainListToNSObject;
 - (NSDictionary *)classToPropertyListStringDictionary;
 - (id)safeValueForKey:(NSString *)key;

@@ -17,6 +17,7 @@
 #import "CALayer+JJRecentAnimations.h"
 
 static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .bottom = 3, .right = 6 };
+static CGFloat const kSpaceBetweenPropertyOrIvarNameAndRectLabel = 3;
 
 #define CellFont [UIFont fontWithName:@"HelveticaNeue" size:15]
 
@@ -116,7 +117,8 @@ static UIEdgeInsets const kCellInsets = (UIEdgeInsets) { .top = 3, .left = 6, .b
     
     return CGSizeMake(MAX(classNameLabelSizeThatFits.width,
                           (propertyNameLabelSizeThatFits.width + rectLabelSizeThatFits.width + 4 + recentAnimationsCountLabelSize.width * 2))
-                      + kCellInsets.left + kCellInsets.right,
+                      + kCellInsets.left + kCellInsets.right
+                      + kSpaceBetweenPropertyOrIvarNameAndRectLabel,
                       
                       classNameLabelSizeThatFits.height
                       + propertyNameLabelSizeThatFits.height

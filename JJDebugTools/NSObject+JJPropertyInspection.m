@@ -39,6 +39,21 @@ static NSString * const JJPropertyInspectionPropertyNamesArrayCacheKey = @"JJPro
     return propertyNames;
 }
 
+- (NSArray *)arrayOfIvarNames {
+    unsigned int varCount;
+    Ivar *vars = class_copyIvarList([self class], &varCount);
+    NSMutableArray *ivarNamesMutable = [NSMutableArray arrayWithCapacity:varCount];
+    for (int i = 0; i < varCount; i++) {
+        Ivar var = vars[i];
+
+        const char* name = ivar_getName(var);
+        [ivarNamesMutable addObject:@(name)];
+    }
+
+    free(vars);
+    return [ivarNamesMutable copy];
+}
+
 - (NSDictionary *)propertyNameToAttributesDictionary {
     return [self propertyNameToAttributesDictionaryForClass:[self class]];
 }
@@ -116,21 +131,46 @@ static NSString * const JJPropertyInspectionPropertyNamesArrayCacheKey = @"JJPro
 }
 
 
-- (NSString *)propertyNameForObject:(id)object
+- (NSString *)propertyOrIvarNameForObject:(id)object
 {
     NSArray *propertyNames = [self arrayOfPropertyNames];
-    for (NSString *key in propertyNames)
+    NSArray *ivarNames = [self arrayOfIvarNames];
+    for (NSString *key in [propertyNames arrayByAddingObjectsFromArray:ivarNames])
     {
         if (![self keyIsValid:key])
         {
             continue;
         }
         id value = [self safeValueForKey:key];
+//        if ([NSStringFromClass([self class]) isEqualToString:@"T1SlideshowStatusView"])
+//        {
+//            NSLog(@"KEY: %@", key);
+////            NSLog(@"FIRST IVAR CLASS: %@", [ivarNames[0] class]);
+//            if ([key isEqualToString:@"_summaryHostView"])
+//            {
+//                NSLog(@"%@: %@", NSStringFromClass([self class]), value);
+//            }
+//        }
         if (value == object)
         {
             return key;
         }
     }
+//    for (NSString *key in ivarNames)
+//    {
+//        if (![self keyIsValid:key])
+//        {
+//            continue;
+//        }
+//
+//        const char * keyCString = [key cString];
+//        id value = nil;
+//
+//        if (value == object)
+//        {
+//            return key;
+//        }
+//    }
     return nil;
 }
 
@@ -151,7 +191,7 @@ static NSString * const JJPropertyInspectionPropertyNamesArrayCacheKey = @"JJPro
     BOOL valid = YES;
     if ([key hasPrefix:@"jj"]
         || [key isEqualToString:@"selectedTextRange"]
-        || [key hasPrefix:@"_"]
+//        || [key hasPrefix:@"_"]
         || [key isEqualToString:@"caretRect"])
     {
         valid = NO;

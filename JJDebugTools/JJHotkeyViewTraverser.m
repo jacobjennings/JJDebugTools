@@ -35,6 +35,7 @@ static NSInteger const C = 6;       // Switch arrows to controller details
 static NSInteger const D = 7;       // Switch arrows to view details
 static NSInteger const G = 10;       // Transform adjuster
 static NSInteger const V = 25;      // Switch to view hierarchy navigation
+//static NSInteger const W = 26;      // cycle windows
 
 @interface JJHotkeyViewTraverser () <JJArrowKeyReceiver>
 
@@ -200,6 +201,20 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
             self.transformAdjusterView.adjustLayer = self.selectedLayer;
             break;
         }
+//        case W:
+//        {
+//            static NSUInteger windowIndex = 0;
+//            NSArray *windows = [[UIApplication sharedApplication] windows];
+//            if (windowIndex + 1 == [windows count])
+//            {
+//                windowIndex++;
+//            }
+//            else
+//            {
+//                windowIndex = 0;
+//            }
+//            self.selectedLayer = [windows[windowIndex] layer];
+//        }
         default:
             break;
     }
@@ -228,7 +243,7 @@ static NSInteger const V = 25;      // Switch to view hierarchy navigation
 }
 
 - (UIView *)rootView {
-    return [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    return [UIApplication sharedApplication].keyWindow;
 }
 
 - (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer

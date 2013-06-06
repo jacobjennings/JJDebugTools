@@ -87,7 +87,7 @@
     {
         if (!propertyName)
         {
-            propertyName = [superlayer propertyNameForObject:self];
+            propertyName = [superlayer propertyOrIvarNameForObject:self];
         }
         superlayer = [superlayer superlayer];
     }

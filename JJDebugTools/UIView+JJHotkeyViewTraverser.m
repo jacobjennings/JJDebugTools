@@ -60,7 +60,7 @@
     NSString *propertyName = nil;
     if (controller)
     {
-        propertyName = [controller propertyNameForObject:self];
+        propertyName = [controller propertyOrIvarNameForObject:self];
         if (propertyName) return YES;
     }
     return NO;
@@ -83,14 +83,14 @@
     NSString *propertyName = nil;
     if (controller)
     {
-        propertyName = [controller propertyNameForObject:self];
+        propertyName = [controller propertyOrIvarNameForObject:self];
     }
     UIView *superview = [self superview];
     for (NSUInteger idx = 0; idx < 4; idx++)
     {
         if (!propertyName)
         {
-            propertyName = [superview propertyNameForObject:self];
+            propertyName = [superview propertyOrIvarNameForObject:self];
         }
         superview = [superview superview];
     }
